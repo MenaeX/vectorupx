@@ -1,9 +1,29 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <div className="relative flex flex-1 flex-col overflow-hidden text-white">
+    <div className="text-white">
+      <Hero />
+      <AgentLida />
+      <HowItWorks />
+      <WhatYouGet />
+      <Pricing />
+      <Faq />
+      <FinalCta />
+      <SiteFooter />
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   1. HERO
+═══════════════════════════════════════════════════════════════ */
+
+function Hero() {
+  return (
+    <section className="relative flex min-h-screen flex-col overflow-hidden">
       <BackgroundVideo />
 
-      {/* Header */}
       <header className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-12">
         <a href="#" className="text-xl font-semibold tracking-tight">
           Vector<span className="text-white/60">Up</span>
@@ -17,7 +37,6 @@ export default function Home() {
         </a>
       </header>
 
-      {/* Hero */}
       <main className="relative z-10 flex flex-1 items-end px-6 pb-24 sm:px-12 sm:pb-32">
         <div className="max-w-5xl">
           <h1 className="text-[clamp(2.75rem,9vw,8rem)] font-medium leading-[0.95] tracking-[-0.04em] [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">
@@ -43,14 +62,13 @@ export default function Home() {
           </div>
         </div>
       </main>
-    </div>
+    </section>
   );
 }
 
 function BackgroundVideo() {
   return (
     <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-black">
-      {/* Ночная планета из космоса — каждый огонёк континента = B2B-клиент */}
       <video
         autoPlay
         loop
@@ -61,18 +79,386 @@ function BackgroundVideo() {
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
-
-      {/* Мягкая виньетка — края слегка темнее, центр в полной красе */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.55)_100%)]" />
-
-      {/* Локальная подсветка текста — тень из левого нижнего угла */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_900px_700px_at_15%_85%,rgba(0,0,0,0.75),transparent_70%)]" />
-
-      {/* Тёплый бренд-акцент — лёгкий warm glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(194,99,40,0.20),transparent_50%)]" />
-
-      {/* Film grain — премиум, фотографично */}
       <div className="absolute inset-0 film-grain" />
     </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. AGENT LIDA — знакомство
+═══════════════════════════════════════════════════════════════ */
+
+function AgentLida() {
+  return (
+    <section className="relative overflow-hidden border-t border-white/5 bg-stone-950 px-6 py-24 sm:px-12 sm:py-32">
+      <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div>
+          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+            Знакомьтесь
+          </p>
+          <h2 className="mb-8 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+            Лида — ваш AI-SDR.
+          </h2>
+          <blockquote className="mb-10 max-w-xl border-l-2 border-orange-400/60 pl-6 text-lg leading-relaxed text-white/80 sm:text-xl">
+            «Я нахожу ваших клиентов в B2B, пишу им персональные письма
+            и бронирую demo прямо в вашем календаре. Работаю круглосуточно.
+            Не болею. Не прошу повышения зарплаты.»
+          </blockquote>
+          <ul className="grid gap-4 text-white/70 sm:grid-cols-2">
+            {[
+              "Парсит базу 12 000 IT-компаний РФ",
+              "До 100 персональных писем в день",
+              "Ведёт диалог в email и WhatsApp",
+              "Бронирует demo через ваш Calendly",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
+          {/* Тёплый glow позади фото */}
+          <div className="absolute -inset-8 -z-10 bg-[radial-gradient(circle,rgba(251,146,60,0.25),transparent_70%)] blur-2xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-stone-900">
+            <Image
+              src="/lida.jpg"
+              alt="Лида — AI-SDR агент VectorUpX"
+              width={900}
+              height={1349}
+              className="h-auto w-full object-cover"
+              priority
+            />
+            {/* Подпись внизу фото */}
+            <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 to-transparent p-6">
+              <div className="text-sm font-medium">Лида</div>
+              <div className="text-xs text-white/60">AI-SDR · v1.0 · работает с 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3. HOW IT WORKS — 3 шага
+═══════════════════════════════════════════════════════════════ */
+
+function HowItWorks() {
+  const steps = [
+    {
+      n: "01",
+      title: "Находит",
+      text: "Парсит базу 12 000 IT-интеграторов и B2B SaaS в РФ через Dealrocket. Фильтрует по выручке, размеру, теху — оставляет только тех, кому реально нужен ваш продукт.",
+    },
+    {
+      n: "02",
+      title: "Пишет",
+      text: "Каждое письмо персонализировано: упоминает их продукт, последнюю новость, релевантный кейс. Пишет через Claude — тон деловой, без шаблонов и спам-маркеров.",
+    },
+    {
+      n: "03",
+      title: "Бронирует",
+      text: "Когда клиент отвечает «интересно», Лида ведёт диалог, отвечает на возражения и бронирует demo прямо в вашем календаре. Вы получаете готовую встречу.",
+    },
+  ];
+
+  return (
+    <section className="relative border-t border-white/5 bg-black px-6 py-24 sm:px-12 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+          Как работает
+        </p>
+        <h2 className="mb-16 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+          Три шага. <span className="text-white/60">Без вашего участия.</span>
+        </h2>
+        <div className="grid gap-8 md:grid-cols-3">
+          {steps.map((s) => (
+            <div
+              key={s.n}
+              className="rounded-2xl border border-white/10 bg-white/2 p-8 transition hover:border-orange-400/30 hover:bg-white/4"
+            >
+              <div className="mb-6 text-sm font-mono text-orange-400">{s.n}</div>
+              <h3 className="mb-4 text-2xl font-medium tracking-tight">{s.title}</h3>
+              <p className="text-base leading-relaxed text-white/65">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4. WHAT YOU GET — результаты
+═══════════════════════════════════════════════════════════════ */
+
+function WhatYouGet() {
+  const items = [
+    {
+      stat: "15",
+      unit: "встреч / мес",
+      text: "С релевантной B2B-целевой. Гарантировано или возврат.",
+    },
+    {
+      stat: "0",
+      unit: "звонков с вашей стороны",
+      text: "Лида ведёт переписку в email и мессенджерах сама.",
+    },
+    {
+      stat: "24/7",
+      unit: "в работе",
+      text: "Не болеет, не уходит в отпуск, не просит индексацию.",
+    },
+    {
+      stat: "5",
+      unit: "дней до запуска",
+      text: "Подписали — через рабочую неделю первые письма уходят.",
+    },
+  ];
+
+  return (
+    <section className="relative border-t border-white/5 bg-stone-950 px-6 py-24 sm:px-12 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+          Что получите
+        </p>
+        <h2 className="mb-16 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+          Результат, а не процесс.
+        </h2>
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((it) => (
+            <div key={it.unit} className="bg-stone-950 p-8">
+              <div className="mb-2 text-5xl font-medium tracking-tight text-orange-400">
+                {it.stat}
+              </div>
+              <div className="mb-4 text-sm font-medium text-white/80">{it.unit}</div>
+              <p className="text-sm leading-relaxed text-white/55">{it.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5. PRICING — тарифы
+═══════════════════════════════════════════════════════════════ */
+
+function Pricing() {
+  const plans = [
+    {
+      name: "Базовый",
+      price: "150 000",
+      tagline: "Для проверки гипотезы",
+      features: [
+        "15 встреч в месяц",
+        "1 целевая ниша",
+        "Базовая воронка email",
+        "Отчёт раз в неделю",
+        "Поддержка по email",
+      ],
+      highlighted: false,
+    },
+    {
+      name: "Премиум",
+      price: "250 000",
+      tagline: "Для масштабирования",
+      features: [
+        "30 встреч в месяц",
+        "До 2 целевых ниш",
+        "Email + WhatsApp + Telegram",
+        "A/B-тестирование писем",
+        "Выделенный SDR-менеджер",
+        "Отчёт раз в день",
+      ],
+      highlighted: true,
+    },
+  ];
+
+  return (
+    <section className="relative border-t border-white/5 bg-black px-6 py-24 sm:px-12 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+          Тарифы
+        </p>
+        <h2 className="mb-4 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+          Платите за встречи.
+        </h2>
+        <p className="mb-16 text-lg text-white/60">
+          Не за «попытку». Меньше 15 встреч в месяц — возвращаем разницу.
+        </p>
+        <div className="grid gap-8 md:grid-cols-2">
+          {plans.map((p) => (
+            <div
+              key={p.name}
+              className={`relative rounded-2xl border p-10 transition ${
+                p.highlighted
+                  ? "border-orange-400/50 bg-linear-to-br from-orange-950/40 to-stone-950"
+                  : "border-white/10 bg-white/2"
+              }`}
+            >
+              {p.highlighted && (
+                <div className="absolute -top-3 left-10 rounded-full bg-orange-400 px-3 py-1 text-xs font-medium text-stone-950">
+                  Рекомендуем
+                </div>
+              )}
+              <div className="mb-2 text-sm uppercase tracking-widest text-white/60">
+                {p.name}
+              </div>
+              <div className="mb-2 flex items-baseline gap-2">
+                <span className="text-5xl font-medium tracking-tight">{p.price}</span>
+                <span className="text-lg text-white/60">₽ / мес</span>
+              </div>
+              <div className="mb-8 text-sm text-white/55">{p.tagline}</div>
+              <ul className="mb-10 space-y-3">
+                {p.features.map((f) => (
+                  <li key={f} className="flex items-start gap-3 text-white/80">
+                    <span className="mt-2.5 h-1 w-3 shrink-0 rounded-full bg-orange-400" />
+                    <span className="text-sm leading-relaxed">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#demo"
+                className={`block rounded-full px-6 py-3 text-center text-sm font-medium transition ${
+                  p.highlighted
+                    ? "bg-orange-400 text-stone-950 hover:bg-orange-300"
+                    : "border border-white/20 text-white hover:bg-white/5"
+                }`}
+              >
+                Записаться на demo
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. FAQ
+═══════════════════════════════════════════════════════════════ */
+
+function Faq() {
+  const items = [
+    {
+      q: "С каких ниш начинаете?",
+      a: "Стартуем с IT-интеграторов и B2B SaaS в РФ — здесь у нас отработанные шаблоны и база ~12 000 компаний. Со второго месяца пилотного запуска подключаем консалтинг (управленческий, маркетинговый, юридический). Другие ниши обсуждаем индивидуально.",
+    },
+    {
+      q: "Сколько занимает запуск?",
+      a: "5 рабочих дней от подписания договора до первой рассылки. Первая неделя: брифинг, прогрев доменов, согласование шаблонов писем. Вторая неделя — пошли первые встречи.",
+    },
+    {
+      q: "Что если не будет 15 встреч в месяц?",
+      a: "Возвращаем разницу пропорционально. Например, если за месяц получилось 10 встреч — возвращаем 1/3 платежа. Это не маркетинг — это в договоре.",
+    },
+    {
+      q: "Чем вы отличаетесь от обычного SDR-агентства?",
+      a: "Обычные агентства нанимают людей, мы — настраиваем AI. У человека 8 часов в день, у Лиды — 24. У человека эффективность зависит от настроения, у AI — от качества промтов и базы. Цена та же, выход в 3-5 раз больше.",
+    },
+    {
+      q: "А лидов вы передадите в нашу CRM?",
+      a: "Да. Подключаемся к вашей amoCRM, Bitrix24 или HubSpot. Каждый ответивший лид попадает в воронку с тегом «от Лиды» и историей переписки.",
+    },
+  ];
+
+  return (
+    <section className="relative border-t border-white/5 bg-stone-950 px-6 py-24 sm:px-12 sm:py-32">
+      <div className="mx-auto max-w-3xl">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+          Вопросы
+        </p>
+        <h2 className="mb-16 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+          Что часто спрашивают.
+        </h2>
+        <div className="divide-y divide-white/10 border-y border-white/10">
+          {items.map((it) => (
+            <details key={it.q} className="group py-6">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 text-lg font-medium text-white transition group-open:text-orange-400">
+                {it.q}
+                <span className="shrink-0 text-2xl text-white/40 transition group-open:rotate-45 group-open:text-orange-400">
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 text-base leading-relaxed text-white/65">{it.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   7. FINAL CTA
+═══════════════════════════════════════════════════════════════ */
+
+function FinalCta() {
+  return (
+    <section
+      id="demo"
+      className="relative overflow-hidden border-t border-white/5 bg-black px-6 py-32 sm:px-12 sm:py-40"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,99,40,0.20),transparent_60%)]" />
+      <div className="relative mx-auto max-w-4xl text-center">
+        <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-7xl">
+          Запустите Лиду <br />
+          на следующей неделе.
+        </h2>
+        <p className="mx-auto mb-12 max-w-xl text-lg text-white/70">
+          15 минут разговора — вы понимаете, подойдёт ли вам Лида. Без обязательств.
+        </p>
+        <a
+          href="mailto:hello@vectorupx.ai?subject=Demo VectorUpX"
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-medium text-stone-950 shadow-2xl shadow-orange-500/30 transition hover:bg-orange-100"
+        >
+          Записаться на demo →
+        </a>
+        <p className="mt-6 text-sm text-white/40">
+          Или напишите на{" "}
+          <a href="mailto:hello@vectorupx.ai" className="underline hover:text-white/70">
+            hello@vectorupx.ai
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   8. FOOTER
+═══════════════════════════════════════════════════════════════ */
+
+function SiteFooter() {
+  return (
+    <footer className="border-t border-white/5 bg-black px-6 py-12 sm:px-12">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 text-sm text-white/50 sm:flex-row sm:items-center">
+        <div>
+          <div className="text-base font-semibold text-white">
+            Vector<span className="text-white/60">Up</span>
+            <span className="text-orange-400">X</span>
+          </div>
+          <div className="mt-1">© 2026 · AI-SDR для B2B</div>
+        </div>
+        <div className="flex gap-6">
+          <a href="mailto:hello@vectorupx.ai" className="hover:text-white">
+            hello@vectorupx.ai
+          </a>
+          <a href="#" className="hover:text-white">
+            Политика
+          </a>
+        </div>
+      </div>
+    </footer>
   );
 }
