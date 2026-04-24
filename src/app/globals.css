@@ -33,15 +33,24 @@ body {
   background: radial-gradient(ellipse 60% 50% at 100% 0%, rgba(30, 64, 145, 0.18), transparent 70%);
 }
 
-/* === Орбитальный круг (для аватара Лиды) === */
+/* === Орбитальные кольца для аватара === */
 
-@keyframes orbit-spin {
+@keyframes orbit-spin-cw {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
-.orbit-ring {
-  animation: orbit-spin 60s linear infinite;
+@keyframes orbit-spin-ccw {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
 }
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.05); }
+}
+
+.orbit-ring-cw  { animation: orbit-spin-cw  40s linear infinite; }
+.orbit-ring-ccw { animation: orbit-spin-ccw 60s linear infinite; }
+.pulse-glow     { animation: pulse-glow      4s ease-in-out infinite; }
 
 /* === Вспомогательное === */
 
