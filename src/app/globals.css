@@ -20,49 +20,55 @@ body {
 .aurora-blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(120px);
+  filter: blur(90px);
   pointer-events: none;
   will-change: transform;
 }
 
 .aurora-blob-1 {
-  top: 10%;
-  left: -10%;
-  width: 42rem;
-  height: 42rem;
-  background: rgba(194, 65, 12, 0.45); /* orange-700 */
-  animation: blob1 22s ease-in-out infinite;
+  top: 5%;
+  left: -8%;
+  width: 38rem;
+  height: 38rem;
+  background: rgba(251, 146, 60, 0.55); /* orange-400 — яркий */
+  animation: blob1 14s ease-in-out infinite;
 }
 
 .aurora-blob-2 {
-  bottom: -10%;
-  right: -10%;
+  bottom: -15%;
+  right: -8%;
   width: 44rem;
   height: 44rem;
-  background: rgba(146, 64, 14, 0.55); /* amber-800 */
-  animation: blob2 26s ease-in-out infinite;
+  background: rgba(245, 158, 11, 0.50); /* amber-500 */
+  animation: blob2 18s ease-in-out infinite;
 }
 
 .aurora-blob-3 {
-  top: 40%;
-  right: 25%;
-  width: 28rem;
-  height: 28rem;
-  background: rgba(249, 115, 22, 0.25); /* orange-500 */
-  animation: blob3 30s ease-in-out infinite;
+  top: 35%;
+  right: 30%;
+  width: 26rem;
+  height: 26rem;
+  background: rgba(254, 215, 170, 0.30); /* orange-200 — почти бежевая вспышка */
+  animation: blob3 22s ease-in-out infinite;
 }
 
 @keyframes blob1 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(90px, -70px, 0) scale(1.12); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(220px, -120px, 0) scale(1.20); }
+  66%  { transform: translate3d(80px, 180px, 0) scale(0.90); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 @keyframes blob2 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(-110px, 50px, 0) scale(0.92); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(-180px, -90px, 0) scale(0.85); }
+  66%  { transform: translate3d(-60px, 120px, 0) scale(1.15); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 @keyframes blob3 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(60px, 90px, 0) scale(1.18); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(140px, 90px, 0) scale(1.30); }
+  66%  { transform: translate3d(-100px, -70px, 0) scale(0.80); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
 .film-grain {
