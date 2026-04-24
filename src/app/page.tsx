@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <div className="text-white">
@@ -88,13 +86,16 @@ function BackgroundVideo() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   2. AGENT LIDA — знакомство
+   2. AGENT LIDA — знакомство с живым видео-аватаром
 ═══════════════════════════════════════════════════════════════ */
 
 function AgentLida() {
   return (
-    <section className="relative overflow-hidden border-t border-white/5 bg-stone-950 px-6 py-24 sm:px-12 sm:py-32">
-      <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+    <section className="relative overflow-hidden cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
+      {/* Тёплое свечение, продолжающее настроение Hero */}
+      <div aria-hidden className="absolute inset-0 cosmic-glow-warm-tl" />
+
+      <div className="relative mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
         <div>
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
             Знакомьтесь
@@ -122,22 +123,47 @@ function AgentLida() {
           </ul>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
-          {/* Тёплый glow позади фото */}
-          <div className="absolute -inset-8 -z-10 bg-[radial-gradient(circle,rgba(251,146,60,0.25),transparent_70%)] blur-2xl" />
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-stone-900">
-            <Image
-              src="/lida.jpg"
-              alt="Лида — AI-SDR агент VectorUpX"
-              width={900}
-              height={1349}
-              className="h-auto w-full object-cover"
-              priority
-            />
-            {/* Подпись внизу фото */}
-            <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 to-transparent p-6">
-              <div className="text-sm font-medium">Лида</div>
-              <div className="text-xs text-white/60">AI-SDR · v1.0 · работает с 2026</div>
+        {/* Живой видео-аватар Лиды + орбитальные круги */}
+        <div className="relative mx-auto aspect-square w-full max-w-md lg:mx-0 lg:ml-auto">
+          {/* Орбитальный круг 1 — медленно вращается */}
+          <div
+            aria-hidden
+            className="orbit-ring absolute inset-0 rounded-full border border-orange-400/15"
+          />
+          {/* Орбитальный круг 2 — поменьше */}
+          <div
+            aria-hidden
+            className="absolute inset-6 rounded-full border border-white/5"
+          />
+
+          {/* Тёплый glow позади аватара */}
+          <div
+            aria-hidden
+            className="absolute inset-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.45),transparent_70%)] blur-2xl"
+          />
+
+          {/* Видео-аватар в круге */}
+          <div className="absolute inset-12 overflow-hidden rounded-full border border-white/15 bg-stone-900 shadow-2xl shadow-orange-900/40">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="h-full w-full object-cover"
+            >
+              <source src="/lida.mp4" type="video/mp4" />
+            </video>
+            {/* Лёгкий тёплый tint поверх */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,transparent_50%,rgba(0,0,0,0.4)_100%)]" />
+          </div>
+
+          {/* Подпись под аватаром */}
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-black/70 px-4 py-1.5 backdrop-blur">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              <span className="font-medium">Лида</span>
+              <span className="text-white/50">· AI-SDR · v1.0</span>
             </div>
           </div>
         </div>
@@ -170,8 +196,10 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="relative border-t border-white/5 bg-black px-6 py-24 sm:px-12 sm:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="absolute inset-0 cosmic-glow-deep-blue-tr" />
+
+      <div className="relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Как работает
         </p>
@@ -179,14 +207,22 @@ function HowItWorks() {
           Три шага. <span className="text-white/60">Без вашего участия.</span>
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
-          {steps.map((s) => (
-            <div
-              key={s.n}
-              className="rounded-2xl border border-white/10 bg-white/2 p-8 transition hover:border-orange-400/30 hover:bg-white/4"
-            >
-              <div className="mb-6 text-sm font-mono text-orange-400">{s.n}</div>
-              <h3 className="mb-4 text-2xl font-medium tracking-tight">{s.title}</h3>
-              <p className="text-base leading-relaxed text-white/65">{s.text}</p>
+          {steps.map((s, i) => (
+            <div key={s.n} className="relative">
+              {/* Соединительная линия между карточками (только на десктопе) */}
+              {i < steps.length - 1 && (
+                <div
+                  aria-hidden
+                  className="absolute top-1/2 -right-4 z-0 hidden h-px w-8 bg-linear-to-r from-orange-400/40 to-transparent md:block"
+                />
+              )}
+              <div className="relative h-full rounded-2xl border border-white/10 bg-white/2 p-8 backdrop-blur-sm transition hover:border-orange-400/30 hover:bg-white/4">
+                <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-400/40 font-mono text-sm text-orange-400">
+                  {s.n}
+                </div>
+                <h3 className="mb-4 text-2xl font-medium tracking-tight">{s.title}</h3>
+                <p className="text-base leading-relaxed text-white/65">{s.text}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -224,8 +260,10 @@ function WhatYouGet() {
   ];
 
   return (
-    <section className="relative border-t border-white/5 bg-stone-950 px-6 py-24 sm:px-12 sm:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="absolute inset-0 cosmic-glow-warm-br" />
+
+      <div className="relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Что получите
         </p>
@@ -234,7 +272,10 @@ function WhatYouGet() {
         </h2>
         <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it) => (
-            <div key={it.unit} className="bg-stone-950 p-8">
+            <div
+              key={it.unit}
+              className="bg-stone-950/80 p-8 backdrop-blur-sm transition hover:bg-stone-900/80"
+            >
               <div className="mb-2 text-5xl font-medium tracking-tight text-orange-400">
                 {it.stat}
               </div>
@@ -284,8 +325,10 @@ function Pricing() {
   ];
 
   return (
-    <section className="relative border-t border-white/5 bg-black px-6 py-24 sm:px-12 sm:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="absolute inset-0 cosmic-glow-amber-c" />
+
+      <div className="relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Тарифы
         </p>
@@ -299,10 +342,10 @@ function Pricing() {
           {plans.map((p) => (
             <div
               key={p.name}
-              className={`relative rounded-2xl border p-10 transition ${
+              className={`relative rounded-2xl border p-10 backdrop-blur-sm transition ${
                 p.highlighted
-                  ? "border-orange-400/50 bg-linear-to-br from-orange-950/40 to-stone-950"
-                  : "border-white/10 bg-white/2"
+                  ? "border-orange-400/50 bg-linear-to-br from-orange-950/40 to-stone-950/80"
+                  : "border-white/10 bg-stone-950/60"
               }`}
             >
               {p.highlighted && (
@@ -373,8 +416,10 @@ function Faq() {
   ];
 
   return (
-    <section className="relative border-t border-white/5 bg-stone-950 px-6 py-24 sm:px-12 sm:py-32">
-      <div className="mx-auto max-w-3xl">
+    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="absolute inset-0 cosmic-glow-warm-tl" />
+
+      <div className="relative mx-auto max-w-3xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Вопросы
         </p>
@@ -400,16 +445,25 @@ function Faq() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   7. FINAL CTA
+   7. FINAL CTA — кульминация
 ═══════════════════════════════════════════════════════════════ */
 
 function FinalCta() {
   return (
     <section
       id="demo"
-      className="relative overflow-hidden border-t border-white/5 bg-black px-6 py-32 sm:px-12 sm:py-40"
+      className="relative overflow-hidden cosmic-bg px-6 py-32 sm:px-12 sm:py-40"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(194,99,40,0.20),transparent_60%)]" />
+      {/* Большой центральный взрыв света — кульминация */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,146,60,0.30),transparent_60%)]"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_center,rgba(255,200,100,0.15),transparent_70%)]"
+      />
+
       <div className="relative mx-auto max-w-4xl text-center">
         <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-7xl">
           Запустите Лиду <br />
@@ -420,7 +474,7 @@ function FinalCta() {
         </p>
         <a
           href="mailto:hello@vectorupx.ai?subject=Demo VectorUpX"
-          className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-medium text-stone-950 shadow-2xl shadow-orange-500/30 transition hover:bg-orange-100"
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-medium text-stone-950 shadow-2xl shadow-orange-500/40 transition hover:bg-orange-100"
         >
           Записаться на demo →
         </a>
@@ -441,8 +495,8 @@ function FinalCta() {
 
 function SiteFooter() {
   return (
-    <footer className="border-t border-white/5 bg-black px-6 py-12 sm:px-12">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 text-sm text-white/50 sm:flex-row sm:items-center">
+    <footer className="relative cosmic-bg border-t border-white/5 px-6 py-12 sm:px-12">
+      <div className="relative mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 text-sm text-white/50 sm:flex-row sm:items-center">
         <div>
           <div className="text-base font-semibold text-white">
             Vector<span className="text-white/60">Up</span>
