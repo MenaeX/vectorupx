@@ -11,75 +11,11 @@ body {
   color: #ffffff;
 }
 
-/* === Hero background === */
-
-.aurora-base {
-  background: radial-gradient(ellipse at 50% 0%, #2a1208 0%, #0a0503 65%, #000 100%);
-}
-
-.aurora-blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
-  mix-blend-mode: screen; /* настоящее свечение поверх тёмного фона */
-  pointer-events: none;
-  will-change: transform;
-}
-
-.aurora-blob-1 {
-  top: -8%;
-  left: -10%;
-  width: 42rem;
-  height: 42rem;
-  background: rgba(255, 130, 30, 0.85); /* насыщенный оранж */
-  animation: blob1 12s ease-in-out infinite;
-}
-
-.aurora-blob-2 {
-  bottom: -20%;
-  right: -10%;
-  width: 50rem;
-  height: 50rem;
-  background: rgba(252, 165, 50, 0.80); /* amber-glow */
-  animation: blob2 16s ease-in-out infinite;
-}
-
-.aurora-blob-3 {
-  top: 30%;
-  right: 22%;
-  width: 32rem;
-  height: 32rem;
-  background: rgba(255, 220, 160, 0.70); /* почти белая вспышка */
-  animation: blob3 18s ease-in-out infinite;
-}
-
-@keyframes blob1 {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  25%  { transform: translate3d(380px, -180px, 0) scale(1.25); }
-  50%  { transform: translate3d(540px, 220px, 0) scale(0.85); }
-  75%  { transform: translate3d(180px, 280px, 0) scale(1.10); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
-}
-@keyframes blob2 {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  25%  { transform: translate3d(-300px, -180px, 0) scale(0.80); }
-  50%  { transform: translate3d(-450px, 80px, 0) scale(1.20); }
-  75%  { transform: translate3d(-150px, 240px, 0) scale(0.95); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
-}
-@keyframes blob3 {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  25%  { transform: translate3d(260px, 180px, 0) scale(1.40); }
-  50%  { transform: translate3d(-220px, -120px, 0) scale(0.70); }
-  75%  { transform: translate3d(-340px, 100px, 0) scale(1.20); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
-}
-
 .film-grain {
   background-image: url("/noise.svg");
   background-repeat: repeat;
   background-size: 200px 200px;
-  opacity: 0.18;
+  opacity: 0.15;
   mix-blend-mode: soft-light;
   pointer-events: none;
 }

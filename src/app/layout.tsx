@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Лида.ai — AI-SDR агентство для B2B",
+  title: "VectorUpX — AI-SDR для B2B-продаж",
   description:
-    "15 встреч с вашей ЦА каждый месяц. Без звонков с вашей стороны. Или возврат.",
+    "AI-SDR находит клиентов в B2B, пишет персональные письма и бронирует demo. 15 встреч в месяц — или возврат.",
 };
 
 export default function RootLayout({
