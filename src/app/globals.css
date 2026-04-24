@@ -7,6 +7,69 @@
 
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
-  background: #0a0a0a;
+  background: #0a0503;
   color: #ffffff;
+}
+
+/* === Hero background === */
+
+.aurora-base {
+  background: radial-gradient(ellipse at 50% 0%, #2a1208 0%, #0a0503 65%, #000 100%);
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.aurora-blob-1 {
+  top: 10%;
+  left: -10%;
+  width: 42rem;
+  height: 42rem;
+  background: rgba(194, 65, 12, 0.45); /* orange-700 */
+  animation: blob1 22s ease-in-out infinite;
+}
+
+.aurora-blob-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 44rem;
+  height: 44rem;
+  background: rgba(146, 64, 14, 0.55); /* amber-800 */
+  animation: blob2 26s ease-in-out infinite;
+}
+
+.aurora-blob-3 {
+  top: 40%;
+  right: 25%;
+  width: 28rem;
+  height: 28rem;
+  background: rgba(249, 115, 22, 0.25); /* orange-500 */
+  animation: blob3 30s ease-in-out infinite;
+}
+
+@keyframes blob1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(90px, -70px, 0) scale(1.12); }
+}
+@keyframes blob2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-110px, 50px, 0) scale(0.92); }
+}
+@keyframes blob3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(60px, 90px, 0) scale(1.18); }
+}
+
+.film-grain {
+  background-image: url("/noise.svg");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
 }
