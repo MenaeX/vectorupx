@@ -49,27 +49,30 @@ export default function Home() {
 
 function BackgroundVideo() {
   return (
-    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-stone-950">
-      {/* Видео ночного мегаполиса — каждый огонёк = потенциальный B2B-клиент */}
+    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-black">
+      {/* Ночная планета из космоса — каждый огонёк континента = B2B-клиент */}
       <video
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover filter-[brightness(0.65)_saturate(1.1)]"
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Затемнение для читаемости текста */}
-      <div className="absolute inset-0 bg-black/55" />
+      {/* Виньетка вокруг — фокус на центре, тёмные края */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
 
-      {/* Тёплый бренд-tint поверх видео */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/30 via-transparent to-amber-900/40 mix-blend-overlay" />
+      {/* Базовое затемнение для читаемости текста */}
+      <div className="absolute inset-0 bg-black/35" />
 
-      {/* Виньетка снизу — текст лучше читается */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+      {/* Тёплый бренд-акцент — лёгкий warm tint в углу */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(194,99,40,0.25),transparent_55%)]" />
+
+      {/* Виньетка снизу — текст в нижней части лучше читается */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
       {/* Film grain — премиум, фотографично */}
       <div className="absolute inset-0 film-grain" />
