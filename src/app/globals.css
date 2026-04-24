@@ -20,54 +20,58 @@ body {
 .aurora-blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(90px);
+  filter: blur(80px);
+  mix-blend-mode: screen; /* настоящее свечение поверх тёмного фона */
   pointer-events: none;
   will-change: transform;
 }
 
 .aurora-blob-1 {
-  top: 5%;
-  left: -8%;
-  width: 38rem;
-  height: 38rem;
-  background: rgba(251, 146, 60, 0.55); /* orange-400 — яркий */
-  animation: blob1 14s ease-in-out infinite;
+  top: -8%;
+  left: -10%;
+  width: 42rem;
+  height: 42rem;
+  background: rgba(255, 130, 30, 0.85); /* насыщенный оранж */
+  animation: blob1 12s ease-in-out infinite;
 }
 
 .aurora-blob-2 {
-  bottom: -15%;
-  right: -8%;
-  width: 44rem;
-  height: 44rem;
-  background: rgba(245, 158, 11, 0.50); /* amber-500 */
-  animation: blob2 18s ease-in-out infinite;
+  bottom: -20%;
+  right: -10%;
+  width: 50rem;
+  height: 50rem;
+  background: rgba(252, 165, 50, 0.80); /* amber-glow */
+  animation: blob2 16s ease-in-out infinite;
 }
 
 .aurora-blob-3 {
-  top: 35%;
-  right: 30%;
-  width: 26rem;
-  height: 26rem;
-  background: rgba(254, 215, 170, 0.30); /* orange-200 — почти бежевая вспышка */
-  animation: blob3 22s ease-in-out infinite;
+  top: 30%;
+  right: 22%;
+  width: 32rem;
+  height: 32rem;
+  background: rgba(255, 220, 160, 0.70); /* почти белая вспышка */
+  animation: blob3 18s ease-in-out infinite;
 }
 
 @keyframes blob1 {
   0%   { transform: translate3d(0, 0, 0) scale(1); }
-  33%  { transform: translate3d(220px, -120px, 0) scale(1.20); }
-  66%  { transform: translate3d(80px, 180px, 0) scale(0.90); }
+  25%  { transform: translate3d(380px, -180px, 0) scale(1.25); }
+  50%  { transform: translate3d(540px, 220px, 0) scale(0.85); }
+  75%  { transform: translate3d(180px, 280px, 0) scale(1.10); }
   100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 @keyframes blob2 {
   0%   { transform: translate3d(0, 0, 0) scale(1); }
-  33%  { transform: translate3d(-180px, -90px, 0) scale(0.85); }
-  66%  { transform: translate3d(-60px, 120px, 0) scale(1.15); }
+  25%  { transform: translate3d(-300px, -180px, 0) scale(0.80); }
+  50%  { transform: translate3d(-450px, 80px, 0) scale(1.20); }
+  75%  { transform: translate3d(-150px, 240px, 0) scale(0.95); }
   100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 @keyframes blob3 {
   0%   { transform: translate3d(0, 0, 0) scale(1); }
-  33%  { transform: translate3d(140px, 90px, 0) scale(1.30); }
-  66%  { transform: translate3d(-100px, -70px, 0) scale(0.80); }
+  25%  { transform: translate3d(260px, 180px, 0) scale(1.40); }
+  50%  { transform: translate3d(-220px, -120px, 0) scale(0.70); }
+  75%  { transform: translate3d(-340px, 100px, 0) scale(1.20); }
   100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
