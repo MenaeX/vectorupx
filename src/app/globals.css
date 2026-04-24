@@ -52,6 +52,12 @@ body {
 .orbit-ring-ccw { animation: orbit-spin-ccw 60s linear infinite; }
 .pulse-glow     { animation: pulse-glow      4s ease-in-out infinite; }
 
+@keyframes avatar-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.025); }
+}
+.avatar-breathe { animation: avatar-breathe 6s ease-in-out infinite; }
+
 /* === Вспомогательное === */
 
 .film-grain {

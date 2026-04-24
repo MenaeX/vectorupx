@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <div className="text-white">
@@ -147,18 +149,16 @@ function AgentLida() {
             className="absolute inset-8 rounded-full border border-white/10"
           />
 
-          {/* Видео-аватар в круге */}
-          <div className="absolute inset-12 overflow-hidden rounded-full border-2 border-orange-400/30 bg-stone-900 shadow-[0_0_60px_rgba(251,146,60,0.4)]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
+          {/* AI-аватар Лиды в круге — с subtle breathing animation */}
+          <div className="avatar-breathe absolute inset-12 overflow-hidden rounded-full border-2 border-orange-400/30 bg-stone-900 shadow-[0_0_60px_rgba(251,146,60,0.4)]">
+            <Image
+              src="/lida.jpg"
+              alt="Лида — AI-SDR агент VectorUpX"
+              width={768}
+              height={768}
               className="h-full w-full object-cover"
-            >
-              <source src="/lida.mp4" type="video/mp4" />
-            </video>
+              priority
+            />
             {/* Лёгкий warm tint поверх для брендовой связи */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,transparent_40%,rgba(120,40,10,0.25)_100%)] mix-blend-overlay" />
           </div>
