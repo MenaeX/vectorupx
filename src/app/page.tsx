@@ -57,22 +57,19 @@ function BackgroundVideo() {
         muted
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover filter-[brightness(0.65)_saturate(1.1)]"
+        className="absolute inset-0 h-full w-full object-cover filter-[brightness(0.85)_saturate(1.15)]"
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Виньетка вокруг — фокус на центре, тёмные края */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
+      {/* Мягкая виньетка — края слегка темнее, центр в полной красе */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.55)_100%)]" />
 
-      {/* Базовое затемнение для читаемости текста */}
-      <div className="absolute inset-0 bg-black/35" />
+      {/* Локальная подсветка текста — тень из левого нижнего угла */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_900px_700px_at_15%_85%,rgba(0,0,0,0.75),transparent_70%)]" />
 
-      {/* Тёплый бренд-акцент — лёгкий warm tint в углу */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(194,99,40,0.25),transparent_55%)]" />
-
-      {/* Виньетка снизу — текст в нижней части лучше читается */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+      {/* Тёплый бренд-акцент — лёгкий warm glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(194,99,40,0.20),transparent_50%)]" />
 
       {/* Film grain — премиум, фотографично */}
       <div className="absolute inset-0 film-grain" />
