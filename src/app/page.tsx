@@ -480,10 +480,11 @@ function FinalCta() {
       <div className="reveal relative mx-auto max-w-4xl text-center">
         <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-7xl">
           Запустите Лиду <br />
-          на следующей неделе.
+          сегодня.
         </h2>
         <p className="mx-auto mb-12 max-w-xl text-lg text-white/70">
-          15 минут разговора — вы понимаете, подойдёт ли вам Лида. Без обязательств.
+          5 рабочих дней — и первые встречи с клиентами в вашем календаре.
+          15 минут разговора, без обязательств.
         </p>
         <a
           href="mailto:hello@vectorupx.ai?subject=Demo VectorUpX"
