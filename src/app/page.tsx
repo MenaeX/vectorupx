@@ -230,21 +230,25 @@ function WhatYouGet() {
   const items = [
     {
       stat: "15",
+      counterClass: "counter-15",
       unit: "встреч / мес",
       text: "С релевантной B2B-целевой. Гарантировано или возврат.",
     },
     {
       stat: "0",
+      counterClass: "counter-0",
       unit: "звонков с вашей стороны",
       text: "Лида ведёт переписку в email и мессенджерах сама.",
     },
     {
       stat: "24/7",
+      counterClass: null,
       unit: "в работе",
       text: "Не болеет, не уходит в отпуск, не просит индексацию.",
     },
     {
       stat: "5",
+      counterClass: "counter-5",
       unit: "дней до запуска",
       text: "Подписали — через рабочую неделю первые письма уходят.",
     },
@@ -268,7 +272,7 @@ function WhatYouGet() {
               className="bg-stone-950/80 p-8 backdrop-blur-sm transition hover:bg-stone-900/80"
             >
               <div className="mb-2 text-5xl font-medium tracking-tight text-orange-400">
-                {it.stat}
+                {it.counterClass ? <span className={it.counterClass} /> : it.stat}
               </div>
               <div className="mb-4 text-sm font-medium text-white/80">{it.unit}</div>
               <p className="text-sm leading-relaxed text-white/55">{it.text}</p>
@@ -334,10 +338,10 @@ function Pricing() {
           {plans.map((p) => (
             <div
               key={p.name}
-              className={`relative rounded-2xl border p-10 backdrop-blur-sm transition ${
+              className={`group relative rounded-2xl border p-10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
                 p.highlighted
-                  ? "border-orange-400/50 bg-linear-to-br from-orange-950/40 to-stone-950/80"
-                  : "border-white/10 bg-stone-950/60"
+                  ? "border-orange-400/50 bg-linear-to-br from-orange-950/40 to-stone-950/80 hover:border-orange-400/80 hover:shadow-orange-500/30"
+                  : "border-white/10 bg-stone-950/60 hover:border-orange-400/40 hover:shadow-orange-500/15"
               }`}
             >
               {p.highlighted && (

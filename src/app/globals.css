@@ -130,6 +130,57 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   Анимированные счётчики через @property + scroll timeline.
+   Когда секция входит в viewport — цифра отсчитывается от 0 до target.
+═══════════════════════════════════════════════════════════════ */
+
+@property --counter-num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+/* Финальные значения как fallback, чтобы при отсутствии поддержки animation-timeline
+   видны были правильные цифры */
+.counter-15 { --counter-num: 15; }
+.counter-0  { --counter-num: 0; }
+.counter-5  { --counter-num: 5; }
+
+.counter-15,
+.counter-0,
+.counter-5 {
+  counter-reset: num var(--counter-num);
+}
+
+.counter-15::after,
+.counter-0::after,
+.counter-5::after {
+  content: counter(num);
+}
+
+@keyframes count-up-15 { from { --counter-num: 0;  } to { --counter-num: 15; } }
+@keyframes count-up-0  { from { --counter-num: 12; } to { --counter-num: 0;  } }
+@keyframes count-up-5  { from { --counter-num: 0;  } to { --counter-num: 5;  } }
+
+@supports (animation-timeline: view()) {
+  .counter-15 {
+    animation: count-up-15 1.4s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+  .counter-0 {
+    animation: count-up-0 1.4s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+  .counter-5 {
+    animation: count-up-5 1.4s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    Hero Spotlight: дрейфующие глоу-пятна, частицы, падающие звёзды.
 ═══════════════════════════════════════════════════════════════ */
 
