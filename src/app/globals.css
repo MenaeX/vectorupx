@@ -122,12 +122,65 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Плавное растворение Hero-видео в космос внизу секции.
+   Плавное растворение Hero в космос внизу секции.
 ═══════════════════════════════════════════════════════════════ */
 
 .hero-fade-bottom {
   background: linear-gradient(to bottom, transparent 55%, #050203 100%);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Hero Spotlight: дрейфующие глоу-пятна, частицы, падающие звёзды.
+═══════════════════════════════════════════════════════════════ */
+
+/* Большие глоу-пятна медленно «дышат» и смещаются */
+@keyframes hero-glow-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  50%      { transform: translate(40px, -30px) scale(1.08); opacity: 0.85; }
+}
+.hero-glow-drift-1 { animation: hero-glow-drift 14s ease-in-out infinite; }
+.hero-glow-drift-2 { animation: hero-glow-drift 18s ease-in-out infinite reverse; }
+
+/* Светящиеся частицы плавают вверх-вбок-обратно */
+@keyframes hero-particle-float {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  25%      { transform: translate(8px, -16px); opacity: 0.95; }
+  50%      { transform: translate(-4px, -28px); opacity: 0.7; }
+  75%      { transform: translate(-10px, -12px); opacity: 0.95; }
+}
+.hero-particle {
+  animation-name: hero-particle-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Падающие звёзды — диагональный стрик через всю секцию */
+@keyframes hero-shoot {
+  0%   { transform: translate(0, 0) rotate(-22deg); opacity: 0; }
+  3%   { opacity: 0; }
+  6%   { opacity: 1; }
+  18%  { opacity: 1; }
+  22%  { opacity: 0; }
+  100% { transform: translate(110vw, -60vh) rotate(-22deg); opacity: 0; }
+}
+.hero-shooting-star {
+  position: absolute;
+  width: 220px;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.95) 40%,
+    rgba(251, 146, 60, 0.7) 80%,
+    transparent
+  );
+  filter: blur(0.5px);
+  pointer-events: none;
+  animation: hero-shoot 9s linear infinite;
+}
+.hero-shooting-star-1 { top: 18%; left: -10%; animation-delay: 0s;   }
+.hero-shooting-star-2 { top: 55%; left: -10%; animation-delay: 4s;   animation-duration: 11s; }
+.hero-shooting-star-3 { top: 72%; left: -10%; animation-delay: 7.5s; animation-duration: 8s; }
 
 /* ═══════════════════════════════════════════════════════════════
    Орбитальные кольца и дыхание аватара (оставлено как было).
@@ -177,11 +230,18 @@ body {
   .avatar-breathe,
   .pulse-glow,
   .orbit-ring-cw,
-  .orbit-ring-ccw {
+  .orbit-ring-ccw,
+  .hero-glow-drift-1,
+  .hero-glow-drift-2,
+  .hero-particle,
+  .hero-shooting-star {
     animation: none !important;
   }
   .section-seam::before {
     animation: none !important;
+    opacity: 0;
+  }
+  .hero-shooting-star {
     opacity: 0;
   }
 }
