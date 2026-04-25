@@ -133,13 +133,13 @@ body {
    Hero Spotlight: дрейфующие глоу-пятна, частицы, падающие звёзды.
 ═══════════════════════════════════════════════════════════════ */
 
-/* Большие глоу-пятна медленно «дышат» и смещаются */
+/* Большие глоу-пятна заметно «дышат» — амплитуда побольше, цикл покороче */
 @keyframes hero-glow-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
-  50%      { transform: translate(40px, -30px) scale(1.08); opacity: 0.85; }
+  0%, 100% { transform: translate(0, 0) scale(1);     opacity: 0.7; }
+  50%      { transform: translate(120px, -80px) scale(1.25); opacity: 1;   }
 }
-.hero-glow-drift-1 { animation: hero-glow-drift 14s ease-in-out infinite; }
-.hero-glow-drift-2 { animation: hero-glow-drift 18s ease-in-out infinite reverse; }
+.hero-glow-drift-1 { animation: hero-glow-drift 9s ease-in-out infinite; }
+.hero-glow-drift-2 { animation: hero-glow-drift 11s ease-in-out infinite reverse; }
 
 /* Светящиеся частицы плавают вверх-вбок-обратно */
 @keyframes hero-particle-float {

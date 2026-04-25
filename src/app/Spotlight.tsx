@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, type CSSProperties, type MouseEvent } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 
 /**
- * Spotlight: cosmic Hero background — mouse-tracked spotlight, drifting glows,
- * floating particles, occasional shooting stars. Pure CSS animations, no deps.
+ * Spotlight: cosmic Hero background — mouse-tracked spotlight (window-level
+ * listener so оно работает даже когда курсор над текстом), drifting glows,
+ * floating particles, occasional shooting stars. Pure CSS, no deps.
  */
 
-// Детерминированный набор частиц — без random, чтобы не было mismatch при hydrate.
 const PARTICLES = [
   { left: "8%", top: "22%", size: 2, delay: 0, duration: 8, hue: "warm" },
   { left: "18%", top: "68%", size: 1, delay: 2, duration: 10, hue: "white" },
@@ -26,14 +26,21 @@ const PARTICLES = [
 export function Spotlight() {
   const ref = useRef<HTMLDivElement>(null);
 
-  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    ref.current.style.setProperty("--mx", `${x}%`);
-    ref.current.style.setProperty("--my", `${y}%`);
-  };
+  // Window-level listener — ловит мышь даже когда курсор над текстом Hero
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      // Только пока курсор внутри Hero (по вертикали)
+      if (e.clientY < rect.top || e.clientY > rect.bottom) return;
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      ref.current.style.setProperty("--mx", `${x}%`);
+      ref.current.style.setProperty("--my", `${y}%`);
+    };
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, []);
 
   const initial = { "--mx": "50%", "--my": "30%" } as CSSProperties;
 
@@ -41,30 +48,29 @@ export function Spotlight() {
     <div
       aria-hidden
       ref={ref}
-      onMouseMove={onMouseMove}
       className="absolute inset-0 -z-10 overflow-hidden bg-stone-950"
       style={initial}
     >
-      {/* Курсорный спотлайт — следует за мышью */}
+      {/* Курсорный спотлайт — ярче и больше, чтобы реально было видно */}
       <div
-        className="absolute inset-0 transition-opacity duration-300"
+        className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle 700px at var(--mx) var(--my), rgba(251, 146, 60, 0.28), transparent 62%)",
+            "radial-gradient(circle 800px at var(--mx) var(--my), rgba(251, 146, 60, 0.42), transparent 60%)",
         }}
       />
 
-      {/* Большое тёплое пятно снизу-слева — дрифтит */}
-      <div className="hero-glow-drift-1 absolute inset-0 bg-[radial-gradient(ellipse_900px_600px_at_15%_85%,rgba(217,119,6,0.22),transparent_70%)]" />
+      {/* Большое тёплое пятно снизу-слева — заметно дрейфует */}
+      <div className="hero-glow-drift-1 absolute inset-0 bg-[radial-gradient(ellipse_900px_600px_at_15%_85%,rgba(217,119,6,0.26),transparent_70%)]" />
 
-      {/* Прохладное пятно сверху-справа — дрифтит в противофазе */}
-      <div className="hero-glow-drift-2 absolute inset-0 bg-[radial-gradient(ellipse_700px_500px_at_85%_25%,rgba(30,64,145,0.16),transparent_70%)]" />
+      {/* Прохладное пятно сверху-справа — в противофазе */}
+      <div className="hero-glow-drift-2 absolute inset-0 bg-[radial-gradient(ellipse_700px_500px_at_85%_25%,rgba(30,64,145,0.20),transparent_70%)]" />
 
-      {/* Светящиеся частицы — космическая атмосфера */}
+      {/* Светящиеся частицы */}
       <div className="absolute inset-0 pointer-events-none">
         {PARTICLES.map((p, i) => {
           const isWarm = p.hue === "warm";
-          const color = isWarm ? "rgba(251, 146, 60, 0.9)" : "rgba(255, 255, 255, 0.85)";
+          const color = isWarm ? "rgba(251, 146, 60, 0.95)" : "rgba(255, 255, 255, 0.9)";
           const glow = isWarm ? "rgba(251, 146, 60, 0.7)" : "rgba(255, 255, 255, 0.5)";
           return (
             <span
@@ -85,7 +91,7 @@ export function Spotlight() {
         })}
       </div>
 
-      {/* Падающие звёзды — диагональные стрики, разные тайминги */}
+      {/* Падающие звёзды */}
       <div className="hero-shooting-star hero-shooting-star-1" />
       <div className="hero-shooting-star hero-shooting-star-2" />
       <div className="hero-shooting-star hero-shooting-star-3" />
@@ -93,7 +99,7 @@ export function Spotlight() {
       {/* Фактура плёнки */}
       <div className="absolute inset-0 film-grain" />
 
-      {/* Плавное растворение в космический фон body */}
+      {/* Плавное растворение в космос */}
       <div className="absolute inset-x-0 bottom-0 h-48 hero-fade-bottom" />
     </div>
   );
