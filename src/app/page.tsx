@@ -13,6 +13,8 @@ export default function Home() {
       <SectionSeam />
       <WhatYouGet />
       <SectionSeam />
+      <WhoIsItFor />
+      <SectionSeam />
       <Pricing />
       <SectionSeam />
       <Faq />
@@ -301,7 +303,65 @@ function WhatYouGet() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   5. PRICING — тарифы
+   5. WHO IS IT FOR — социальное доказательство (целевая аудитория)
+═══════════════════════════════════════════════════════════════ */
+
+function WhoIsItFor() {
+  const segments = [
+    {
+      title: "IT-интеграторы",
+      description:
+        "Корпоративные решения, цикл сделки 3-6 месяцев. Лида находит CIO, IT-директоров, технических руководителей — тех, кто реально решает.",
+    },
+    {
+      title: "B2B SaaS-продукты",
+      description:
+        "CRM, ERP, аналитика, lead-gen. У вас подписочная модель и нужны новые подписчики. Лида приводит CEO малого/среднего бизнеса с реальной потребностью.",
+    },
+    {
+      title: "Облачные и DevOps-сервисы",
+      description:
+        "Cloud, hosting, IaaS / PaaS. Лида находит CTO и DevOps-руководителей, для которых ваш стек закрывает конкретную боль.",
+    },
+  ];
+
+  return (
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-deep-blue-tr" />
+
+      <div className="reveal relative mx-auto max-w-6xl">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+          Кому подходит
+        </p>
+        <h2 className="mb-4 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+          B2B IT и SaaS,
+          <br />
+          где сделки длинные,
+          <br />
+          а лиды дорогие.
+        </h2>
+        <p className="mb-16 max-w-2xl text-lg text-white/60">
+          Если у вас цикл продаж от месяца, средний чек от 100 000 ₽
+          и нет времени собирать команду на холодные продажи — вы наша целевая.
+        </p>
+        <div className="grid gap-8 md:grid-cols-3">
+          {segments.map((s) => (
+            <div
+              key={s.title}
+              className="rounded-2xl border border-white/10 bg-white/2 p-8 backdrop-blur-sm transition hover:border-orange-400/30 hover:bg-white/4"
+            >
+              <h3 className="mb-4 text-2xl font-medium tracking-tight">{s.title}</h3>
+              <p className="text-base leading-relaxed text-white/65">{s.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. PRICING — тарифы
 ═══════════════════════════════════════════════════════════════ */
 
 function Pricing() {
