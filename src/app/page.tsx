@@ -38,7 +38,9 @@ function Hero() {
           <span className="text-orange-400">X</span>
         </a>
         <a
-          href="#demo"
+          href="https://t.me/vectorupx_bot"
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded-full bg-white/95 px-5 py-2.5 text-sm font-medium text-stone-950 shadow-lg shadow-orange-900/40 transition hover:bg-white"
         >
           Обсудить запуск
@@ -380,7 +382,9 @@ function Pricing() {
                 ))}
               </ul>
               <a
-                href="#demo"
+                href="https://t.me/vectorupx_bot"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`block rounded-full px-6 py-3 text-center text-sm font-medium transition ${
                   p.highlighted
                     ? "bg-orange-400 text-stone-950 hover:bg-orange-300"
@@ -484,13 +488,15 @@ function FinalCta() {
           и решаем, подходим ли друг другу. Без обязательств.
         </p>
         <a
-          href="mailto:hello@vectorupx.ai?subject=Запуск VectorUpX"
+          href="https://t.me/vectorupx_bot"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-medium text-stone-950 shadow-2xl shadow-orange-500/40 transition hover:bg-orange-100"
         >
-          Обсудить запуск →
+          Написать в Telegram →
         </a>
         <p className="mt-6 text-sm text-white/40">
-          Или напишите на{" "}
+          Или email:{" "}
           <a href="mailto:hello@vectorupx.ai" className="underline hover:text-white/70">
             hello@vectorupx.ai
           </a>
