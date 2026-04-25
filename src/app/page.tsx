@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Spotlight } from "./Spotlight";
+import { Counter } from "./Counter";
 
 export default function Home() {
   return (
@@ -227,28 +228,37 @@ function HowItWorks() {
 ═══════════════════════════════════════════════════════════════ */
 
 function WhatYouGet() {
-  const items = [
+  const items: Array<{
+    target: number | null;
+    start?: number;
+    fallback: string;
+    unit: string;
+    text: string;
+  }> = [
     {
-      stat: "15",
-      counterClass: "counter-15",
+      target: 15,
+      start: 0,
+      fallback: "15",
       unit: "встреч / мес",
       text: "С релевантной B2B-целевой. Гарантировано или возврат.",
     },
     {
-      stat: "0",
-      counterClass: "counter-0",
+      target: 0,
+      start: 12,
+      fallback: "0",
       unit: "звонков с вашей стороны",
       text: "Лида ведёт переписку в email и мессенджерах сама.",
     },
     {
-      stat: "24/7",
-      counterClass: null,
+      target: null,
+      fallback: "24/7",
       unit: "в работе",
       text: "Не болеет, не уходит в отпуск, не просит индексацию.",
     },
     {
-      stat: "5",
-      counterClass: "counter-5",
+      target: 5,
+      start: 0,
+      fallback: "5",
       unit: "дней до запуска",
       text: "Подписали — через рабочую неделю первые письма уходят.",
     },
@@ -272,7 +282,11 @@ function WhatYouGet() {
               className="bg-stone-950/80 p-8 backdrop-blur-sm transition hover:bg-stone-900/80"
             >
               <div className="mb-2 text-5xl font-medium tracking-tight text-orange-400">
-                {it.counterClass ? <span className={it.counterClass} /> : it.stat}
+                {it.target !== null ? (
+                  <Counter target={it.target} start={it.start} />
+                ) : (
+                  it.fallback
+                )}
               </div>
               <div className="mb-4 text-sm font-medium text-white/80">{it.unit}</div>
               <p className="text-sm leading-relaxed text-white/55">{it.text}</p>
