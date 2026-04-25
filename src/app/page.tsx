@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Spotlight } from "./Spotlight";
 
 export default function Home() {
   return (
@@ -28,7 +29,7 @@ export default function Home() {
 function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col overflow-hidden">
-      <BackgroundVideo />
+      <Spotlight />
 
       <header className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-12">
         <a href="#" className="text-xl font-semibold tracking-tight">
@@ -39,59 +40,36 @@ function Hero() {
           href="#demo"
           className="rounded-full bg-white/95 px-5 py-2.5 text-sm font-medium text-stone-950 shadow-lg shadow-orange-900/40 transition hover:bg-white"
         >
-          Записаться на demo
+          Обсудить запуск
         </a>
       </header>
 
       <main className="relative z-10 flex flex-1 items-end px-6 pb-24 sm:px-12 sm:pb-32">
         <div className="max-w-5xl">
           <h1 className="text-[clamp(2.75rem,9vw,8rem)] font-medium leading-[0.95] tracking-[-0.04em] [text-shadow:0_2px_30px_rgba(0,0,0,0.6)]">
-            Холодные продажи.
+            15 B2B-встреч в месяц.
             <br />
-            Без звонков.
+            Каждую находит AI-агент.
           </h1>
 
           <div className="mt-10 max-w-lg border-t border-white/20 pt-6">
             <p className="text-base leading-relaxed text-white/80 sm:text-lg [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">
-              AI-SDR сам находит клиентов в B2B, пишет персональные письма
-              и бронирует demo в вашем календаре. 15 встреч в месяц — или
-              возврат.
+              Лида находит лиц, принимающих решения, в IT и SaaS, ведёт
+              переписку и сама ставит встречу в ваш календарь. Гарантия
+              прописана в договоре.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-white/60">
-              <span>B2B IT &amp; SaaS</span>
+              <span>Запуск за 5 рабочих дней</span>
               <span aria-hidden>·</span>
               <span>от 150 000 ₽ / мес</span>
               <span aria-hidden>·</span>
-              <span>пилот с мая 2026</span>
+              <span>Старт первого потока 12 мая</span>
             </div>
           </div>
         </div>
       </main>
     </section>
-  );
-}
-
-function BackgroundVideo() {
-  return (
-    <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden bg-black">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="absolute inset-0 h-full w-full object-cover filter-[brightness(0.85)_saturate(1.15)]"
-      >
-        <source src="/vectorupx/hero-bg.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.55)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_900px_700px_at_15%_85%,rgba(0,0,0,0.75),transparent_70%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(194,99,40,0.20),transparent_50%)]" />
-      <div className="absolute inset-0 film-grain" />
-      {/* Плавное растворение видео в космический фон body внизу Hero */}
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-48 hero-fade-bottom" />
-    </div>
   );
 }
 
@@ -114,8 +92,8 @@ function AgentLida() {
             Лида — ваш AI-SDR.
           </h2>
           <blockquote className="mb-10 max-w-xl border-l-2 border-orange-400/60 pl-6 text-lg leading-relaxed text-white/80 sm:text-xl">
-            «Я нахожу ваших клиентов в B2B, пишу им персональные письма
-            и бронирую demo прямо в вашем календаре. Работаю круглосуточно.
+            «Я нахожу ЛПР в B2B, веду с ними переписку, отвечаю на возражения
+            и сама ставлю встречу в ваш календарь. Работаю круглосуточно.
             Не болею. Не прошу повышения зарплаты.»
           </blockquote>
           <ul className="grid gap-4 text-white/70 sm:grid-cols-2">
@@ -123,7 +101,7 @@ function AgentLida() {
               "Парсит базу 12 000 IT-компаний РФ",
               "До 100 персональных писем в день",
               "Ведёт диалог в email и WhatsApp",
-              "Бронирует demo через ваш Calendly",
+              "Сама ставит встречи в ваш Calendly",
             ].map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
@@ -203,8 +181,8 @@ function HowItWorks() {
     },
     {
       n: "03",
-      title: "Бронирует",
-      text: "Когда клиент отвечает «интересно», Лида ведёт диалог, отвечает на возражения и бронирует demo прямо в вашем календаре. Вы получаете готовую встречу.",
+      title: "Записывает",
+      text: "Когда клиент готов говорить, Лида ведёт переписку, отвечает на возражения и сама ставит встречу в ваш календарь. Вам остаётся только её провести.",
     },
   ];
 
@@ -346,10 +324,11 @@ function Pricing() {
           Тарифы
         </p>
         <h2 className="mb-4 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
-          Платите за встречи.
+          Цена за результат, а не за попытку.
         </h2>
         <p className="mb-16 text-lg text-white/60">
-          Не за «попытку». Меньше 15 встреч в месяц — возвращаем разницу.
+          Меньше 15 встреч в месяц — возвращаем разницу пропорционально.
+          Гарантия прописана в договоре.
         </p>
         <div className="grid gap-8 md:grid-cols-2">
           {plans.map((p) => (
@@ -390,7 +369,7 @@ function Pricing() {
                     : "border border-white/20 text-white hover:bg-white/5"
                 }`}
               >
-                Записаться на demo
+                Обсудить запуск
               </a>
             </div>
           ))}
@@ -479,18 +458,18 @@ function FinalCta() {
 
       <div className="reveal relative mx-auto max-w-4xl text-center">
         <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-7xl">
-          Запустите Лиду <br />
-          сегодня.
+          Первые встречи —<br />
+          через неделю.
         </h2>
         <p className="mx-auto mb-12 max-w-xl text-lg text-white/70">
-          5 рабочих дней — и первые встречи с клиентами в вашем календаре.
-          15 минут разговора, без обязательств.
+          15 минут на Zoom — разбираем вашу нишу, считаем количество встреч
+          и решаем, подходим ли друг другу. Без обязательств.
         </p>
         <a
-          href="mailto:hello@vectorupx.ai?subject=Demo VectorUpX"
+          href="mailto:hello@vectorupx.ai?subject=Запуск VectorUpX"
           className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-medium text-stone-950 shadow-2xl shadow-orange-500/40 transition hover:bg-orange-100"
         >
-          Записаться на demo →
+          Обсудить запуск →
         </a>
         <p className="mt-6 text-sm text-white/40">
           Или напишите на{" "}
