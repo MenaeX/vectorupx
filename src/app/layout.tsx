@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { YandexMetrika } from "@/components/YandexMetrika";
+import { GlobalSpotlight } from "./GlobalSpotlight";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "VectorUpX — AI-SDR для B2B-продаж",
   description:
-    "AI-SDR находит клиентов в B2B, пишет персональные письма и бронирует demo. 15 встреч в месяц — или возврат.",
+    "AI-агент Лида находит ЛПР в B2B IT/SaaS, ведёт переписку и сама ставит встречу в ваш календарь. 15 встреч в месяц — гарантия в договоре.",
 };
 
 export default function RootLayout({
@@ -31,6 +32,7 @@ export default function RootLayout({
     >
       <body className="bg-stone-950 antialiased">
         {children}
+        <GlobalSpotlight />
         <YandexMetrika />
       </body>
     </html>

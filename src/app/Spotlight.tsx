@@ -1,11 +1,7 @@
-"use client";
-
-import { useEffect, useRef, type CSSProperties } from "react";
-
 /**
- * Spotlight: cosmic Hero background — mouse-tracked spotlight (window-level
- * listener so оно работает даже когда курсор над текстом), drifting glows,
- * floating particles, occasional shooting stars. Pure CSS, no deps.
+ * Spotlight: cosmic Hero background — drifting glows, floating particles,
+ * occasional shooting stars. Курсорный спотлайт теперь глобальный, лежит
+ * в layout.tsx (GlobalSpotlight) и работает по всей странице.
  */
 
 const PARTICLES = [
@@ -24,42 +20,11 @@ const PARTICLES = [
 ];
 
 export function Spotlight() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  // Window-level listener — ловит мышь даже когда курсор над текстом Hero
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      // Только пока курсор внутри Hero (по вертикали)
-      if (e.clientY < rect.top || e.clientY > rect.bottom) return;
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      ref.current.style.setProperty("--mx", `${x}%`);
-      ref.current.style.setProperty("--my", `${y}%`);
-    };
-    window.addEventListener("mousemove", handler);
-    return () => window.removeEventListener("mousemove", handler);
-  }, []);
-
-  const initial = { "--mx": "50%", "--my": "30%" } as CSSProperties;
-
   return (
     <div
       aria-hidden
-      ref={ref}
       className="absolute inset-0 -z-10 overflow-hidden bg-stone-950"
-      style={initial}
     >
-      {/* Курсорный спотлайт — компактный «фонарик», не «прожектор» */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle 450px at var(--mx) var(--my), rgba(251, 146, 60, 0.35), transparent 65%)",
-        }}
-      />
-
       {/* Большое тёплое пятно снизу-слева — заметно дрейфует */}
       <div className="hero-glow-drift-1 absolute inset-0 bg-[radial-gradient(ellipse_900px_600px_at_15%_85%,rgba(217,119,6,0.26),transparent_70%)]" />
 
