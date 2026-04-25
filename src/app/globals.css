@@ -5,35 +5,133 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   Глобальный космический фон — один слой на всю страницу.
+   Секции теперь прозрачные, поэтому их границы не режут звёздный фон.
+═══════════════════════════════════════════════════════════════ */
+
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
-  background: #050203;
-  color: #ffffff;
-}
-
-/* === Космический фон секций === */
-
-.cosmic-bg {
   background-color: #050203;
   background-image: url("/stars.svg");
   background-repeat: repeat;
   background-size: 800px 800px;
+  color: #ffffff;
+}
+
+/* Пустой класс оставлен на случай остатков в разметке — фон теперь на body */
+.cosmic-bg {}
+
+/* ═══════════════════════════════════════════════════════════════
+   Глоу-пятна секций: увеличены и со screen-блендом,
+   чтобы свечение перетекало за границы секции в соседние.
+═══════════════════════════════════════════════════════════════ */
+
+.cosmic-glow-warm-tl,
+.cosmic-glow-warm-br,
+.cosmic-glow-amber-c,
+.cosmic-glow-deep-blue-tr {
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .cosmic-glow-warm-tl {
-  background: radial-gradient(ellipse 70% 50% at 0% 0%, rgba(194, 99, 40, 0.18), transparent 70%);
+  background: radial-gradient(ellipse 90% 70% at -10% -10%, rgba(194, 99, 40, 0.28), transparent 72%);
 }
 .cosmic-glow-warm-br {
-  background: radial-gradient(ellipse 70% 50% at 100% 100%, rgba(194, 99, 40, 0.18), transparent 70%);
+  background: radial-gradient(ellipse 90% 70% at 110% 110%, rgba(194, 99, 40, 0.28), transparent 72%);
 }
 .cosmic-glow-amber-c {
-  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(245, 158, 11, 0.12), transparent 75%);
+  background: radial-gradient(ellipse 110% 80% at 50% 50%, rgba(245, 158, 11, 0.20), transparent 75%);
 }
 .cosmic-glow-deep-blue-tr {
-  background: radial-gradient(ellipse 60% 50% at 100% 0%, rgba(30, 64, 145, 0.18), transparent 70%);
+  background: radial-gradient(ellipse 80% 70% at 110% -10%, rgba(30, 64, 145, 0.28), transparent 72%);
 }
 
-/* === Орбитальные кольца для аватара === */
+/* ═══════════════════════════════════════════════════════════════
+   Энергетическая линия на стыке секций (sci-fi scan).
+   Тонкая полоса с бегущим светящимся «лучом».
+═══════════════════════════════════════════════════════════════ */
+
+.section-seam {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(251, 146, 60, 0.35) 50%, transparent);
+  overflow: hidden;
+}
+
+.section-seam::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  width: 30%;
+  background: linear-gradient(to right, transparent, rgba(255, 220, 160, 0.95), transparent);
+  filter: blur(1.5px);
+  animation: seam-scan 7s linear infinite;
+}
+
+@keyframes seam-scan {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(450%); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Scroll-driven reveal: контент секции плавно появляется
+   при входе в viewport — fade + scale + slide + blur-out.
+═══════════════════════════════════════════════════════════════ */
+
+@keyframes section-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(48px) scale(0.96);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: section-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 35%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Parallax: глоу-пятна двигаются медленнее скролла (depth effect).
+═══════════════════════════════════════════════════════════════ */
+
+@keyframes parallax-drift {
+  from { transform: translateY(-12%); }
+  to   { transform: translateY(12%); }
+}
+
+@supports (animation-timeline: scroll()) {
+  .parallax-slow {
+    animation: parallax-drift linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Плавное растворение Hero-видео в космос внизу секции.
+═══════════════════════════════════════════════════════════════ */
+
+.hero-fade-bottom {
+  background: linear-gradient(to bottom, transparent 55%, #050203 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Орбитальные кольца и дыхание аватара (оставлено как было).
+═══════════════════════════════════════════════════════════════ */
 
 @keyframes orbit-spin-cw {
   from { transform: rotate(0deg); }
@@ -67,4 +165,23 @@ body {
   opacity: 0.12;
   mix-blend-mode: soft-light;
   pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Уважаем prefers-reduced-motion: отключаем анимации.
+═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .parallax-slow,
+  .avatar-breathe,
+  .pulse-glow,
+  .orbit-ring-cw,
+  .orbit-ring-ccw {
+    animation: none !important;
+  }
+  .section-seam::before {
+    animation: none !important;
+    opacity: 0;
+  }
 }

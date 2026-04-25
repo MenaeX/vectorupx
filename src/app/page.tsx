@@ -4,11 +4,17 @@ export default function Home() {
   return (
     <div className="text-white">
       <Hero />
+      <SectionSeam />
       <AgentLida />
+      <SectionSeam />
       <HowItWorks />
+      <SectionSeam />
       <WhatYouGet />
+      <SectionSeam />
       <Pricing />
+      <SectionSeam />
       <Faq />
+      <SectionSeam />
       <FinalCta />
       <SiteFooter />
     </div>
@@ -83,6 +89,8 @@ function BackgroundVideo() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_900px_700px_at_15%_85%,rgba(0,0,0,0.75),transparent_70%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(194,99,40,0.20),transparent_50%)]" />
       <div className="absolute inset-0 film-grain" />
+      {/* Плавное растворение видео в космический фон body внизу Hero */}
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-48 hero-fade-bottom" />
     </div>
   );
 }
@@ -93,11 +101,11 @@ function BackgroundVideo() {
 
 function AgentLida() {
   return (
-    <section className="relative overflow-hidden cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
-      {/* Тёплое свечение, продолжающее настроение Hero */}
-      <div aria-hidden className="absolute inset-0 cosmic-glow-warm-tl" />
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
+      {/* Тёплое свечение, продолжающее настроение Hero — с параллаксом */}
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-warm-tl" />
 
-      <div className="relative mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+      <div className="reveal relative mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
         <div>
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
             Знакомьтесь
@@ -201,10 +209,10 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
-      <div aria-hidden className="absolute inset-0 cosmic-glow-deep-blue-tr" />
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-deep-blue-tr" />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="reveal relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Как работает
         </p>
@@ -265,10 +273,10 @@ function WhatYouGet() {
   ];
 
   return (
-    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
-      <div aria-hidden className="absolute inset-0 cosmic-glow-warm-br" />
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-warm-br" />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="reveal relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Что получите
         </p>
@@ -330,10 +338,10 @@ function Pricing() {
   ];
 
   return (
-    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
-      <div aria-hidden className="absolute inset-0 cosmic-glow-amber-c" />
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-amber-c" />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="reveal relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Тарифы
         </p>
@@ -421,10 +429,10 @@ function Faq() {
   ];
 
   return (
-    <section className="relative cosmic-bg px-6 py-24 sm:px-12 sm:py-32">
-      <div aria-hidden className="absolute inset-0 cosmic-glow-warm-tl" />
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-warm-tl" />
 
-      <div className="relative mx-auto max-w-3xl">
+      <div className="reveal relative mx-auto max-w-3xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
           Вопросы
         </p>
@@ -457,19 +465,19 @@ function FinalCta() {
   return (
     <section
       id="demo"
-      className="relative overflow-hidden cosmic-bg px-6 py-32 sm:px-12 sm:py-40"
+      className="relative overflow-hidden px-6 py-32 sm:px-12 sm:py-40"
     >
-      {/* Большой центральный взрыв света — кульминация */}
+      {/* Большой центральный взрыв света — кульминация, с параллаксом */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,146,60,0.30),transparent_60%)]"
+        className="parallax-slow absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(251,146,60,0.30),transparent_60%)] mix-blend-screen"
       />
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_center,rgba(255,200,100,0.15),transparent_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_center,rgba(255,200,100,0.15),transparent_70%)] mix-blend-screen"
       />
 
-      <div className="relative mx-auto max-w-4xl text-center">
+      <div className="reveal relative mx-auto max-w-4xl text-center">
         <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-7xl">
           Запустите Лиду <br />
           на следующей неделе.
@@ -500,7 +508,7 @@ function FinalCta() {
 
 function SiteFooter() {
   return (
-    <footer className="relative cosmic-bg border-t border-white/5 px-6 py-12 sm:px-12">
+    <footer className="relative border-t border-white/5 px-6 py-12 sm:px-12">
       <div className="relative mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 text-sm text-white/50 sm:flex-row sm:items-center">
         <div>
           <div className="text-base font-semibold text-white">
@@ -520,4 +528,12 @@ function SiteFooter() {
       </div>
     </footer>
   );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION SEAM — энергетическая линия на стыке секций.
+═══════════════════════════════════════════════════════════════ */
+
+function SectionSeam() {
+  return <div aria-hidden className="section-seam relative z-10" />;
 }
