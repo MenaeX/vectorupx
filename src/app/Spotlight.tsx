@@ -51,12 +51,12 @@ export function Spotlight() {
       className="absolute inset-0 -z-10 overflow-hidden bg-stone-950"
       style={initial}
     >
-      {/* Курсорный спотлайт — ярче и больше, чтобы реально было видно */}
+      {/* Курсорный спотлайт — компактный «фонарик», не «прожектор» */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle 800px at var(--mx) var(--my), rgba(251, 146, 60, 0.42), transparent 60%)",
+            "radial-gradient(circle 450px at var(--mx) var(--my), rgba(251, 146, 60, 0.35), transparent 65%)",
         }}
       />
 
