@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/vectorupx/og.jpg",
+        url: "https://menaex.github.io/vectorupx/og.jpg",
         width: 1059,
         height: 556,
         alt: "VectorUpX — AI-SDR для B2B-продаж",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: "VectorUpX — 15 B2B-встреч в месяц",
     description:
       "AI-агент находит ЛПР, пишет, ставит встречи. Гарантия в договоре.",
-    images: ["/vectorupx/og.jpg"],
+    images: ["https://menaex.github.io/vectorupx/og.jpg"],
   },
 };
 
