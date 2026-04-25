@@ -83,7 +83,7 @@ function BackgroundVideo() {
         preload="auto"
         className="absolute inset-0 h-full w-full object-cover filter-[brightness(0.85)_saturate(1.15)]"
       >
-        <source src="/hero-bg.mp4" type="video/mp4" />
+        <source src="/vectorupx/hero-bg.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.55)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_900px_700px_at_15%_85%,rgba(0,0,0,0.75),transparent_70%)]" />
@@ -160,7 +160,7 @@ function AgentLida() {
           {/* AI-аватар Лиды в круге — с subtle breathing animation */}
           <div className="avatar-breathe absolute inset-12 overflow-hidden rounded-full border-2 border-orange-400/30 bg-stone-900 shadow-[0_0_60px_rgba(251,146,60,0.4)]">
             <Image
-              src="/lida.jpg"
+              src="/vectorupx/lida.jpg"
               alt="Лида — AI-SDR агент VectorUpX"
               width={768}
               height={768}
