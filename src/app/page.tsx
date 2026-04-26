@@ -7,6 +7,8 @@ export default function Home() {
     <div className="text-white">
       <Hero />
       <SectionSeam />
+      <ScenariosMarquee />
+      <SectionSeam />
       <AgentLida />
       <SectionSeam />
       <HowItWorks />
@@ -74,6 +76,47 @@ function Hero() {
           </div>
         </div>
       </main>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   1.5 SCENARIOS MARQUEE — бегущая строка сценариев работы Лиды
+═══════════════════════════════════════════════════════════════ */
+
+function ScenariosMarquee() {
+  const scenarios = [
+    "15 встреч в месяц",
+    "Холодная B2B-рассылка",
+    "Реактивация старой базы",
+    "Письма после конференций",
+    "Адресная работа по списку",
+    "Покрытие 12 000 IT-компаний",
+    "Возврат потерянных лидов",
+    "Подогрев входящих заявок",
+    "Письма 24/7 без выходных",
+  ];
+  // Дублируем содержимое — для бесшовной зацикленной анимации
+  const items = [...scenarios, ...scenarios];
+
+  return (
+    <section className="relative overflow-hidden py-14 sm:py-20">
+      <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-warm-br" />
+
+      <div className="relative">
+        <p className="mb-8 text-center text-sm font-medium uppercase tracking-widest text-orange-400">
+          Где работает Лида
+        </p>
+        <div className="marquee-row">
+          <div className="marquee-track">
+            {items.map((s, i) => (
+              <span key={i} className="marquee-pill">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -198,7 +241,7 @@ function WhatYouGet() {
       start: 0,
       fallback: "15",
       unit: "встреч / мес",
-      text: "С релевантной B2B-целевой. Гарантировано или возврат.",
+      text: "С релевантной B2B-целевой. Не дотянули — продолжаем работать бесплатно.",
     },
     {
       target: 0,
