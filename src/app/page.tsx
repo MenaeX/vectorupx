@@ -1,6 +1,7 @@
 import { Spotlight } from "./Spotlight";
 import { Counter } from "./Counter";
 import { AgentLidaAvatar } from "./AgentLidaAvatar";
+import { LeadForm } from "./LeadForm";
 
 export default function Home() {
   return (
@@ -42,9 +43,7 @@ function Hero() {
           <span className="text-orange-400">X</span>
         </a>
         <a
-          href="https://t.me/vectorupx_bot"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#contact"
           className="rounded-full bg-white/95 px-5 py-2.5 text-sm font-medium text-stone-950 shadow-lg shadow-orange-900/40 transition hover:bg-white"
         >
           Обсудить запуск
@@ -455,9 +454,7 @@ function Pricing() {
                 ))}
               </ul>
               <a
-                href="https://t.me/vectorupx_bot"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#contact"
                 className={`block rounded-full px-6 py-3 text-center text-sm font-medium transition ${
                   p.highlighted
                     ? "bg-orange-400 text-stone-950 hover:bg-orange-300"
@@ -542,8 +539,8 @@ function Faq() {
 function FinalCta() {
   return (
     <section
-      id="demo"
-      className="relative overflow-hidden px-6 py-32 sm:px-12 sm:py-40"
+      id="contact"
+      className="relative overflow-hidden px-6 py-24 sm:px-12 sm:py-32"
     >
       {/* Большой центральный взрыв света — кульминация, с параллаксом */}
       <div
@@ -555,30 +552,42 @@ function FinalCta() {
         className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_center,rgba(255,200,100,0.15),transparent_70%)] mix-blend-screen"
       />
 
-      <div className="reveal relative mx-auto max-w-4xl text-center">
-        <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-7xl">
-          Первые встречи —<br />
-          через неделю.
-        </h2>
-        <p className="mx-auto mb-12 max-w-xl text-lg text-white/70">
-          Несколько сообщений в чате — Лида разберёт вашу нишу, посчитает
-          количество встреч и решит, подходим ли друг другу.
-          Без созвонов и обязательств.
-        </p>
-        <a
-          href="https://t.me/vectorupx_bot"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 py-4 text-base font-medium text-stone-950 shadow-2xl shadow-orange-500/40 transition hover:bg-orange-100"
-        >
-          Написать в Telegram →
-        </a>
-        <p className="mt-6 text-sm text-white/40">
-          Или email:{" "}
-          <a href="mailto:hello@vectorupx.ai" className="underline hover:text-white/70">
+      <div className="reveal relative mx-auto max-w-3xl">
+        <div className="mb-10 text-center">
+          <h2 className="mb-6 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+            Первые встречи —<br />
+            через неделю.
+          </h2>
+          <p className="mx-auto max-w-xl text-lg text-white/70">
+            Заполните форму — Лида разберёт вашу нишу, посчитает количество
+            встреч и решит, подходим ли друг другу.
+            Без созвонов и обязательств.
+          </p>
+        </div>
+
+        <LeadForm />
+
+        <div className="mt-10 text-center text-sm text-white/50">
+          Или напишите напрямую:{" "}
+          <a
+            href="https://t.me/vectorupx_bot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-white/80"
+          >
+            Telegram
+          </a>
+          {" · "}
+          <a
+            href="mailto:hello@vectorupx.ai"
+            className="underline hover:text-white/80"
+          >
             hello@vectorupx.ai
           </a>
-        </p>
+          <p className="mt-3 text-xs text-white/40">
+            Telegram в России работает через VPN. Если без VPN — форма выше или email.
+          </p>
+        </div>
       </div>
     </section>
   );
