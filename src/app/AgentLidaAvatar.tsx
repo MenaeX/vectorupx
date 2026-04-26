@@ -48,7 +48,7 @@ export function AgentLidaAvatar() {
           playsInline
           preload="auto"
           aria-label="Лида — AI-SDR агент VectorUpX"
-          className="h-full w-full object-cover object-[center_10%]"
+          className="h-full w-full object-cover object-[center_10%] [clip-path:circle(50%)]"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,transparent_40%,rgba(120,40,10,0.25)_100%)] mix-blend-overlay" />
       </div>
