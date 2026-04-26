@@ -398,8 +398,8 @@ function Pricing() {
               <div className="mb-2 text-sm uppercase tracking-widest text-white/60">
                 {p.name}
               </div>
-              <div className="mb-2 flex items-baseline gap-2">
-                <span className="text-5xl font-medium tracking-tight">{p.price}</span>
+              <div className="mb-2 flex flex-col gap-1">
+                <span className="text-5xl font-medium tracking-tight whitespace-nowrap">{p.price}</span>
                 <span className="text-sm text-white/60">{p.priceNote}</span>
               </div>
               <div className="mb-8 text-sm text-white/55">{p.tagline}</div>
