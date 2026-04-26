@@ -2,6 +2,7 @@ import { Spotlight } from "./Spotlight";
 import { Counter } from "./Counter";
 import { AgentLidaAvatar } from "./AgentLidaAvatar";
 import { LeadForm } from "./LeadForm";
+import { LidaDialog } from "./LidaDialog";
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
       <AgentLida />
       <SectionSeam />
       <HowItWorks />
+      <SectionSeam />
+      <LidaDialog />
       <SectionSeam />
       <WhatYouGet />
       <SectionSeam />
