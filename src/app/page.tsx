@@ -173,15 +173,20 @@ function HowItWorks() {
     {
       n: "01",
       title: "Находит",
-      text: "Парсит базу 12 000 IT-интеграторов и B2B SaaS в РФ через Dealrocket. Фильтрует по выручке, размеру, теху — оставляет только тех, кому реально нужен ваш продукт.",
+      text: "Парсит базу 12 000 IT-интеграторов и B2B SaaS в РФ через Dealrocket. Фильтрует по выручке, размеру, технологиям — оставляет только тех, кому реально нужен ваш продукт.",
     },
     {
       n: "02",
-      title: "Пишет",
-      text: "Каждое письмо персонализировано: упоминает их продукт, последнюю новость, релевантный кейс. Пишет через Claude — тон деловой, без шаблонов и спам-маркеров.",
+      title: "Изучает",
+      text: "Читает сайт компании, последние новости в СМИ, профили ЛПР в Хабре, LinkedIn и HH. Понимает, чем компания живёт сейчас — это и есть зацепка для первого письма.",
     },
     {
       n: "03",
+      title: "Пишет",
+      text: "Каждое письмо персонализировано: упоминает продукт компании, свежую новость, релевантный кейс. Пишет через Claude — тон деловой, без шаблонов и спам-маркеров.",
+    },
+    {
+      n: "04",
       title: "Записывает",
       text: "Когда клиент готов говорить, Лида ведёт переписку, отвечает на возражения и сама ставит встречу в ваш календарь. Вам остаётся только её провести.",
     },
@@ -196,16 +201,17 @@ function HowItWorks() {
           Как работает
         </p>
         <h2 className="mb-16 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
-          Три шага. <span className="text-white/60">Без вашего участия.</span>
+          Четыре шага. <span className="text-white/60">Без вашего участия.</span>
         </h2>
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <div key={s.n} className="relative">
-              {/* Соединительная линия между карточками (только на десктопе) */}
+              {/* Соединительная линия между карточками только на больших экранах,
+                  где все 4 шага в одну строку */}
               {i < steps.length - 1 && (
                 <div
                   aria-hidden
-                  className="absolute top-1/2 -right-4 z-0 hidden h-px w-8 bg-linear-to-r from-orange-400/40 to-transparent md:block"
+                  className="absolute top-1/2 -right-4 z-0 hidden h-px w-8 bg-linear-to-r from-orange-400/40 to-transparent lg:block"
                 />
               )}
               <div className="relative h-full rounded-2xl border border-white/10 bg-white/2 p-8 backdrop-blur-sm transition hover:border-orange-400/30 hover:bg-white/4">
