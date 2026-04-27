@@ -1,8 +1,10 @@
 import { Spotlight } from "./Spotlight";
 import { Counter } from "./Counter";
 import { AgentLidaAvatar } from "./AgentLidaAvatar";
+import { AgentLevAvatar } from "./AgentLevAvatar";
 import { LeadForm } from "./LeadForm";
 import { LidaDialog } from "./LidaDialog";
+import { LevChatTrigger } from "./LevChatTrigger";
 
 export default function Home() {
   return (
@@ -11,7 +13,7 @@ export default function Home() {
       <SectionSeam />
       <ScenariosMarquee />
       <SectionSeam />
-      <AgentLida />
+      <AgentTeam />
       <SectionSeam />
       <HowItWorks />
       <SectionSeam />
@@ -124,44 +126,101 @@ function ScenariosMarquee() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   2. AGENT LIDA — знакомство с живым видео-аватаром
+   2. AGENT TEAM — знакомство с командой: Лида и Лев
 ═══════════════════════════════════════════════════════════════ */
 
-function AgentLida() {
+function AgentTeam() {
   return (
     <section className="relative px-6 py-24 sm:px-12 sm:py-32">
-      {/* Тёплое свечение, продолжающее настроение Hero — с параллаксом */}
       <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-warm-tl" />
 
-      <div className="reveal relative mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-        <div>
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
-            Знакомьтесь
-          </p>
-          <h2 className="mb-8 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
-            Лида — ваш AI-SDR.
-          </h2>
-          <blockquote className="mb-10 max-w-xl border-l-2 border-orange-400/60 pl-6 text-lg leading-relaxed text-white/80 sm:text-xl">
-            «Я нахожу ЛПР в B2B, веду с ними переписку, отвечаю на возражения
-            и сама ставлю встречу в ваш календарь. Работаю круглосуточно.
-            Не болею. Не прошу повышения зарплаты.»
-          </blockquote>
-          <ul className="grid gap-4 text-white/70 sm:grid-cols-2">
-            {[
-              "Парсит базу 12 000 IT-компаний РФ",
-              "До 100 персональных писем в день",
-              "Ведёт диалог в email и WhatsApp",
-              "Сама ставит встречи в ваш Calendly",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="reveal relative mx-auto max-w-6xl">
+        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
+          Знакомьтесь с командой
+        </p>
+        <h2 className="mb-4 text-5xl font-medium leading-tight tracking-tight sm:text-6xl">
+          Два AI-агента.
+          <br />
+          <span className="text-white/60">У каждого — своя миссия.</span>
+        </h2>
+        <p className="mb-20 max-w-2xl text-lg text-white/60">
+          Лев встречает вас, рассказывает про Лиду и оформляет запуск.
+          Лида после оплаты уходит в работу — ищет лидов, ведёт переписку
+          и ставит встречи в ваш календарь.
+        </p>
 
-        <AgentLidaAvatar />
+        <div className="grid gap-20 lg:grid-cols-2 lg:gap-12">
+          {/* ЛЕВ — продаёт Лиду, работает на нас */}
+          <div className="flex flex-col items-center">
+            <AgentLevAvatar />
+            <div className="mt-12 max-w-md">
+              <div className="mb-3 inline-block rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-orange-300">
+                Работает на нас
+              </div>
+              <h3 className="mb-4 text-3xl font-medium tracking-tight">
+                Лев · AI-Продажник
+              </h3>
+              <blockquote className="mb-6 border-l-2 border-orange-400/60 pl-6 text-base leading-relaxed text-white/80">
+                «Расскажу, как Лида работает в вашей нише, посчитаю реалистичное
+                число встреч и оформлю запуск. Со мной можно говорить здесь,
+                в Telegram или ответить на моё письмо.»
+              </blockquote>
+              <ul className="mb-8 space-y-3 text-white/70">
+                {[
+                  "Подберёт тариф под вашу нишу и цикл сделки",
+                  "Посчитает реалистичный план встреч на месяц",
+                  "Оформит оплату через ЮKassa и запустит работу Лиды",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <LevChatTrigger className="inline-flex items-center gap-2 rounded-full border border-orange-400/40 bg-orange-400/10 px-5 py-2.5 text-sm font-medium text-orange-200 transition hover:bg-orange-400/20">
+                Поговорить со Львом
+                <span aria-hidden>→</span>
+              </LevChatTrigger>
+            </div>
+          </div>
+
+          {/* ЛИДА — продукт, работает на клиента */}
+          <div className="flex flex-col items-center">
+            <AgentLidaAvatar />
+            <div className="mt-12 max-w-md">
+              <div className="mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-medium uppercase tracking-widest text-emerald-300">
+                Работает на вас
+              </div>
+              <h3 className="mb-4 text-3xl font-medium tracking-tight">
+                Лида · AI-SDR
+              </h3>
+              <blockquote className="mb-6 border-l-2 border-orange-400/60 pl-6 text-base leading-relaxed text-white/80">
+                «Нахожу ЛПР в B2B, веду переписку, отвечаю на возражения
+                и сама ставлю встречу в ваш календарь. Круглосуточно.
+                Не болею. Не прошу повышения.»
+              </blockquote>
+              <ul className="mb-8 space-y-3 text-white/70">
+                {[
+                  "Парсит базу 12 000 IT-компаний РФ",
+                  "До 100 персональных писем в день",
+                  "Сама ставит встречи в ваш календарь",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full bg-orange-400 px-5 py-2.5 text-sm font-medium text-stone-950 shadow-lg shadow-orange-500/30 transition hover:bg-orange-300"
+              >
+                Запустить Лиду
+                <span aria-hidden>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

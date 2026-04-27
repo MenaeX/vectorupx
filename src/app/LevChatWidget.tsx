@@ -16,6 +16,12 @@ export function LevChatWidget() {
     if (open) setShowHint(false);
   }, [open]);
 
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("open-lev-chat", handler);
+    return () => window.removeEventListener("open-lev-chat", handler);
+  }, []);
+
   return (
     <>
       {/* Плавающая кнопка */}
