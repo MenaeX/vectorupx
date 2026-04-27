@@ -7,7 +7,6 @@ import { LidaDialog } from "./LidaDialog";
 export default function Home() {
   return (
     <div className="text-white">
-      <LevAvatarPicker />
       <Hero />
       <SectionSeam />
       <ScenariosMarquee />
@@ -29,54 +28,6 @@ export default function Home() {
       <FinalCta />
       <SiteFooter />
     </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ВРЕМЕННО: выбор аватара Льва (удалится после выбора)
-═══════════════════════════════════════════════════════════════ */
-
-function LevAvatarPicker() {
-  const variants = [
-    { id: "v1", title: "V1", subtitle: "Суровый деловой, короткие волосы, лёгкая щетина" },
-    { id: "v2", title: "V2", subtitle: "Классический продажник, открытая улыбка, ухоженный" },
-    { id: "v3", title: "V3", subtitle: "Спокойная уверенность, расстёгнутый ворот" },
-  ];
-
-  return (
-    <section className="border-y-2 border-yellow-400/40 bg-yellow-950/10 px-6 py-16 sm:px-12">
-      <div className="mx-auto max-w-6xl">
-        <p className="mb-2 text-center text-xs font-medium uppercase tracking-widest text-yellow-400">
-          ⚠️ Временно — выбор аватара Льва
-        </p>
-        <h2 className="mb-12 text-center text-3xl font-medium tracking-tight">
-          Какой Лев нравится больше?
-        </h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          {variants.map((v) => (
-            <div
-              key={v.id}
-              className="rounded-2xl border border-white/10 bg-stone-950/60 p-6 backdrop-blur-sm"
-            >
-              <div className="relative mx-auto mb-4 aspect-square w-full max-w-xs overflow-hidden rounded-full border-2 border-orange-400/40 bg-stone-900 [clip-path:circle(50%)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/vectorupx/lev_${v.id}.jpg`}
-                  alt={`Лев ${v.title}`}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="text-center">
-                <div className="mb-2 text-2xl font-medium text-orange-400">
-                  {v.title}
-                </div>
-                <p className="text-sm text-white/65">{v.subtitle}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 

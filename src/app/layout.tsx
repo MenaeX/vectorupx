@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { YandexMetrika } from "@/components/YandexMetrika";
 import { GlobalSpotlight } from "./GlobalSpotlight";
+import { LevChatWidget } from "./LevChatWidget";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body className="bg-stone-950 antialiased">
         {children}
         <GlobalSpotlight />
+        <LevChatWidget />
         <YandexMetrika />
       </body>
     </html>
