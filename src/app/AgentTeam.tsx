@@ -2,41 +2,10 @@ import { AgentLidaAvatar } from "./AgentLidaAvatar";
 import { AgentLevAvatar } from "./AgentLevAvatar";
 import { LevChatTrigger } from "./LevChatTrigger";
 
-interface AgentTeamProps {
-  /**
-   * Опциональная фоновая картинка под секцию (например, космонавты).
-   * Накладывается под cosmic-glow-warm-tl с тёмным градиентом сверху для читаемости.
-   */
-  bgImage?: string;
-  /**
-   * Метка варианта (например «V1») — показывается только в превью.
-   */
-  variantLabel?: string;
-}
-
-export function AgentTeam({ bgImage, variantLabel }: AgentTeamProps = {}) {
+export function AgentTeam() {
   return (
-    <section className="relative overflow-hidden px-6 py-24 sm:px-12 sm:py-32">
-      {bgImage && (
-        <>
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${bgImage})` }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-b from-stone-950/85 via-stone-950/70 to-stone-950/95"
-          />
-        </>
-      )}
+    <section className="relative px-6 py-24 sm:px-12 sm:py-32">
       <div aria-hidden className="parallax-slow absolute inset-0 cosmic-glow-warm-tl" />
-
-      {variantLabel && (
-        <div className="absolute top-6 left-1/2 z-10 -translate-x-1/2 rounded-full border border-yellow-400/40 bg-yellow-950/60 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-yellow-300 backdrop-blur">
-          Превью · {variantLabel}
-        </div>
-      )}
 
       <div className="reveal relative mx-auto max-w-6xl">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-orange-400">
