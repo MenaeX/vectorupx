@@ -3,7 +3,6 @@ import { Counter } from "./Counter";
 import { LeadForm } from "./LeadForm";
 import { LidaDialog } from "./LidaDialog";
 import { AgentTeam } from "./AgentTeam";
-import { AgentOffice } from "./AgentOffice";
 
 export default function Home() {
   return (
@@ -13,8 +12,6 @@ export default function Home() {
       <ScenariosMarquee />
       <SectionSeam />
       <AgentTeam />
-      <SectionSeam />
-      <AgentOffice />
       <SectionSeam />
       <HowItWorks />
       <SectionSeam />

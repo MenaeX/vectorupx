@@ -327,25 +327,6 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Лента событий в виртуальном офисе — fade-in при смене.
-═══════════════════════════════════════════════════════════════ */
-
-.event-line {
-  animation: event-fade 600ms ease-out;
-}
-
-@keyframes event-fade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
    Уважаем prefers-reduced-motion: отключаем анимации.
 ═══════════════════════════════════════════════════════════════ */
 
@@ -359,8 +340,7 @@ body {
   .hero-glow-drift-1,
   .hero-glow-drift-2,
   .hero-particle,
-  .hero-shooting-star,
-  .event-line {
+  .hero-shooting-star {
     animation: none !important;
   }
   .section-seam::before {
