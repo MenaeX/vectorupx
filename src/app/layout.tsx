@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://menaex.github.io/vectorupx/"),
+  metadataBase: new URL("https://vectorupx.com/"),
   title: "VectorUpX — 15 B2B-встреч в месяц от AI-агента Лида",
   description:
     "AI-агент Лида находит ЛПР в B2B IT/SaaS, ведёт переписку и сама ставит встречу в ваш календарь. 15 встреч в месяц — гарантия в договоре. Запуск за 5 рабочих дней.",
@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     title: "VectorUpX — 15 B2B-встреч в месяц от AI-агента Лида",
     description:
       "AI-агент находит ЛПР, ведёт переписку и ставит встречи в ваш календарь. Гарантия в договоре. Запуск за 5 рабочих дней.",
-    url: "https://menaex.github.io/vectorupx/",
+    url: "https://vectorupx.com/",
     siteName: "VectorUpX",
     locale: "ru_RU",
     type: "website",
     images: [
       {
-        url: "https://menaex.github.io/vectorupx/og.jpg",
+        url: "https://vectorupx.com/og.jpg",
         width: 1059,
         height: 556,
         alt: "VectorUpX — AI-SDR для B2B-продаж",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "VectorUpX — 15 B2B-встреч в месяц",
     description:
       "AI-агент находит ЛПР, пишет, ставит встречи. Гарантия в договоре.",
-    images: ["https://menaex.github.io/vectorupx/og.jpg"],
+    images: ["https://vectorupx.com/og.jpg"],
   },
 };
 

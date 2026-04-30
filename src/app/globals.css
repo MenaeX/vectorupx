@@ -13,7 +13,7 @@
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
   background-color: #050203;
-  background-image: url("/vectorupx/stars.svg");
+  background-image: url("/stars.svg");
   background-repeat: repeat;
   background-size: 800px 800px;
   color: #ffffff;
@@ -318,7 +318,7 @@ body {
 /* === Вспомогательное === */
 
 .film-grain {
-  background-image: url("/vectorupx/noise.svg");
+  background-image: url("/noise.svg");
   background-repeat: repeat;
   background-size: 200px 200px;
   opacity: 0.12;

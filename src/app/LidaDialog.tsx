@@ -73,7 +73,7 @@ export function LidaDialog() {
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full border border-orange-400/30 bg-stone-900">
                 <Image
-                  src="/vectorupx/lida.jpg"
+                  src="/lida.jpg"
                   alt="Лида"
                   width={40}
                   height={40}

@@ -22,7 +22,7 @@ export function AgentLevAvatar() {
       <div className="avatar-breathe absolute inset-12 overflow-hidden rounded-full border-2 border-orange-400/30 bg-stone-900 shadow-[0_0_60px_rgba(251,146,60,0.4)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/vectorupx/lev.jpg"
+          src="/lev.jpg"
           alt="Лев — AI-продажник VectorUpX"
           className="h-full w-full object-cover [clip-path:circle(50%)]"
         />

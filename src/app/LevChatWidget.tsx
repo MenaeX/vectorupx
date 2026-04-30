@@ -40,7 +40,7 @@ export function LevChatWidget() {
         <span className="relative block h-14 w-14 overflow-hidden rounded-full border-2 border-orange-400/60 bg-stone-900 shadow-lg shadow-orange-900/40 transition group-hover:scale-105 sm:h-16 sm:w-16 [clip-path:circle(50%)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/vectorupx/lev.jpg"
+            src="/lev.jpg"
             alt="Лев"
             className="h-full w-full object-cover"
           />
@@ -80,7 +80,7 @@ export function LevChatWidget() {
               <div className="relative h-10 w-10 overflow-hidden rounded-full border border-orange-400/40 bg-stone-900 [clip-path:circle(50%)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/vectorupx/lev.jpg"
+                  src="/lev.jpg"
                   alt="Лев"
                   className="h-full w-full object-cover"
                 />
