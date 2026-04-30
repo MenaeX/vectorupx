@@ -318,6 +318,12 @@ function TopBar(props: {
           >
             Лиды
           </a>
+          <a
+            href="/dashboard/calendar"
+            className="text-white/60 transition hover:text-white"
+          >
+            Календарь
+          </a>
         </nav>
       </div>
       <div className="flex items-center gap-4">
