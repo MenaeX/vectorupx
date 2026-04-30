@@ -1,0 +1,46 @@
+# Авто-деплой статического экспорта Next.js (out/) на GitHub Pages.
+# Каждый push в main → собираем → пушим в ветку gh-pages → Pages раскатывает.
+#
+# Ничего руками копировать не надо: коммитишь в main и через ~1.5 минуты
+# vectorupx.com обновлён.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          publish_branch: gh-pages
+          # CNAME-файл лежит в public/ → out/CNAME, Pages его подхватывает.
+          # commit_message можно стандартный.
