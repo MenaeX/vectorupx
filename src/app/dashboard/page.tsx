@@ -213,12 +213,25 @@ function TopBar(props: {
 }) {
   return (
     <header className="mb-8 flex items-center justify-between gap-4">
-      <a
-        href="/"
-        className="text-sm font-medium uppercase tracking-widest text-orange-400 transition hover:text-orange-300"
-      >
-        VectorUpX
-      </a>
+      <div className="flex items-center gap-6">
+        <a
+          href="/"
+          className="text-sm font-medium uppercase tracking-widest text-orange-400 transition hover:text-orange-300"
+        >
+          VectorUpX
+        </a>
+        <nav className="flex items-center gap-4 text-sm">
+          <a href="/dashboard" className="text-white transition" aria-current="page">
+            Метрики
+          </a>
+          <a
+            href="/dashboard/leads"
+            className="text-white/60 transition hover:text-white"
+          >
+            Лиды
+          </a>
+        </nav>
+      </div>
       <div className="flex items-center gap-4">
         <div className="hidden text-right sm:block">
           {props.clientName && (
