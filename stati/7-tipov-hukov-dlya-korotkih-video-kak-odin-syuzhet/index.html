@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14110C">
+<title>7 типов хуков для коротких видео: один сюжет — семь роликов — меньшиков.ai</title>
+<meta name="description" content="Разбираем 7 типов хуков (цепляющих начал) для коротких видео и показываем, как из одной идеи сделать семь рилсов. С готовыми промптами. Читайте.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#14110C;--bg-deep:#0C0B09;--alt:#191510;--card:#1E1A12;--text:#EFE9DC;--text-hi:#F5F0E4;--text2:#B8AE9C;--muted:#8F8674;--marker:#FFCE00;--on-marker:#17150F;--line:#2B251A;--line-soft:rgba(239,233,220,.14);--line-strong:rgba(239,233,220,.40);--btn2-bg:var(--text);--btn2-text:#17150F}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{background:radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),var(--bg);color:var(--text);font-family:"Golos Text",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+a:hover,a:focus-visible,button:hover,button:focus-visible,summary:hover,summary:focus-visible{outline:3px solid var(--marker);outline-offset:3px}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+h1{font-family:"Unbounded",sans-serif;font-weight:600;font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-0.01em;color:var(--text-hi)}
+h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.2;color:var(--text-hi)}
+.eyebrow{font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text2)}
+.chip{display:inline-flex;align-items:center;height:32px;padding:6px 14px;background:var(--marker);color:var(--on-marker);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.03em;transform:rotate(-1deg);border-radius:4px;line-height:1}
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;color:var(--text-hi)}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{display:inline-flex;align-items:center;height:44px;padding:12px 16px;font-weight:600;font-size:16px;border-radius:10px;color:var(--text)}
+.ig-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--marker);color:var(--on-marker);border:none;border-radius:50%;margin-left:8px}
+.mob-only{display:none}
+.footer{background:var(--bg-deep);color:var(--text);border-top:1px solid var(--line);padding:72px 0 48px;margin-top:96px}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text);font-family:"Golos Text",sans-serif}
+.footer-cols a{display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);border-radius:8px;width:fit-content;padding:0 4px}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+@media (max-width:720px){
+.container{padding:0 20px}
+.nav{display:none}
+.mob-only{display:inline-flex;margin-left:0}
+.footer-cols{grid-template-columns:1fr;gap:36px}
+.footer-cols a{height:48px}
+}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.article{max-width:calc(68ch + 64px);margin:0 auto;padding:56px 32px 0}
+.article-head{margin-bottom:40px}
+.article-head .eyebrow{margin-bottom:14px}
+.article-head h1{margin-bottom:18px}
+.article-head .desc{font-size:20px;line-height:1.55;color:var(--text2)}
+.article-head .meta{margin-top:18px;font-size:15px;color:var(--muted);font-weight:600}
+.cover{border-radius:20px;overflow:hidden;border:1px solid var(--line);margin:0 0 40px}
+.cover img{width:100%;height:auto}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin:0 0 48px}
+.toc-title{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px}
+.toc ol{list-style:none;counter-reset:toc}
+.toc li{counter-increment:toc}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:7px 4px;border-radius:8px;font-weight:600;font-size:16px;line-height:1.4}
+.toc a::before{content:counter(toc,decimal-leading-zero);font-family:"Unbounded",sans-serif;font-size:13px;color:var(--muted);flex:none}
+.body h2{margin:56px 0 18px;scroll-margin-top:24px}
+.body h3{font-size:22px;font-weight:700;margin:36px 0 12px}
+.body h4{font-size:18px;font-weight:700;margin:28px 0 10px}
+.body p{margin:0 0 18px}
+.body ul,.body ol{margin:0 0 20px;padding-left:26px}
+.body li{margin-bottom:8px}
+.body li::marker{color:var(--text2);font-weight:700}
+.body a{font-weight:600;box-shadow:inset 0 -2px 0 var(--marker);border-radius:2px}
+.body strong{font-weight:700}
+.body code{background:var(--alt);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:15px;font-family:ui-monospace,"SF Mono",Menlo,monospace}
+.body blockquote{border-left:4px solid var(--marker);background:var(--card);border-radius:0 12px 12px 0;padding:16px 22px;margin:0 0 22px;color:var(--text2)}
+.body hr{border:none;border-top:1px solid var(--line);margin:44px 0}
+.body img{border-radius:14px;border:1px solid var(--line);margin:0 0 20px}
+/* промпт-вставка «скопируй это» */
+.prompt{margin:0 0 26px;border:2px dashed var(--line-strong);border-radius:16px;background:var(--card);overflow:hidden}
+.prompt figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--alt)}
+.chip-sm{height:26px;padding:4px 10px;font-size:12px}
+.copy-btn{border:1.5px solid var(--text);background:transparent;color:var(--text);font-family:"Golos Text",sans-serif;font-weight:600;font-size:13px;height:30px;padding:0 14px;border-radius:8px;cursor:pointer}
+.prompt pre{padding:18px 20px;white-space:pre-wrap;overflow-wrap:break-word;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:15px;line-height:1.6;overflow-x:auto}
+.codeblock{background:var(--bg-deep);color:var(--text);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:0 0 26px;overflow-x:auto;font-size:14.5px;line-height:1.6;font-family:ui-monospace,"SF Mono",Menlo,monospace}
+/* FAQ-аккордеон без JS */
+.body details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 12px;overflow:hidden}
+.body summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;font-weight:700;font-size:18px;line-height:1.4;border-radius:14px}
+.body summary::-webkit-details-marker{display:none}
+.body summary::after{content:"+";font-family:"Unbounded",sans-serif;font-size:20px;color:var(--text);flex:none;transition:transform .2s ease}
+.body details[open] summary::after{transform:rotate(45deg)}
+.body details[open] summary{border-bottom:1px solid var(--line);border-radius:14px 14px 0 0}
+.faq-body{padding:16px 22px 6px;color:var(--text2)}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-top:56px;font-weight:600;font-size:16px;border-radius:8px;padding:6px 8px}
+@media (max-width:720px){
+.article{padding:36px 20px 0}
+.article-head h1{font-size:30px}
+.article-head .desc{font-size:18px}
+.body h3{font-size:20px}
+.toc{padding:18px 20px}
+}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.body summary::after{transition:none}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</header>
+<main class="article">
+  <div class="article-head">
+    <p class="eyebrow"><a href="/stati/">Статьи</a></p>
+    <h1>7 типов хуков для коротких видео: один сюжет — семь роликов</h1>
+    <p class="desc">Разбираем 7 типов хуков (цепляющих начал) для коротких видео и показываем, как из одной идеи сделать семь рилсов. С готовыми промптами. Читайте.</p>
+    <p class="meta">9 июля 2026 · Андрей Меньшиков</p>
+  </div>
+  
+  <nav class="toc" aria-label="Оглавление"><div class="toc-title">Оглавление</div><ol><li><a href="#что-такое-хук-и-почему-он-решает-всё">Что такое хук и почему он решает всё</a></li><li><a href="#7-типов-хуков-на-одном-сюжете">7 типов хуков на одном сюжете</a></li><li><a href="#как-из-одного-сюжета-собрать-семь-роликов">Как из одного сюжета собрать семь роликов</a></li><li><a href="#как-усилить-хук-текстом-и-обложкой">Как усилить хук текстом и обложкой</a></li><li><a href="#частые-ошибки-новичков-с-хуками">Частые ошибки новичков с хуками</a></li><li><a href="#с-чего-начать-сегодня">С чего начать сегодня</a></li><li><a href="#частые-вопросы">Частые вопросы</a></li></ol></nav>
+  <div class="body">
+<p>Вы записали ролик, выложили — а его почти никто не досмотрел. Знакомо? Чаще всего дело не в теме и не в монтаже, а в первых двух секундах. Именно там человек решает: остаться или листать дальше. Эти первые секунды называют <strong>хук</strong> (цепляющее начало ролика, которое заставляет не пролистывать). В этой статье разберём 7 типов хуков и покажем на живом примере, как из одного сюжета собрать семь разных <strong>рилсов</strong> (коротких вертикальных видео в Instagram) — без камеры и без кода.</p>
+<p>Это то, чем мы каждый день занимаемся в проекте «menshikov.ai»: блог ведёт AI-копия автора, ролики и обложки делает нейросеть, а вы читаете результат. Так что всё ниже — не теория, а то, что мы проверяем на себе.</p>
+<h2 id="что-такое-хук-и-почему-он-решает-всё">Что такое хук и почему он решает всё</h2>
+<p>Хук — это приманка. Не громкая музыка и не мелькающий текст, а одна мысль в самом начале, которая отвечает зрителю: «эй, это про тебя, останься». Если её нет, даже полезное видео умирает на второй секунде.</p>
+<p>Три вещи, которые делает хороший хук:</p>
+<ul><li>называет боль или желание зрителя его словами;</li><li>обещает, что дальше будет ответ или развязка;</li><li>умещается в одну короткую фразу — её видно на экране и слышно в первую секунду.</li></ul>
+<p>Важная мысль, которая экономит недели работы: <strong>тема ролика и хук — это разные вещи</strong>. Тема одна, а входов в неё — десятки. Значит, из одного сюжета можно собрать не один ролик, а серию. Дальше — семь конкретных входов.</p>
+<h2 id="7-типов-хуков-на-одном-сюжете">7 типов хуков на одном сюжете</h2>
+<p>Возьмём сквозной пример — тему, понятную нашему читателю: «как отвечать на отзывы клиентов с помощью нейросети». Один сюжет. Ниже — семь хуков к нему.</p>
+<h3>1. Хук-вопрос</h3>
+<p>Вы задаёте зрителю прямой вопрос, на который ему хочется ответить «да» про себя.</p>
+<blockquote>«Тратите по полчаса на ответ одному недовольному клиенту?»</blockquote>
+<p>Работает, потому что человек мысленно кивает — и остаётся за ответом.</p>
+<h3>2. Хук-ошибка</h3>
+<p>Называете распространённую ошибку. Люди боятся делать «не так», поэтому досматривают.</p>
+<blockquote>«Так на отзывы отвечать нельзя — а делают почти все».</blockquote>
+<h3>3. Хук-результат (до/после)</h3>
+<p>Показываете конечную точку сразу, а «как» оставляете на потом.</p>
+<blockquote>«Этот ответ клиенту я написал за 20 секунд. Показываю как».</blockquote>
+<p>В нашей практике формат «до/после» держит внимание лучше всего: мы так показывали обложки, сделанные нейросетью, и досматриваемость заметно росла.</p>
+<h3>4. Хук-число</h3>
+<p>Конкретная цифра обещает структуру и понятный объём.</p>
+<blockquote>«3 фразы, после которых злой клиент благодарит».</blockquote>
+<h3>5. Хук-провокация</h3>
+<p>Спорное утверждение, которое хочется оспорить в комментариях.</p>
+<blockquote>«Отвечать на отзывы вручную в 2026 году — пустая трата времени».</blockquote>
+<p>Провокация повышает комментарии, а комментарии — это как раз то, что нам нужно для воронки: человек пишет кодовое слово и получает материалы в ответ.</p>
+<h3>6. Хук-история</h3>
+<p>Начинаете с живой микро-сцены, а не с пользы.</p>
+<blockquote>«Клиент написал: „Верните деньги“. Вот что я ответил».</blockquote>
+<h3>7. Хук-инструкция</h3>
+<p>Сразу обещаете пошаговый рецепт — для тех, кто пришёл за делом.</p>
+<blockquote>«Сохраните: как ответить на любой отзыв за 3 шага».</blockquote>
+<p>Заметьте: сюжет один — про отзывы. А заходов семь, и каждый цепляет своего зрителя. Один любит цифры, другой — истории, третий — спор.</p>
+<h2 id="как-из-одного-сюжета-собрать-семь-роликов">Как из одного сюжета собрать семь роликов</h2>
+<p>Теперь соберём это в систему, чтобы не выдумывать каждый раз с нуля.</p>
+<p><strong>Шаг 1. Зафиксируйте ядро.</strong> Одно предложение: о чём сюжет и какая польза. У нас — «нейросеть помогает быстро и спокойно отвечать на отзывы».</p>
+<p><strong>Шаг 2. Прогоните ядро через 7 типов хуков.</strong> Не сочиняйте каждый вручную — попросите нейросеть. Вот готовый промпт (промпт — это текстовый запрос, который вы отправляете нейросети). Скопируйте и вставьте свою тему:</p>
+<figure class="prompt"><figcaption><span class="chip chip-sm">Скопируй это</span><button type="button" class="copy-btn" onclick="copyPrompt(this)">Копировать</button></figcaption><pre>Ты — сценарист коротких видео для новичков.
+Тема ролика: «как отвечать на отзывы клиентов с помощью нейросети».
+Аудитория: владельцы маленьких магазинов, без технического опыта.
+Придумай 7 первых фраз (хуков) — по одной на каждый тип:
+1) вопрос, 2) ошибка, 3) результат до/после, 4) число,
+5) провокация, 6) история, 7) инструкция.
+Каждый хук — не длиннее 8 слов, простым живым языком,
+без англицизмов. Дай списком с подписью типа.</pre></figure>
+<p><strong>Шаг 3. Оставьте тело ролика почти одинаковым.</strong> Смысл-то один. Меняются первые 2 секунды и подводка — остальное переиспользуется. Это и есть секрет «семь роликов за вечер»: вы не снимаете семь раз, вы переупаковываете один.</p>
+<p><strong>Шаг 4. Разведите ролики по дням.</strong> Не выкладывайте все семь подряд. Ставьте их через день-два: так вы неделю закрыты контентом с одной съёмки идей.</p>
+<p>Именно так устроена работа нашей <a href="/kopiya/">AI-копии автора</a>: один разбор темы превращается в серию коротких видео, и лента живёт, пока человек занят другими делами.</p>
+<h2 id="как-усилить-хук-текстом-и-обложкой">Как усилить хук текстом и обложкой</h2>
+<p>Хук — это не только сказанная фраза. Половину дела делает <strong>текст на экране</strong> (надпись поверх видео в первые секунды) и обложка.</p>
+<p>Три правила надписи:</p>
+<ul><li>3–6 слов, крупно, читается с телефона на вытянутой руке;</li><li>слово-крючок в начале: «Ошибка», «За 20 секунд», «Не делайте так»;</li><li>надпись повторяет хук, а не пересказывает весь ролик.</li></ul>
+<p>Обложку тоже можно собрать нейросетью — мы так и делаем, без дизайнера. Вот промпт для картинки-обложки под вертикальное видео:</p>
+<figure class="prompt"><figcaption><span class="chip chip-sm">Скопируй это</span><button type="button" class="copy-btn" onclick="copyPrompt(this)">Копировать</button></figcaption><pre>Сделай обложку для вертикального короткого видео (формат 9:16).
+Тема: ответы на отзывы клиентов с помощью нейросети.
+Стиль: чистый, светлый, крупный читаемый текст сверху.
+Текст на обложке: «Ответил за 20 секунд».
+Оставь снизу пустое место под лицо/предмет.
+Без мелких деталей, без нагромождения элементов.</pre></figure>
+<p>Если нейросеть выдала перегруженную картинку — не воюйте с ней абзацами. Добавьте одну строку и отправьте снова:</p>
+<figure class="prompt"><figcaption><span class="chip chip-sm">Скопируй это</span><button type="button" class="copy-btn" onclick="copyPrompt(this)">Копировать</button></figcaption><pre>Слишком много деталей. Упрости: один объект, один цвет фона,
+крупный текст, много воздуха. Сделай спокойнее.</pre></figure>
+<p>В нашем случае самыми кликаемыми оказывались самые простые обложки: одно лицо или предмет, одна короткая фраза, много пустого места. Чем тише картинка — тем громче текст.</p>
+<h2 id="частые-ошибки-новичков-с-хуками">Частые ошибки новичков с хуками</h2>
+<p><strong>Хук ради хука.</strong> Кричащее начало, за которым ничего нет. Зритель остаётся, не получает обещанного — и в следующий раз листает сразу. Обещание в хуке должно выполняться в ролике.</p>
+<p><strong>Слишком длинно.</strong> Если крючок не помещается в одну фразу, это уже не крючок. Режьте до 5–8 слов.</p>
+<p><strong>Один и тот же тип.</strong> Многие годами снимают только «хук-инструкцию». Аудитория привыкает и перестаёт реагировать. Чередуйте типы — тогда лента дышит.</p>
+<p><strong>Хук не про зрителя, а про себя.</strong> «Сегодня расскажу, как я…» — это про вас. «Тратите полчаса на один отзыв?» — это про него. Второе работает.</p>
+<p>Разобрать эти форматы вживую, с примерами роликов, можно в наших <a href="/proekty/">проектах и кейсах</a> — там мы показываем, что зашло, а что нет, честно. А если хочется потренироваться играючи, загляните в <a href="/igra/">игровые форматы</a>: иногда крючок проще нащупать в лёгком режиме, чем «на серьёзе».</p>
+<h2 id="с-чего-начать-сегодня">С чего начать сегодня</h2>
+<p>Не пытайтесь освоить все семь типов разом. Возьмите одну свою тему и прогоните её через первый промпт из этой статьи. Получите семь вариантов начала — выберите три, которые самому нравятся. Снимите тело ролика один раз, приклейте к нему три разных хука и три надписи. Вот и три ролика из одной идеи, за один вечер, без камеры-профи и без единой строки кода.</p>
+<p>А дальше — смотрите, что досматривают. Досматриваемость и есть честный судья: она сама покажет, какой тип хука любит именно ваша аудитория.</p>
+<h2 id="частые-вопросы">Частые вопросы</h2>
+<p><strong>Сколько должен длиться хук?</strong> Первые 1–2 секунды видео. По словам — это одна фраза на 5–8 слов, которую видно на экране и слышно сразу. Если крючок не уместился в одно дыхание, его надо сократить.</p>
+<p><strong>Обязательно ли произносить хук вслух?</strong> Нет. Хук может быть только надписью на экране, только голосом или и тем, и другим сразу. Для новичков надёжнее дублировать: текст на экране плюс та же фраза голосом — так его точно заметят и те, кто смотрит без звука.</p>
+<p><strong>Можно ли делать хуки, если я стесняюсь камеры?</strong> Да. Мы в «menshikov.ai» вообще снимаем без камеры: ролики и озвучку собирает нейросеть. Хук при этом остаётся тем же — это же просто первая цепляющая фраза, а не ваше лицо в кадре.</p>
+<p><strong>Как понять, какой тип хука мне подходит?</strong> Никак не угадать заранее — только проверить. Выложите один сюжет с двумя-тремя разными хуками и посмотрите на досматриваемость. Через неделю-две вы увидите, что ваша аудитория любит: цифры, истории или провокацию.</p>
+<p><strong>Где взять готовые промпты и разборы?</strong> Бесплатные инструменты и разборы мы выкладываем на vectorupx.com, а под роликами в Instagram работает кодовое слово: пишете его в комментариях — бот присылает материалы в ответ.</p>
+<p><em>Текст собран конвейером двух разумов.</em></p>
+  </div>
+  <a class="back-link" href="/stati/">&#8592; Все статьи</a>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/devlog/">Дневник разработки</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+        <a href="/razbory/">Разборы</a>
+        <a href="/kofaunder/">AI-Кофаундер</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+<script>
+function copyPrompt(btn){
+  var pre = btn.closest('figure').querySelector('pre');
+  var done = function(){ btn.textContent='Скопировано ✓'; setTimeout(function(){btn.textContent='Копировать';},1800); };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(pre.textContent).then(done);
+  } else {
+    var r = document.createRange(); r.selectNodeContents(pre);
+    var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    s.removeAllRanges();
+  }
+}
+</script>
+</body>
+</html>

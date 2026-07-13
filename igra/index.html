@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<title>Игра ребёнку в Roblox за вечер — полная инструкция · menshikov.ai</title>
+<meta name="description" content="Пошаговый рецепт: как собрать ребёнку игру в Roblox с помощью нейросети за один вечер. Без кода. Точные кнопки, готовые промпты, реальные грабли.">
+<meta property="og:title" content="Собери ребёнку игру в Roblox — за вечер, без кода">
+<meta property="og:description" content="Полная инструкция: точные кнопки, готовые промпты для AI-помощника, реальные грабли. От папы, который сделал игру дочке.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;
+  --bg-deep:   #0C0B09;
+  --alt:       #191510;
+  --card:      #1E1A12;
+
+  /* текст */
+  --text:      #EFE9DC;
+  --text-hi:   #F5F0E4;
+  --text2:     #B8AE9C;
+  --muted:     #8F8674;
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+  --btn2-bg:   var(--text);
+  --btn2-text: #17150F;
+
+  --mono:"JetBrains Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* зерно: на тёмном multiply не виден — screen */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* единый сигнал «кликается»: жёлтое кольцо */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;
+  color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+
+/* ============ СТАТЬЯ ============ */
+.article{max-width:824px;margin:0 auto;padding:0 32px 96px}
+
+.hero{padding:56px 0 36px}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);margin:0 0 18px;
+}
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,44px);line-height:1.14;letter-spacing:-0.01em;
+  margin:0 0 18px;text-wrap:balance;
+  color:var(--text-hi);
+}
+h1 .g{
+  background:linear-gradient(to top, var(--marker) 8px, transparent 8px);
+  padding-bottom:2px;white-space:nowrap;
+}
+.lede{font-size:20px;line-height:1.55;color:var(--text2);margin:0;max-width:56ch}
+.lede b{color:var(--text)}
+
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 4px}
+.chip{
+  font-size:14px;font-weight:600;color:var(--text2);
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--card);
+}
+.chip b{color:var(--text);font-weight:700}
+
+.rule{height:1px;background:var(--line);border:0;margin:36px 0}
+
+/* план вечера */
+.plan{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:24px 28px;
+}
+.plan .plan-head{display:flex;align-items:center;gap:14px;margin:0 0 14px}
+.plan h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:20px;margin:0;line-height:1.3;color:var(--text-hi)}
+.ic-badge{display:inline-grid;place-items:center;width:48px;height:48px;flex:none;background:rgba(255,206,0,.10);border:1px solid rgba(255,206,0,.28);border-radius:13px;color:var(--marker)}
+.ic-badge svg{width:24px;height:24px}
+.plan table{width:100%;border-collapse:collapse;font-size:16px}
+.plan td{padding:8px 0;border-bottom:1px dashed var(--line-soft);vertical-align:top}
+.plan tr:last-child td{border-bottom:0}
+.plan td.t{font-family:var(--mono);font-weight:500;color:var(--text);white-space:nowrap;padding-right:18px;font-size:14px}
+
+/* шаги */
+.steps{display:flex;flex-direction:column;gap:20px;padding-bottom:8px}
+.step{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:26px 28px 28px;
+}
+.step .idx{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;
+  font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);
+}
+.step .idx .n{
+  display:inline-grid;place-items:center;width:30px;height:30px;
+  background:var(--marker);border-radius:8px;color:var(--on-marker);
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:14px;letter-spacing:0;
+}
+.step .time{color:var(--muted);text-transform:none;letter-spacing:0.02em}
+.step h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(20px,2.5vw,26px);line-height:1.25;margin:0 0 10px;text-wrap:balance;
+  color:var(--text-hi);
+}
+.step h3{font-size:17px;font-weight:700;margin:18px 0 6px;color:var(--text-hi)}
+.step p{margin:0 0 12px}
+.step p:last-child{margin-bottom:0}
+.step ol,.step ul{margin:0 0 12px;padding-left:1.25rem}
+.step li{margin:6px 0}
+.step li::marker{color:var(--text);font-weight:700}
+.kbd{
+  font-family:var(--mono);font-size:0.86em;background:var(--alt);
+  border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--text);white-space:normal;overflow-wrap:break-word;
+}
+.muted{color:var(--text2)}
+
+/* промпт-карточка «скопируй это» — тёмный колодец с жёлтой меткой */
+.prompt{
+  background:var(--bg-deep);border:1px solid var(--line-soft);
+  border-radius:12px;padding:14px 16px;margin:10px 0 14px;
+  font-family:var(--mono);font-size:14.5px;line-height:1.55;color:var(--text);
+  white-space:pre-wrap;overflow-x:auto;
+}
+.prompt::before{
+  content:"скопируй это ↓";display:block;width:fit-content;
+  font-family:"Golos Text",sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--on-marker);
+  background:var(--marker);border-radius:4px;padding:3px 9px;margin-bottom:9px;line-height:1.3;
+}
+
+/* грабли — тёмные с жёлтой рамкой */
+.flag{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--alt);border:2px solid var(--marker);
+  border-radius:12px;padding:14px 16px;margin-top:14px;
+}
+.flag .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.flag p{margin:0;font-size:15px;color:var(--text)}
+.flag b{color:var(--text-hi);font-weight:700}
+
+.good{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--alt);border:1px solid var(--line-strong);
+  border-radius:12px;padding:14px 16px;margin-top:14px;
+}
+.good .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.good p{margin:0;font-size:15px;color:var(--text)}
+.good b{font-weight:700;color:var(--text-hi)}
+.flag .ic svg,.good .ic svg{width:20px;height:20px;display:block;margin-top:1px}
+
+.tip{font-size:15px;color:var(--text2);margin-top:14px;background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.18);border-radius:12px;padding:12px 16px}
+
+/* финальный призыв — глубокий колодец с жёлтой линией сверху */
+.cta{
+  margin:44px 0 0;background:var(--bg-deep);color:var(--text);
+  border:1px solid var(--line);border-top:3px solid var(--marker);
+  border-radius:20px;padding:44px 28px;text-align:center;
+}
+.cta h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:clamp(22px,2.8vw,30px);line-height:1.25;margin:0 0 12px;color:var(--text-hi)}
+.cta p{color:var(--text2);margin:0 auto 22px;max-width:44ch}
+.cta a.word,.cta a.ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:12px 28px;
+  font-weight:600;font-size:18px;border-radius:12px;
+}
+.cta a.word{background:var(--marker);color:var(--on-marker)}
+.cta a.ghost{background:transparent;color:var(--text-hi);border:1.5px solid var(--line-strong)}
+.cta a.ghost svg{color:var(--marker)}
+.cta a svg{flex:none}
+.cta small{display:block;margin-top:16px;color:var(--muted);font-size:13px}
+
+/* появление героя */
+.reveal{animation:up .5s cubic-bezier(.16,1,.3,1) both}
+.hero .eyebrow{animation-delay:0.02s}
+.hero h1{animation-delay:0.08s}
+.hero .lede{animation-delay:0.16s}
+.hero .meta{animation-delay:0.24s}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .reveal{animation:none}
+}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);border-top:1px solid var(--line);padding:72px 0 48px}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .article{padding:0 20px 72px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+
+  .hero{padding:40px 0 28px}
+  h1{font-size:31px}
+  .lede{font-size:18px}
+
+  .plan{padding:20px}
+  .step{padding:22px 20px 24px}
+  .cta{padding:36px 20px}
+  .cta a.word,.cta a.ghost{width:100%}
+
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="article">
+
+  <section class="hero">
+    <p class="eyebrow reveal">Roblox + нейросеть · полный рецепт</p>
+    <h1 class="reveal">Собери ребёнку игру в <span class="g">Roblox</span> — за вечер, без единой строчки кода</h1>
+    <p class="lede reveal">Это не «общие советы». Это <b>пошаговый рецепт с точными кнопками и готовыми запросами</b>, по которому я собрал дочке её игру: код пишет встроенный AI-помощник, арт рисует нейросеть, ты только руководишь.</p>
+    <div class="meta reveal">
+      <span class="chip">Код: <b>не пишешь</b></span>
+      <span class="chip">Всё ПО: <b>бесплатно</b></span>
+      <span class="chip">Время: <b>~3 часа</b></span>
+      <span class="chip">Уровень: <b>с нуля</b></span>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <div class="plan reveal">
+    <div class="plan-head">
+      <span class="ic-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg></span>
+      <h2>План вечера</h2>
+    </div>
+    <table>
+      <tr><td class="t">19:00</td><td>Идея от ребёнка + установка Roblox Studio (шаги 1–2)</td></tr>
+      <tr><td class="t">19:30</td><td>Первая площадка: пол, дома из каталога, свет (шаг 3)</td></tr>
+      <tr><td class="t">20:00</td><td>Механики через AI-помощника: по одной, с проверкой (шаг 4)</td></tr>
+      <tr><td class="t">21:00</td><td>Монстры и постеры нейросетью (шаг 5)</td></tr>
+      <tr><td class="t">21:30</td><td>Приёмка ребёнком → правки → публикация (шаги 6–7)</td></tr>
+    </table>
+  </div>
+
+  <hr class="rule" />
+
+  <div class="steps">
+
+    <article class="step">
+      <span class="idx"><span class="n">1</span> Техзадание <span class="time">· ~10 мин</span></span>
+      <h2>Спроси у главного заказчика</h2>
+      <p>Заказчик — твой ребёнок. Задай четыре вопроса и запиши ответы дословно, его словами:</p>
+      <ol>
+        <li><b>Про что игра?</b> (побег, стройка, магазин, приключение…)</li>
+        <li><b>Кто герой и что он делает?</b></li>
+        <li><b>Что в игре страшное или смешное?</b></li>
+        <li><b>Что будет победой?</b></li>
+      </ol>
+      <p>Если идей нет — вот проверенная на моей дочке: <b>«загадочный лифт»</b>. Едешь на лифте по этажам, на каждом этаже комната, в которой что-то не так — нужно заметить странность и правильно ответить. Простая логика, а детей затягивает.</p>
+      <div class="good">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p><b>Секрет вовлечённости.</b> Когда идея — его собственная, ребёнок будет в неё рубиться и звать друзей. «Папина игра» надоедает за минуту, «наша игра» — никогда.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">2</span> Конструктор <span class="time">· ~15 мин · бесплатно</span></span>
+      <h2>Поставь Roblox Studio</h2>
+      <ol>
+        <li>Зайди на <span class="kbd">create.roblox.com</span> → кнопка <span class="kbd">Start Creating</span> → скачается установщик Roblox Studio (Windows или Mac — одинаково).</li>
+        <li>Войди своим аккаунтом Roblox. Нет аккаунта — регистрация за минуту на roblox.com (понадобится и ребёнку, чтобы играть).</li>
+        <li>Открой Studio → <span class="kbd">New</span> → шаблон <span class="kbd">Baseplate</span>. Это пустое поле — наша стройплощадка.</li>
+      </ol>
+      <h3>Как двигаться по миру (первые 2 минуты непривычно, потом само):</h3>
+      <ul>
+        <li><span class="kbd">W A S D</span> — летать камерой, <span class="kbd">Q / E</span> — вниз/вверх;</li>
+        <li>зажми <b>правую кнопку мыши</b> и веди — оглядеться;</li>
+        <li><span class="kbd">F</span> — прыгнуть камерой к выделенному объекту.</li>
+      </ul>
+      <p class="tip">Всё бесплатно: Studio, публикация, сервера, игра с любых устройств. Roblox зарабатывает на внутренних покупках — тебе платить не за что.</p>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">3</span> Площадка <span class="time">· ~30 мин</span></span>
+      <h2>Собери мир из готовых деталей</h2>
+      <p>Не строй всё с нуля — в Roblox есть каталог готовых бесплатных моделей.</p>
+      <ol>
+        <li>Открой каталог: вкладка <span class="kbd">View</span> → <span class="kbd">Toolbox</span>.</li>
+        <li>В поиске набери по-английски, что нужно: <span class="kbd">house</span>, <span class="kbd">elevator</span>, <span class="kbd">tree</span>, <span class="kbd">fountain</span>… Кликнул — модель встала в мир.</li>
+        <li>Выделяй и двигай инструментами <span class="kbd">Move</span> / <span class="kbd">Scale</span> / <span class="kbd">Rotate</span> (панель Home, или клавиши <span class="kbd">2 / 3 / 4</span>).</li>
+        <li>Удалить лишнее — выделил → <span class="kbd">Delete</span>.</li>
+      </ol>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля.</b> В Toolbox попадаются модели со «встроенными сюрпризами» (чужие скрипты). Бери модели с высоким рейтингом и значком галочки, а перед публикацией пройдись: <span class="kbd">View → Explorer</span> — раскрой вставленные модели и удали из них объекты <span class="kbd">Script</span>, которые ты не просил.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">4</span> Механика <span class="time">· ~1 час · главный секрет</span></span>
+      <h2>Правила игры пишет встроенный AI-помощник</h2>
+      <p>В Studio уже встроен AI-помощник (кнопка <span class="kbd">Assistant</span> — иконка с искрами на верхней панели). Ты описываешь словами, что должно происходить, — он сам пишет и вставляет скрипт. <b>Понимает русский.</b></p>
+      <p>Готовые запросы под «загадочный лифт» — вставляй по одному:</p>
+      <div class="prompt">Сделай лифт: платформа 8×8 в центре карты, которая по нажатию на кнопку плавно едет вверх на 50 единиц, ждёт 5 секунд и возвращается вниз.</div>
+      <div class="prompt">Добавь табло над лифтом, на котором крупно виден номер этажа. Номер меняется, когда лифт приезжает.</div>
+      <div class="prompt">Добавь монетки, которые игрок собирает при касании, и счётчик собранных монет в правом верхнем углу экрана.</div>
+      <p>После каждого запроса:</p>
+      <ol>
+        <li>Assistant предложит изменения — жми <span class="kbd">Accept</span> (принять).</li>
+        <li>Проверь: кнопка <span class="kbd">▶ Play</span> (клавиша <span class="kbd">F5</span>) — ты окажешься в игре как персонаж. Выйти — <span class="kbd">■ Stop</span> (<span class="kbd">Shift+F5</span>).</li>
+        <li>Работает не так? Скажи помощнику по-человечески, он исправит:</li>
+      </ol>
+      <div class="prompt">Лифт едет слишком быстро и дёргается. Сделай движение в два раза медленнее и плавным.</div>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля №1.</b> Проси <b>по одной механике за раз</b> и сразу тестируй через Play. Попросишь «сделай сразу всё» — получишь кашу из скриптов, в которой не найдёшь, что сломалось.</p>
+      </div>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля №2.</b> Если после правки что-то пропало или сломалось — <span class="kbd">Ctrl+Z</span> (Cmd+Z на Mac) откатывает и изменения помощника тоже. Откатись и сформулируй запрос точнее.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">5</span> Арт <span class="time">· ~30 мин</span></span>
+      <h2>Монстров и постеры рисует нейросеть</h2>
+      <p>Не умеешь рисовать — и не надо. Два бесплатных пути:</p>
+      <h3>А. Прямо внутри Studio (проще всего)</h3>
+      <p>Тот же Assistant умеет генерировать 3D-объекты по описанию. Напиши ему:</p>
+      <div class="prompt">Сгенерируй странную высокую тёмную фигуру с длинными руками и светящимися глазами, в мультяшном стиле, и поставь её в дальнем углу карты.</div>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля модерации.</b> «Страшные» слова (монстр, кровь, ужас) фильтр режет — генерация просто не срабатывает. Описывай нейтрально: <b>«странная тёмная фигура»</b>, «загадочное существо», «необычная тень» — результат тот же, фильтр доволен. Проверено на игре моей дочки.</p>
+      </div>
+      <h3>Б. Картинки-постеры из любой нейросети</h3>
+      <ol>
+        <li>Сгенерируй картинку в любом бесплатном генераторе — «Шедеврум» (Яндекс) или Kandinsky (Сбер) отлично подходят: «плакат для детской игры про загадочный лифт, мультяшный стиль».</li>
+        <li>Скачай PNG → в Studio: <span class="kbd">View → Asset Manager</span> → кнопка <span class="kbd">Import</span> → выбери файл (пройдёт быструю модерацию, пара минут).</li>
+        <li>Повесь на стену: выдели стену → в окне <span class="kbd">Explorer</span> нажми <span class="kbd">+</span> рядом с ней → добавь <span class="kbd">Decal</span> → в свойствах выбери свою картинку.</li>
+      </ol>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">6</span> Приёмка <span class="time">· самое весёлое</span></span>
+      <h2>Посади заказчика тестировать</h2>
+      <p>Запусти <span class="kbd">▶ Play</span> и отдай ребёнку клавиатуру. Дальше происходит магия: он найдёт всё, что ты не заметил, и скажет, чего не хватает. Ты правишь через Assistant прямо при нём — «а сделай лифт красным!», «а пусть монетки блестят!» — каждая правка занимает минуту, и это лучшая часть вечера.</p>
+      <div class="good">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p><b>Пара кругов «поиграл → поправили вместе»</b> превращают набор кубиков в игру, которую ребёнок считает своей. Это и есть цель.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">7</span> Публикация <span class="time">· ~10 мин</span></span>
+      <h2>Опубликуй — и играйте с телефона и приставки</h2>
+      <ol>
+        <li><span class="kbd">File → Publish to Roblox</span> → придумайте с ребёнком название и описание → <span class="kbd">Create</span>.</li>
+        <li>По умолчанию игра <b>приватная</b> — в поиске её никто не найдёт, чужих глаз и оценок не будет.</li>
+        <li>Чтобы ребёнок играл со своего устройства: зайди на <span class="kbd">create.roblox.com</span> → твоя игра → <span class="kbd">Audience → Playability</span> → поставь <span class="kbd">Friends</span> и добавь аккаунт ребёнка в друзья. Теперь игра доступна ему на планшете, телефоне и даже PlayStation/Xbox.</li>
+        <li>Обновил игру в Studio? Снова <span class="kbd">File → Publish</span> — изменения улетят на сервер.</li>
+      </ol>
+      <p class="tip">Продвинутый уровень: если пользуешься Claude, в Studio есть прямое подключение — <span class="kbd">Assistant → Manage MCP Servers → Quick connect</span>. Тогда игру можно строить голосом диалога с Claude, как это делаю я. Но для первого вечера встроенного помощника хватает с головой.</p>
+    </article>
+
+  </div>
+
+  <section class="cta">
+    <h2>Дальше — три коротких шага</h2>
+    <p>Понравилось собирать нейросетями? Вот куда двигаться.</p>
+    <a class="word" href="https://t.me/menae_ai" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Все разборы — в Telegram</a>
+    <a class="ghost" href="/kopiya/" style="margin-top:10px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/><path d="m6.2 5.3 3.1 3.9"/><path d="m12.4 3.4 3.1 4"/><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg> Сделай свою AI-копию для роликов</a>
+    <a class="ghost" href="https://kurs.vectorupx.com/l/a1.html" rel="noopener" style="margin-top:10px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg> Бесплатный первый модуль курса</a>
+    <small>Сохрани страницу, чтобы не потерять. Застрял на шаге — <a href="https://t.me/menae_ai" rel="noopener" target="_blank">задай вопрос в Telegram</a>, разбираю подробно.</small>
+  </section>
+
+</div>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/devlog/">Дневник разработки</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+        <a href="/razbory/">Разборы</a>
+        <a href="/kofaunder/">AI-Кофаундер</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

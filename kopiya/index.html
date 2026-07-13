@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<meta name="description" content="Пошаговая инструкция: как собрать свою AI-копию за вечер — лицо, голос, мимика. Без камеры и студии.">
+<title>AI-копия за вечер — инструкция от menshikov.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;
+  --bg-deep:   #0C0B09;
+  --alt:       #191510;
+  --card:      #1E1A12;
+
+  /* текст */
+  --text:      #EFE9DC;
+  --text-hi:   #F5F0E4;
+  --text2:     #B8AE9C;
+  --muted:     #8F8674;
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+  --btn2-bg:   var(--text);
+  --btn2-text: #17150F;
+
+  --mono:"JetBrains Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* зерно: на тёмном multiply не виден — screen */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* единый сигнал «кликается»: жёлтое кольцо */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;
+  color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+
+/* ============ СТАТЬЯ ============ */
+.article{max-width:824px;margin:0 auto;padding:0 32px 96px}
+
+.hero{padding:56px 0 36px}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);margin:0 0 18px;
+}
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,44px);line-height:1.14;letter-spacing:-0.01em;
+  margin:0 0 18px;text-wrap:balance;
+  color:var(--text-hi);
+}
+h1 .g{
+  background:linear-gradient(to top, var(--marker) 8px, transparent 8px);
+  padding-bottom:2px;white-space:nowrap;
+}
+.lede{font-size:20px;line-height:1.55;color:var(--text2);margin:0;max-width:56ch}
+.lede b{color:var(--text)}
+
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 4px}
+.chip{
+  font-size:14px;font-weight:600;color:var(--text2);
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--card);
+}
+.chip b{color:var(--text);font-weight:700}
+
+.rule{height:1px;background:var(--line);border:0;margin:36px 0}
+
+/* шаги */
+.steps{display:flex;flex-direction:column;gap:20px;padding-bottom:8px}
+.step{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:26px 28px 28px;
+}
+.step .idx{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;
+  font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);
+}
+.step .idx .n{
+  display:inline-grid;place-items:center;width:30px;height:30px;
+  background:var(--marker);border-radius:8px;color:var(--on-marker);
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:14px;letter-spacing:0;
+}
+.step .time{color:var(--muted);text-transform:none;letter-spacing:0.02em}
+.step h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(20px,2.5vw,26px);line-height:1.25;margin:0 0 10px;text-wrap:balance;
+  color:var(--text-hi);
+}
+.step p{margin:0 0 12px}
+.step p:last-child{margin-bottom:0}
+.step ol,.step ul{margin:0 0 12px;padding-left:1.25rem}
+.step li{margin:6px 0}
+.step li::marker{color:var(--text);font-weight:700}
+.kbd{
+  font-family:var(--mono);font-size:0.86em;background:var(--alt);
+  border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--text);white-space:normal;overflow-wrap:break-word;
+}
+
+/* грабли — тёмные с жёлтой рамкой */
+.flag{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--alt);border:2px solid var(--marker);
+  border-radius:12px;padding:14px 16px;margin-top:14px;
+}
+.flag .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.flag .ic svg{width:20px;height:20px;display:block;margin-top:1px}
+.flag p{margin:0;font-size:15px;color:var(--text)}
+.flag b{color:var(--text-hi);font-weight:700}
+
+.tip{font-size:15px;color:var(--text2);margin-top:14px;background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.18);border-radius:12px;padding:12px 16px}
+
+/* финальный призыв — глубокий колодец с жёлтой линией сверху */
+.cta{
+  margin:44px 0 0;background:var(--bg-deep);color:var(--text);
+  border:1px solid var(--line);border-top:3px solid var(--marker);
+  border-radius:20px;padding:44px 28px;text-align:center;
+}
+.cta h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:clamp(22px,2.8vw,30px);line-height:1.25;margin:0 0 12px;color:var(--text-hi)}
+.cta p{color:var(--text2);margin:0 auto 22px;max-width:44ch}
+.cta a.word,.cta a.ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:12px 28px;
+  font-weight:600;font-size:18px;border-radius:12px;
+}
+.cta a.word{background:var(--marker);color:var(--on-marker)}
+.cta a.ghost{background:transparent;color:var(--text-hi);border:1.5px solid var(--line-strong)}
+.cta a.ghost svg{color:var(--marker)}
+.cta a svg{flex:none}
+.cta small{display:block;margin-top:16px;color:var(--muted);font-size:13px}
+
+/* появление героя */
+.reveal{animation:up .5s cubic-bezier(.16,1,.3,1) both}
+.hero .eyebrow{animation-delay:0.02s}
+.hero h1{animation-delay:0.08s}
+.hero .lede{animation-delay:0.16s}
+.hero .meta{animation-delay:0.24s}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .reveal{animation:none}
+}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);border-top:1px solid var(--line);padding:72px 0 48px}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .article{padding:0 20px 72px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+
+  .hero{padding:40px 0 28px}
+  h1{font-size:31px}
+  .lede{font-size:18px}
+
+  .step{padding:22px 20px 24px}
+  .cta{padding:36px 20px}
+  .cta a.word,.cta a.ghost{width:100%}
+
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="article">
+
+  <section class="hero">
+    <p class="eyebrow reveal">AI-копия · пошагово</p>
+    <h1 class="reveal">Собери свою <span class="g">AI-копию</span> за один вечер</h1>
+    <p class="lede reveal">Та самая инструкция из ролика. Лицо, голос и мимика — без камеры, студии и монтажёра. Я потратил на грабли целый день; здесь сразу рабочая версия, чтобы ты их обошёл.</p>
+    <div class="meta reveal">
+      <span class="chip">Сервис: <b>Higgsfield</b></span>
+      <span class="chip">Время: <b>один вечер</b></span>
+      <span class="chip">Съёмка: <b>не нужна</b></span>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <div class="steps">
+    <article class="step">
+      <span class="idx"><span class="n">1</span> Лицо <span class="time">· ~20 мин</span></span>
+      <h2>Научи нейросеть своему лицу</h2>
+      <ol>
+        <li><b>Не бери просто фото — сними себя на видео.</b> 40–60 секунд: медленно поворачивай голову, чуть меняй мимику, говори. Ровный свет.</li>
+        <li>Вытащи из видео <b>15–20 самых чётких кадров</b> — разные ракурсы и выражения.</li>
+        <li>В Higgsfield: <span class="kbd">Soul → Create Character</span>, загрузи кадры, запусти обучение (~15 мин).</li>
+      </ol>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля №1.</b> Мало и однотипных фото = «похоже, но не ты». Сходство решает датасет, а не промпт — видео-кадры дают то, чего не дадут 9 обычных селфи.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">2</span> Образ <span class="time">· бесплатно</span></span>
+      <h2>Наведи образ, не теряя себя</h2>
+      <p>Хочешь причёску аккуратнее, бороду ровнее, вид свежее — не проси «сделай стрижку», нейросеть перерисует пол-лица. Проси <b>«ретушь этого же фото»</b> и перечисли, что сохранить: форму лица, глаза, нос, губы, линию роста и цвет волос.</p>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля №2.</b> Не добавляй «морщины / поры для реализма» — они старят лицо лет на пятнадцать.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">3</span> Голос <span class="time">· ~15 мин</span></span>
+      <h2>Клонируй голос с одной записи</h2>
+      <ol>
+        <li>Запиши на телефон 60 секунд обычной речи — живым тоном, запинки не страшны: учится тембр, а не текст.</li>
+        <li>Higgsfield: <span class="kbd">Voice → Create Voice</span> → загрузи запись.</li>
+        <li>Проверь в Text-to-Speech: напиши фразу своим голосом, послушай.</li>
+      </ol>
+      <p class="tip">Эмоции задаются пунктуацией: «!», «?», «…» и КАПС на ударном слове — так копия звучит живо, а не как диктор.</p>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">4</span> Речь <span class="time">· главный секрет</span></span>
+      <h2>Заставь копию говорить — без кривого рта</h2>
+      <p>Здесь ошибаются все. Нельзя брать один кадр и сразу лепить липсинк — зубы выходят «как у бобра», рот будто приклеен. Рабочая связка из трёх ходов:</p>
+      <ol>
+        <li><b>Кадр с приоткрытым ртом и ровными зубами.</b> В Nano Banana попроси кадр, где рот чуть открыт, «зубы ровные, плотно посаженные, без щелей».</li>
+        <li><b>Говорящая база.</b> Оживи кадр под свою озвучку (Seedance / видео-модель с аудио): копия активно говорит, зубы уже красивые, синхрон примерный.</li>
+        <li><b>Точный липсинк.</b> Прогони эту базу через <span class="kbd">Lipsync Studio → Sync Lipsync 2 pro</span> с той же озвучкой — губы встанут точно под слова.</li>
+      </ol>
+      <div class="flag">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля №3.</b> Липсинк копирует базу: закрытый рот он не откроет, кривые зубы оставит. Поэтому база должна <b>говорить</b> и иметь хорошие зубы.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">5</span> Рилс</span>
+      <h2>Собери ролик</h2>
+      <p>Склей куски, добавь субтитры пословно (1–3 слова, акцент цветом). В начало — хук первой секундой, в конец — кодовое слово в директ. Музыку сделай тише голоса. Готово — копия снимает контент вместо тебя: пишешь текст, она говорит его в камеру.</p>
+    </article>
+  </div>
+
+  <section class="cta">
+    <h2>Дальше — три коротких шага</h2>
+    <p>Сделал копию? Вот куда двигаться дальше.</p>
+    <a class="word" href="https://t.me/menae_ai" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Все разборы — в Telegram</a>
+    <a class="ghost" href="/igra/" style="margin-top:10px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.544-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg> Собери ребёнку игру за вечер</a>
+    <a class="ghost" href="https://kurs.vectorupx.com/l/a1.html" rel="noopener" style="margin-top:10px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg> Бесплатный первый модуль курса</a>
+    <small>Сохрани страницу, чтобы не потерять. Застрял на шаге — <a href="https://t.me/menae_ai" rel="noopener" target="_blank">задай вопрос в Telegram</a>, разбираю подробно.</small>
+  </section>
+
+</div>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/devlog/">Дневник разработки</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+        <a href="/razbory/">Разборы</a>
+        <a href="/kofaunder/">AI-Кофаундер</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

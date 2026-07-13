@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<title>Мастерская: проекты и наработки · меньшиков.ai</title>
+<meta name="description" content="Каталог наработок двух разумов: конвейер роликов с AI-копией, игра в Roblox за вечер, разборщик вирусных, AI-кофаундер, конвейер статей. У нас — бесплатно.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFCE00'/%3E%3Ctext x='32' y='46' font-size='36' font-weight='600' text-anchor='middle' fill='%2317150F' font-family='system-ui,sans-serif'%3Eм%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;  /* страница: тёплый уголь */
+  --bg-deep:   #0C0B09;  /* футер, самый глубокий слой */
+  --alt:       #191510;  /* альт-секция */
+  --card:      #1E1A12;  /* карточки/плитки */
+
+  /* текст */
+  --text:      #EFE9DC;  /* тёплая кость — основной */
+  --text-hi:   #F5F0E4;  /* H1/H2 — чуть ярче */
+  --text2:     #B8AE9C;  /* вторичный */
+  --muted:     #8F8674;  /* подписи/мелочь */
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+  --btn2-bg:   var(--text);   /* ступень ниже: костяная solid */
+  --btn2-text: #17150F;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ============ ЕДИНЫЙ СИГНАЛ «КЛИКАЕТСЯ»: жёлтое кольцо ============ */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline-width:3px}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ТИПОГРАФИКА ============ */
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-0.01em;
+  color:var(--text-hi);
+}
+h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(24px,3vw,38px);line-height:1.2;
+  color:var(--text-hi);
+}
+.lead{font-size:20px;line-height:1.55;color:var(--text2)}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);
+}
+/* маркер-подчёркивание: на тёмном кость поверх плашки не даёт AA,
+   поэтому skip-ink — линия сама обходит нижние выносные («у», «х», «р») */
+.hl{
+  text-decoration:underline;
+  text-decoration-color:var(--marker);
+  text-decoration-thickness:8px;
+  text-underline-offset:4px;
+  text-decoration-skip-ink:auto;
+  padding-bottom:2px;
+  white-space:nowrap;
+}
+
+/* появление */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+
+/* ============ ГЕРОЙ КАТАЛОГА ============ */
+.hero{padding:64px 0 0}
+.hero .eyebrow{margin-bottom:14px}
+.hero h1{margin-bottom:20px;max-width:20ch;text-wrap:balance}
+.hero .lead{max-width:62ch}
+.hero .lead b{color:var(--text);font-weight:700}
+
+/* ============ ФИЛЬТРЫ ============ */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:44px 0 28px}
+.fbtn{
+  display:inline-flex;align-items:center;height:44px;padding:0 20px;cursor:pointer;
+  font-family:"Golos Text",system-ui,sans-serif;font-weight:600;font-size:15px;
+  background:var(--card);color:var(--text2);
+  border:1px solid var(--line);border-radius:22px;
+}
+.fbtn.on{background:var(--marker);border-color:var(--marker);color:var(--on-marker)}
+
+/* ============ КАТАЛОГ ============ */
+.cat{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.item{
+  display:flex;flex-direction:column;gap:12px;
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:28px 28px 24px;
+  position:relative;cursor:pointer;
+  transition:border-color .2s ease;
+}
+.item:hover{border-color:var(--line-strong)}
+.item.dashed{border:1.5px dashed var(--muted);background:transparent}
+.item.dashed:hover{border-color:var(--line-strong)}
+.cover{
+  aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;
+  border:1px solid var(--line);margin-bottom:4px;
+}
+.cover img{width:100%;height:100%;object-fit:cover}
+/* hairline-шов над тёмными обложками */
+.cover::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:rgba(239,233,220,.08)}
+.badge{
+  display:inline-flex;align-items:center;height:28px;padding:0 14px;align-self:flex-start;
+  border-radius:14px;font-weight:600;font-size:14px;line-height:1;
+}
+.badge-ready{background:var(--marker);color:var(--on-marker);font-weight:700}
+.badge-build{border:1px solid var(--marker);color:var(--marker)}
+.badge-queue{border:1px dashed var(--muted);color:var(--text2)}
+.item h2{
+  font-family:"Golos Text",system-ui,sans-serif;font-weight:700;
+  font-size:22px;line-height:1.25;text-wrap:balance;color:var(--text-hi);
+}
+.item p{color:var(--text2);font-size:16px;line-height:1.55;flex-grow:1}
+.item p b{color:var(--text);font-weight:600}
+.stack{
+  font-weight:600;font-size:12px;text-transform:uppercase;
+  letter-spacing:0.06em;color:var(--muted);line-height:1.7;
+}
+.price{
+  border-top:1px solid var(--line);padding-top:14px;margin-top:2px;
+  font-size:15px;color:var(--text2);
+}
+.price b{color:var(--text);font-weight:700}
+.price a{font-weight:600;text-decoration:underline;text-underline-offset:3px;border-radius:6px;position:relative;z-index:1}
+.act{margin-top:10px}
+/* внутрикарточный CTA — ступень ниже жёлтого: костяная solid (15.1:1) */
+.act a{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:52px;padding:0 26px;
+  background:var(--btn2-bg);color:var(--btn2-text);
+  font-weight:600;font-size:17px;border-radius:12px;
+}
+.act a svg{flex:none;transition:transform .2s ease}
+.act a:hover svg,.act a:focus-visible svg{transform:translateX(4px)}
+/* stretched-link: вся карточка — одна ссылка, видимая кнопка остаётся */
+.act a::after{content:"";position:absolute;inset:0;border-radius:20px}
+.act .soonword{
+  display:inline-flex;align-items:center;height:52px;
+  font-weight:600;font-size:14px;text-transform:uppercase;
+  letter-spacing:0.08em;color:var(--muted);
+}
+
+/* ============ КРЕДИТ + ФИНАЛ ============ */
+.credit{margin-top:48px;font-size:14px;color:var(--text2);max-width:72ch;line-height:1.7}
+.credit a{font-weight:600;text-decoration:underline;text-underline-offset:3px;border-radius:6px}
+.finale{
+  margin-top:64px;background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:56px 32px;text-align:center;
+}
+.finale h2{margin-bottom:14px}
+.finale p{color:var(--text2);font-size:18px;max-width:52ch;margin:0 auto}
+.finale .links{margin-top:32px;display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+/* главная кнопка — жёлтая (инверсия чёрной) */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:64px;min-width:320px;padding:0 40px;
+  background:var(--btn-bg);color:var(--btn-text);
+  font-family:"Golos Text",sans-serif;font-weight:600;font-size:19px;
+  border-radius:12px;border:none;cursor:pointer;text-align:center;
+}
+.btn svg{flex:none;transition:transform .2s ease}
+.btn:hover svg,.btn:focus-visible svg{transform:translateX(4px)}
+.btn-yellow{background:var(--marker);color:var(--on-marker)}
+.backlink{
+  display:inline-flex;align-items:center;height:48px;padding:0 12px;
+  font-weight:600;font-size:16px;color:var(--text2);border-radius:10px;
+}
+
+/* ============ СЕКЦИЯ ============ */
+.section{padding:0 0 112px}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);padding:72px 0 48px;border-top:1px solid var(--line)}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+  .hero{padding:44px 0 0}
+  .hero h1{font-size:33px;margin-bottom:16px}
+  .hero .lead{font-size:18px}
+  .filters{margin:36px 0 24px}
+  .cat{grid-template-columns:1fr;gap:20px}
+  .item{padding:24px 22px 22px}
+  .act a{width:100%}
+  .section{padding-bottom:72px}
+  .finale{padding:44px 22px;margin-top:56px}
+  .btn{width:100%;min-width:0;height:60px;padding:0 24px;font-size:18px}
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- ГЕРОЙ -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Мастерская</p>
+      <h1>Проекты и наработки <span class="hl">двух разумов</span></h1>
+      <p class="lead">Каждая карточка — рабочий инструмент, который я собрал в паре с нейросетью. Похожие решения на рынке продаются от 10 000 до 100 000 ₽. <b>Все пять — в подарок каждому, кто берёт курс.</b> А флагман — «Разборщик вирусных» — можно купить и отдельно за 990 ₽. Две инструкции (AI-копия и игра в Roblox) остаются бесплатными для всех.</p>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="filters">
+        <button class="fbtn on" data-f="all">Все</button>
+        <button class="fbtn" data-f="ready">Готово</button>
+        <button class="fbtn" data-f="queue">В очереди</button>
+      </div>
+
+      <div class="cat">
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/card_kopiya.jpg" alt="Кадр из инструкции: создание AI-копии" style="object-position:50% 30%"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>AI-копия: конвейер роликов</h2>
+          <p>Снимай ролики без камеры и студии: <b>обучаешь нейросеть своему лицу, клонируешь голос — и получаешь свою говорящую копию с точным синхроном губ</b>. Весь этот блог снят именно так.</p>
+          <div class="stack">Higgsfield Soul · Seedance · Липсинк · FFmpeg</div>
+          <div class="price">У нас: <b>бесплатно</b> — слово «КОПИЯ» под роликом или читай прямо здесь</div>
+          <div class="act"><a href="/kopiya/">Открыть инструкцию
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/card_igra.jpg" alt="Кадр из инструкции: игра в Roblox" style="object-position:50% 62%"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>Игра в Roblox за вечер</h2>
+          <p>Собери ребёнку настоящую игру <b>без единой строчки кода</b>: механику пишет AI-помощник, монстров рисует нейросеть, ребёнок — главный заказчик. Проверено на моей дочке.</p>
+          <div class="stack">Roblox Studio · AI Assistant · Nano Banana</div>
+          <div class="price">У нас: <b>бесплатно</b> — слово «ИГРА» под роликом или читай прямо здесь</div>
+          <div class="act"><a href="/igra/">Открыть инструкцию
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/cover_razborschik.jpg" alt="Обложка: разборщик вирусных роликов" loading="lazy"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>Разборщик вирусных роликов</h2>
+          <p>Кидаешь ссылку на чужой залетевший ролик — одна команда <b>razbor</b> возвращает разбор из 8 секций: хук (цепляющее начало) по косточкам, структура с таймкодами, приёмы удержания — и <b>три готовых сценария под твою нишу</b>.</p>
+          <div class="stack">yt-dlp · Whisper · Claude · всё локально</div>
+          <div class="price"><b>990 ₽</b> отдельно — или <b>бесплатно</b> с любым курсом</div>
+          <div class="act"><a href="https://kurs.vectorupx.com/#tools" rel="noopener">Купить или забрать с курсом
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+          <div class="act" style="margin-top:8px"><a href="/proekty/razborschik/">Подробнее
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/cover_kofaunder.jpg" alt="Обложка: AI-Кофаундер" loading="lazy"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>AI-Кофаундер</h2>
+          <p>Агент, который живёт на твоём компьютере: <b>работает по расписанию, пока ты спишь</b>, — мониторит, считает, готовит отчёты и пишет тебе в Telegram, что сделал.</p>
+          <div class="stack">Claude Code · launchd · Telegram Bot</div>
+          <div class="price"><b>В подарок</b> с любым курсом · <a href="https://kurs.vectorupx.com/#tools" rel="noopener">забрать на платформе</a></div>
+          <div class="act"><a href="/proekty/kofaunder/">Подробнее
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/cover_skill_statey.jpg" alt="Обложка: скилл статей" loading="lazy"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>Скилл статей</h2>
+          <p>Конвейер из 16 этапов: <b>от ключевого запроса до готовой статьи</b> — интент, скелет, факты из практики, анти-вода, SEO. Уже пишет раздел «Статьи» этого сайта: <b>две статьи опубликованы</b>.</p>
+          <div class="stack">Claude · SEO-регламент · 16 этапов</div>
+          <div class="price"><b>В подарок</b> с любым курсом · статьи по нему — бесплатно в разделе «Статьи»</div>
+          <div class="act"><a href="/proekty/skill-statey/">Подробнее
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/cover_stateynik.jpg" alt="Обложка: статейник — движок знаний" loading="lazy"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>Статейник: движок знаний</h2>
+          <p>Кладёшь Markdown-файл — получаешь готовые страницы в стиле сайта: оглавление, FAQ, общий каталог. <b>Раздел «Статьи» собран именно им</b>: ноль баз данных, ноль админок — git и один скрипт.</p>
+          <div class="stack">Python-генератор · без внешних зависимостей · git</div>
+          <div class="price"><b>В подарок</b> с любым курсом · раздел «Статьи» собран им</div>
+          <div class="act"><a href="/proekty/stateynik/">Подробнее
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item reveal" data-s="ready">
+          <div class="cover"><img src="/media/cover_blueprint.jpg" alt="Обложка: блюпринт AI-бренда — чертёж с циркулем" loading="lazy"></div>
+          <span class="badge badge-ready">Готово</span>
+          <h2>Блюпринт AI-бренда</h2>
+          <p>Карта документов 01–06, по которой <b>ты собираешь свой AI-бренд</b> в паре с нейросетью: <b>стратегия и деньги, воронка кодовых слов, производство роликов, сайт, инструменты</b>. Не теория — карта списана с живого проекта, который ты читаешь прямо сейчас.</p>
+          <div class="stack">16 документов · стратегия · воронка · производство</div>
+          <div class="price"><b>В подарок</b> с любым курсом · <a href="https://kurs.vectorupx.com/#tools" rel="noopener">забрать на платформе</a></div>
+          <div class="act"><a href="/proekty/blueprint/">Подробнее
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+
+        <article class="item dashed reveal" data-s="queue">
+          <span class="badge badge-queue">Слот свободен</span>
+          <h2>Здесь появится то, что попросите</h2>
+          <p>Пиши в комментариях под любым роликом, какой инструмент собрать следующим, — самый частый запрос попадает в эту карточку.</p>
+          <div class="stack">Твоя идея · Наши два разума</div>
+          <div class="price">Решают комментарии</div>
+          <div class="act"><a href="https://t.me/menae_ai" target="_blank" rel="noopener">Предложить в Telegram
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a></div>
+        </article>
+      </div>
+
+      <p class="credit reveal">Подход вдохновлён «Смысло-кодом» Артемия Миллера — учителя, у которого я прошёл практикум. Все реализации — наши собственные, собранные с нуля вместе с нейросетью; код и материалы автора не используются.</p>
+
+      <div class="finale reveal">
+        <h2>Как забрать готовое</h2>
+        <p>Напиши кодовое слово под роликом — пришлю инструкцию. А все разборы, новые инструменты и ответы на вопросы выкладываю в Telegram-канале: заходи и забирай.</p>
+        <div class="links">
+          <a class="btn btn-yellow" href="https://t.me/menae_ai" target="_blank" rel="noopener">Заходи в Telegram
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="backlink" href="/">← На главную</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/devlog/">Дневник разработки</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+        <a href="/razbory/">Разборы</a>
+        <a href="/kofaunder/">AI-Кофаундер</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.fbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    var f=b.dataset.f;
+    document.querySelectorAll('.item').forEach(function(it){
+      it.style.display=(f==='all'||it.dataset.s===f)?'':'none';
+    });
+  });
+});
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

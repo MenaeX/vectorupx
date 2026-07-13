@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<title>Одно фото — семь роликов: как сделать 7 форматов из одного снимка · menshikov.ai</title>
+<meta name="description" content="Пошаговая инструкция: как из одного своего фото собрать семь разных роликов нейросетями — говорящую голову, обзор, до/после, экскурсию, мультфильм, рекламу и короткую историю. Камера не нужна ни разу.">
+<meta property="og:title" content="Из одного фото — семь разных роликов. Камера не нужна ни разу">
+<meta property="og:description" content="Загрузи одно своё фото — дальше нейросети сделают из него 7 форматов контента. Точные приёмы и готовые запросы под каждый.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;
+  --bg-deep:   #0C0B09;
+  --alt:       #191510;
+  --card:      #1E1A12;
+
+  /* текст */
+  --text:      #EFE9DC;
+  --text-hi:   #F5F0E4;
+  --text2:     #B8AE9C;
+  --muted:     #8F8674;
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+  --btn2-bg:   var(--text);
+  --btn2-text: #17150F;
+
+  --mono:"JetBrains Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* зерно: на тёмном multiply не виден — screen */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* единый сигнал «кликается»: жёлтое кольцо */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;
+  color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+
+/* ============ СТАТЬЯ ============ */
+.article{max-width:824px;margin:0 auto;padding:0 32px 96px}
+
+.hero{padding:56px 0 36px}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);margin:0 0 18px;
+}
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,44px);line-height:1.14;letter-spacing:-0.01em;
+  margin:0 0 18px;text-wrap:balance;
+  color:var(--text-hi);
+}
+h1 .g{
+  background:linear-gradient(to top, var(--marker) 8px, transparent 8px);
+  padding-bottom:2px;white-space:nowrap;
+}
+.lede{font-size:20px;line-height:1.55;color:var(--text2);margin:0;max-width:56ch}
+.lede b{color:var(--text)}
+
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 4px}
+.chip{
+  font-size:14px;font-weight:600;color:var(--text2);
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--card);
+}
+.chip b{color:var(--text);font-weight:700}
+
+.rule{height:1px;background:var(--line);border:0;margin:36px 0}
+
+/* план вечера */
+.plan{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:24px 28px;
+}
+.plan h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:20px;margin:0 0 14px;line-height:1.3;color:var(--text-hi)}
+.plan table{width:100%;border-collapse:collapse;font-size:16px}
+.plan td{padding:8px 0;border-bottom:1px dashed var(--line-soft);vertical-align:top}
+.plan tr:last-child td{border-bottom:0}
+.plan td.t{font-family:var(--mono);font-weight:500;color:var(--text);white-space:nowrap;padding-right:18px;font-size:14px}
+.plan h2{display:flex;align-items:center;gap:14px}
+.sec-ic{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:13px;background:rgba(255,206,0,.10);border:1px solid rgba(255,206,0,.28);color:var(--marker)}
+.sec-ic svg{width:24px;height:24px}
+.flag .ic svg,.good .ic svg{display:block;width:18px;height:18px}
+
+/* шаги */
+.steps{display:flex;flex-direction:column;gap:20px;padding-bottom:8px}
+.step{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:26px 28px 28px;
+}
+.step .idx{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:12px;
+  font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text2);
+}
+.step .idx .n{
+  display:inline-grid;place-items:center;width:30px;height:30px;
+  background:var(--marker);border-radius:8px;color:var(--on-marker);
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:14px;letter-spacing:0;
+}
+.step .time{color:var(--muted);text-transform:none;letter-spacing:0.02em}
+.step h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(20px,2.5vw,26px);line-height:1.25;margin:0 0 10px;text-wrap:balance;
+  color:var(--text-hi);
+}
+.step h3{font-size:17px;font-weight:700;margin:18px 0 6px;color:var(--text-hi)}
+.step p{margin:0 0 12px}
+.step p:last-child{margin-bottom:0}
+.step ol,.step ul{margin:0 0 12px;padding-left:1.25rem}
+.step li{margin:6px 0}
+.step li::marker{color:var(--text);font-weight:700}
+.kbd{
+  font-family:var(--mono);font-size:0.86em;background:var(--alt);
+  border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--text);white-space:normal;overflow-wrap:break-word;
+}
+.muted{color:var(--text2)}
+
+/* промпт-карточка «скопируй это» — тёмный колодец с жёлтой меткой */
+.prompt{
+  background:var(--bg-deep);border:1px solid var(--line-soft);
+  border-radius:12px;padding:14px 16px;margin:10px 0 14px;
+  font-family:var(--mono);font-size:14.5px;line-height:1.55;color:var(--text);
+  white-space:pre-wrap;overflow-x:auto;
+}
+.prompt::before{
+  content:"скопируй это ↓";display:block;width:fit-content;
+  font-family:"Golos Text",sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--on-marker);
+  background:var(--marker);border-radius:4px;padding:3px 9px;margin-bottom:9px;line-height:1.3;
+}
+
+/* грабли — тёмные с жёлтой рамкой */
+.flag{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--alt);border:2px solid var(--marker);
+  border-radius:12px;padding:14px 16px;margin-top:14px;
+}
+.flag .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.flag p{margin:0;font-size:15px;color:var(--text)}
+.flag b{color:var(--text-hi);font-weight:700}
+
+.good{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--alt);border:1px solid var(--line-strong);
+  border-radius:12px;padding:14px 16px;margin-top:14px;
+}
+.good .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.good p{margin:0;font-size:15px;color:var(--text)}
+.good b{font-weight:700;color:var(--text-hi)}
+
+.tip{font-size:15px;color:var(--text2);margin-top:12px;padding:12px 16px;background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.22);border-radius:12px}
+
+/* финальный призыв — глубокий колодец с жёлтой линией сверху */
+.cta{
+  margin:44px 0 0;background:var(--bg-deep);color:var(--text);
+  border:1px solid var(--line);border-top:3px solid var(--marker);
+  border-radius:20px;padding:44px 28px;text-align:center;
+}
+.cta h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:clamp(22px,2.8vw,30px);line-height:1.25;margin:0 0 12px;color:var(--text-hi)}
+.cta p{color:var(--text2);margin:0 auto 22px;max-width:44ch}
+.cta a.word{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:56px;padding:12px 28px;background:var(--marker);color:var(--on-marker);
+  font-weight:600;font-size:18px;border-radius:12px;
+}
+.cta small{display:block;margin-top:16px;color:var(--muted);font-size:13px}
+
+/* появление героя */
+@media (prefers-reduced-motion: no-preference){
+  .reveal{animation:up 0.5s cubic-bezier(.16,1,.3,1) both}
+  .hero .eyebrow{animation-delay:0.02s}
+  .hero h1{animation-delay:0.08s}
+  .hero .lede{animation-delay:0.16s}
+  .hero .meta{animation-delay:0.24s}
+  @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);border-top:1px solid var(--line);padding:72px 0 48px}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .article{padding:0 20px 72px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+
+  .hero{padding:40px 0 28px}
+  h1{font-size:31px}
+  .lede{font-size:18px}
+
+  .plan{padding:20px}
+  .step{padding:22px 20px 24px}
+  .cta{padding:36px 20px}
+  .cta a.word{width:100%}
+
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="article">
+
+  <section class="hero">
+    <p class="eyebrow reveal">Одно фото · семь форматов · без камеры</p>
+    <h1 class="reveal">Из одного фото — <span class="g">семь</span> разных роликов. Камера не нужна ни разу</h1>
+    <p class="lede reveal">Загрузи одно своё фото — <b>дальше нейросети сделают из него 7 форматов контента</b>. Ниже — что за формат, каким инструментом собрать, что вставить и что в итоге получится. Без съёмки, монтажной студии и навыков оператора.</p>
+    <div class="meta reveal">
+      <span class="chip">Камера: <b>не нужна</b></span>
+      <span class="chip">Форматов: <b>7</b></span>
+      <span class="chip">Исходник: <b>1 фото</b></span>
+      <span class="chip">Уровень: <b>с нуля</b></span>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <div class="plan reveal">
+    <h2><span class="sec-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> Что получится из одного фото</h2>
+    <table>
+      <tr><td class="t">1</td><td>Говорящая голова — ты «говоришь на камеру», не открывая рта</td></tr>
+      <tr><td class="t">2</td><td>Обзор товара — предмет крутится и показывается со всех сторон</td></tr>
+      <tr><td class="t">3</td><td>До / после — один кадр в двух версиях с эффектной склейкой</td></tr>
+      <tr><td class="t">4</td><td>Виртуальная экскурсия — камера «оживает» и проходит по сцене</td></tr>
+      <tr><td class="t">5</td><td>Мультфильм — то же фото в рисованном стиле, в движении</td></tr>
+      <tr><td class="t">6</td><td>Рекламный ролик — динамичный клип с подписями и музыкой</td></tr>
+      <tr><td class="t">7</td><td>Короткая история — мини-сюжет из нескольких кадров</td></tr>
+    </table>
+  </div>
+
+  <hr class="rule" />
+
+  <div class="steps">
+
+    <article class="step">
+      <span class="idx"><span class="n">1</span> Говорящая голова <span class="time">· ты «на камеру»</span></span>
+      <h2>Фото начинает говорить</h2>
+      <p><b>Инструмент:</b> <span class="kbd">HeyGen</span> — сервис, который оживляет лицо на фото и заставляет его произносить твой текст с движением губ.</p>
+      <h3>Что вставить</h3>
+      <ol>
+        <li>Фото лица крупно, анфас, при хорошем свете.</li>
+        <li>Текст реплики. Его быстро напишет <span class="kbd">Claude</span> — вставь ему такой запрос:</li>
+      </ol>
+      <div class="prompt">Ты — сценарист коротких роликов. Напиши текст на 20 секунд от первого лица на тему «[твоя тема]». Первая фраза — сильный цепляющий хук. Дальше 2–3 коротких предложения по делу. В конце — короткий призыв. Простой разговорный язык, без сложных слов.</div>
+      <h3>Что получится</h3>
+      <p>Ролик, где «ты» смотришь в кадр и говоришь — хотя не было ни съёмки, ни микрофона.</p>
+      <div class="flag">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля.</b> На тёмном, размытом или боковом фото губы «плывут». Бери светлый снимок анфас, лицо крупно и без тёмных очков — тогда движение рта выглядит естественно.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">2</span> Обзор товара <span class="time">· предмет со всех сторон</span></span>
+      <h2>Фото товара оживает и поворачивается</h2>
+      <p><b>Инструмент:</b> <span class="kbd">Kling</span> — делает видео из фото. Задаёшь фото и словами описываешь движение — предмет плавно поворачивается, будто на съёмочном столе.</p>
+      <h3>Что вставить</h3>
+      <p>Фото товара и описание движения. Вставь его в поле описания в Kling:</p>
+      <div class="prompt">Камера медленно облетает предмет по кругу, предмет плавно поворачивается, мягкий студийный свет, фон остаётся на месте.</div>
+      <p class="muted">Если фото «плоское» и одного ракурса мало — сначала попроси <span class="kbd">Freepik</span> с моделью <span class="kbd">Nano Banana</span> (генерация и правка фото) дорисовать предмет иначе:</p>
+      <div class="prompt">Покажи этот предмет с другого ракурса, убери лишний фон и поставь на чистый светлый стол.</div>
+      <h3>Что получится</h3>
+      <p>Ролик-обзор, будто предмет снимали на поворотном столе с нескольких сторон.</p>
+      <div class="flag">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля.</b> Проси <b>лёгкое, медленное</b> движение. Зададут «быстрое вращение» — нейросеть начинает дорисовывать несуществующие стороны предмета, и он «плывёт».</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">3</span> До / после <span class="time">· один кадр, две версии</span></span>
+      <h2>Было → стало из одного снимка</h2>
+      <p><b>Инструмент:</b> <span class="kbd">Freepik</span> с моделью <span class="kbd">Nano Banana</span> делает «после» прямо на твоём фото; склейку соберёшь в <span class="kbd">CapCut</span> — это бесплатный монтажный редактор.</p>
+      <h3>Что вставить</h3>
+      <ol>
+        <li>Исходное фото — это «до».</li>
+        <li>Запрос в Freepik (Nano Banana), чтобы получить «после»:</li>
+      </ol>
+      <div class="prompt">Возьми это фото и наведи порядок: замени фон на аккуратную светлую сцену, убери лишнее, остальное оставь как есть. Сохрани тот же ракурс и композицию.</div>
+      <h3>Как склеить</h3>
+      <p>В CapCut положи два кадра друг за другом и добавь переход-шторку (сдвиг слева направо) — получится классический эффект «было/стало».</p>
+      <h3>Что получится</h3>
+      <p>Ролик «до → после» — один из самых удерживающих внимание форматов: зритель досматривает, чтобы увидеть «стало».</p>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">4</span> Виртуальная экскурсия <span class="time">· камера оживает</span></span>
+      <h2>Камера проходит по сцене на фото</h2>
+      <p><b>Инструмент:</b> <span class="kbd">Kling</span> (видео из фото) с движением камеры «вперёд/облёт». Дополнительно динамику добавят эффекты в <span class="kbd">Higgsfield</span>.</p>
+      <h3>Что вставить</h3>
+      <p>Фото места — комнаты, интерьера, витрины, вида. И описание движения камеры:</p>
+      <div class="prompt">Камера плавно въезжает в кадр и медленно летит вперёд, будто мы заходим внутрь и осматриваемся. Движение спокойное, без рывков.</div>
+      <h3>Что получится</h3>
+      <p>Ощущение, что оператор прошёл с камерой по месту, — хотя в основе один-единственный снимок.</p>
+      <div class="tip">Лучше всего работает на фото с «глубиной»: коридор, комната, дорога, ряды полок. У плоского фото «в упор» лететь особо некуда.</div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">5</span> Мультфильм <span class="time">· рисованный стиль</span></span>
+      <h2>То же фото — как кадр из мультика</h2>
+      <p><b>Инструмент:</b> <span class="kbd">Freepik</span> с моделью <span class="kbd">Nano Banana</span> перерисовывает фото в мультяшный стиль, а <span class="kbd">Kling</span> оживляет получившийся кадр.</p>
+      <h3>Что вставить</h3>
+      <ol>
+        <li>Исходное фото и запрос на перерисовку в Freepik (Nano Banana):</li>
+      </ol>
+      <div class="prompt">Перерисуй это фото в мультяшном рисованном стиле, как кадр из доброго мультфильма. Сохрани композицию, героя и общий вид.</div>
+      <ol start="2">
+        <li>Готовый мультяшный кадр загрузи в Kling и добавь лёгкое движение (ветерок, моргание, покачивание).</li>
+      </ol>
+      <h3>Что получится</h3>
+      <p>Тот же сюжет, но в рисованном стиле и в движении — тёплый, лёгкий формат, который хорошо заходит на детских и семейных темах.</p>
+      <div class="flag">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <p><b>Грабля.</b> В рисованном стиле нейросеть может «поплыть» на мелких деталях лица и на тексте (вывески, надписи). Если важна узнаваемость — проверь кадр в полном размере и при необходимости перегенерируй.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">6</span> Рекламный ролик <span class="time">· как будто снимала команда</span></span>
+      <h2>Из фото — короткая реклама</h2>
+      <p><b>Инструменты:</b> движение и эффекты — <span class="kbd">Higgsfield</span> (в том числе видеомодель <span class="kbd">Seedance</span>); текст — <span class="kbd">Claude</span>; сборка с подписями и музыкой — <span class="kbd">CapCut</span>.</p>
+      <h3>Что вставить</h3>
+      <ol>
+        <li>Из фото сделай короткое динамичное видео (в Kling или Higgsfield/Seedance).</li>
+        <li>Рекламный текст напишет Claude — вставь ему запрос:</li>
+      </ol>
+      <div class="prompt">Напиши рекламный текст на 15 секунд для «[товар или услуга]». Первая строка — цепляющая. Затем одно ключевое преимущество. В конце — призыв к действию. Каждую фразу выдай отдельной строкой, чтобы поставить её подписью на экране.</div>
+      <ol start="3">
+        <li>В CapCut собери клип: крупные подписи-плашки поверх видео, ритмичная музыка из встроенной библиотеки, авто-субтитры.</li>
+      </ol>
+      <h3>Что получится</h3>
+      <p>Рекламный ролик с подписями и музыкой уровня «делала команда» — из одного исходного фото.</p>
+    </article>
+
+    <article class="step">
+      <span class="idx"><span class="n">7</span> Короткая история <span class="time">· мини-сюжет</span></span>
+      <h2>Из фото — маленький фильм-история</h2>
+      <p><b>Конвейер:</b> <span class="kbd">Claude</span> придумывает сюжет → <span class="kbd">Freepik</span> с моделью <span class="kbd">Nano Banana</span> рисует кадры → <span class="kbd">Kling</span> оживляет каждый → <span class="kbd">CapCut</span> склеивает под музыку.</p>
+      <h3>Что вставить</h3>
+      <p>Опиши своё фото и попроси Claude собрать историю:</p>
+      <div class="prompt">По этому фото придумай короткую историю из 4 сцен. Для каждой сцены дай: одно предложение действия и короткое описание кадра для нейросети-художника (что в кадре, свет, настроение).</div>
+      <h3>Как собрать</h3>
+      <ol>
+        <li>По описаниям сгенерируй 4 кадра в Freepik (Nano Banana).</li>
+        <li>Каждый кадр оживи в Kling лёгким движением.</li>
+        <li>Склей все 4 в CapCut по порядку, добавь музыку и подписи.</li>
+      </ol>
+      <h3>Что получится</h3>
+      <p>Мини-фильм-история из одного исходного фото — самый «богатый» формат из семи.</p>
+      <div class="good">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></span>
+        <p><b>Из одного фото — семь роликов на неделю.</b> Один снимок раскладывается в семь разных форматов: снимать каждый день не нужно, а лента выглядит живой и разной.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="cta">
+    <h2>Дальше</h2>
+    <p>Два пути: пройти по шагам до первого готового ролика — или зайти в Telegram, там я выкладываю все разборы и можно задать вопрос, если где-то застрял.</p>
+    <div><a class="word" href="https://kurs.vectorupx.com/l/a1.html" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg> Бесплатный модуль: первый результат за вечер</a></div>
+    <div style="margin-top:14px"><a class="word" href="https://t.me/menae_ai" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg> Все разборы — в Telegram →</a></div>
+    <small>Сохрани, чтобы не потерять.</small>
+  </section>
+
+</div>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/devlog/">Дневник разработки</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+        <a href="/razbory/">Разборы</a>
+        <a href="/kofaunder/">AI-Кофаундер</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

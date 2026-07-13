@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<title>Разборщик вирусных — Мастерская · меньшиков.ai</title>
+<meta name="description" content="Разборщик вирусных роликов: кидаешь ссылку — получаешь отчёт из 8 секций и три готовых сценария под свою нишу. Что у тебя будет под капотом и как забрать бесплатно за слово «РАЗБОР».">
+<meta property="og:title" content="Разборщик вирусных — чужой залетевший ролик по косточкам">
+<meta property="og:description" content="Ссылка на ролик → отчёт из 8 секций: хук, структура с таймкодами, приёмы удержания — и три сценария под твою нишу. Бесплатно за кодовое слово «РАЗБОР».">
+<meta property="og:image" content="https://vectorupx.com/media/cover_razborschik.jpg">
+<meta property="og:url" content="https://vectorupx.com/proekty/razborschik/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFCE00'/%3E%3Ctext x='32' y='46' font-size='36' font-weight='600' text-anchor='middle' fill='%2317150F' font-family='system-ui,sans-serif'%3Eм%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;  /* страница: тёплый уголь */
+  --bg-deep:   #0C0B09;  /* футер, самый глубокий слой */
+  --alt:       #191510;  /* альт-секция */
+  --card:      #1E1A12;  /* карточки/плитки */
+
+  /* текст */
+  --text:      #EFE9DC;  /* тёплая кость — основной */
+  --text-hi:   #F5F0E4;  /* H1/H2 — чуть ярче */
+  --text2:     #B8AE9C;  /* вторичный */
+  --muted:     #8F8674;  /* подписи/мелочь */
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+  --btn2-bg:   var(--text);   /* ступень ниже: костяная solid */
+  --btn2-text: #17150F;
+
+  --mono:"JetBrains Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ============ ЕДИНЫЙ СИГНАЛ «КЛИКАЕТСЯ»: жёлтое кольцо ============ */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline-width:3px}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ТИПОГРАФИКА ============ */
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-0.01em;
+  color:var(--text-hi);
+}
+h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(24px,3vw,38px);line-height:1.2;
+  color:var(--text-hi);
+}
+.lead{font-size:20px;line-height:1.55;color:var(--text2)}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);
+}
+/* маркер-подчёркивание: на тёмном кость поверх плашки не даёт AA,
+   поэтому skip-ink — линия сама обходит нижние выносные («у», «х», «р») */
+.hl{
+  text-decoration:underline;
+  text-decoration-color:var(--marker);
+  text-decoration-thickness:8px;
+  text-underline-offset:4px;
+  text-decoration-skip-ink:auto;
+  padding-bottom:2px;
+  white-space:nowrap;
+}
+
+/* появление */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+
+/* ============ ХЛЕБНАЯ КРОШКА ============ */
+.crumbs{padding:28px 0 0;font-weight:600;font-size:14px;color:var(--muted)}
+.crumbs a{
+  display:inline-flex;align-items:center;min-height:44px;padding:0 4px;
+  color:var(--text2);text-decoration:underline;text-decoration-color:var(--line-strong);
+  text-underline-offset:3px;border-radius:6px;
+}
+.crumbs .sep{margin:0 8px}
+
+/* ============ ГЕРОЙ ПРОДУКТА ============ */
+.hero{padding:20px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.badge{
+  display:inline-flex;align-items:center;height:28px;padding:0 14px;
+  border-radius:14px;font-weight:700;font-size:14px;line-height:1;
+  background:var(--marker);color:var(--on-marker);
+  letter-spacing:0.04em;margin-bottom:18px;
+}
+.hero h1{margin-bottom:18px;text-wrap:balance}
+.hero .lead{max-width:52ch}
+.hero .lead b{color:var(--text);font-weight:700}
+.cover{
+  aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative;
+  border:1px solid var(--line);
+}
+.cover img{width:100%;height:100%;object-fit:cover}
+.cover::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:rgba(239,233,220,.08)}
+
+/* ============ СЕКЦИИ ============ */
+.section{padding:88px 0 0}
+.section .eyebrow{margin-bottom:12px}
+.section h2{margin-bottom:20px;max-width:26ch;text-wrap:balance}
+.section .sub{color:var(--text2);font-size:18px;line-height:1.6;max-width:64ch}
+.section .sub b{color:var(--text);font-weight:700}
+
+/* отчёт: 8 секций */
+.rep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:32px}
+.rep{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;display:flex;gap:14px;align-items:flex-start;
+}
+.rep .num{
+  font-family:var(--mono);font-weight:500;font-size:13px;color:var(--marker);
+  border:1px solid var(--line);border-radius:8px;padding:3px 8px;flex:none;margin-top:2px;
+}
+.rep p{font-size:16px;line-height:1.5;color:var(--text2)}
+.rep p b{color:var(--text);font-weight:700}
+
+/* конвейер: как устроено */
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.step{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:20px;position:relative;
+}
+.step .tool{
+  font-family:var(--mono);font-weight:500;font-size:14px;color:var(--text-hi);
+  display:inline-flex;align-items:center;background:var(--bg-deep);
+  border:1px solid var(--line-soft);border-radius:8px;padding:4px 10px;margin-bottom:12px;
+}
+.step p{font-size:15px;line-height:1.5;color:var(--text2)}
+.step p b{color:var(--text);font-weight:600}
+.step::after{
+  content:"→";position:absolute;top:18px;right:-14px;z-index:2;
+  color:var(--muted);font-size:16px;
+}
+.step:last-child::after{content:none}
+.local-note{
+  display:flex;gap:12px;align-items:flex-start;
+  background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.28);
+  border-radius:12px;padding:14px 16px;margin-top:24px;max-width:64ch;
+}
+.local-note .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.local-note p{margin:0;font-size:15px;color:var(--text)}
+.local-note b{color:var(--text-hi);font-weight:700}
+
+/* пример результата: тёмный колодец с жёлтой меткой (стиль промпт-вставок) */
+.report-quote{
+  background:var(--bg-deep);border:1px solid var(--line-soft);
+  border-radius:12px;padding:18px 20px;margin:28px 0 0;
+  font-family:var(--mono);font-size:14.5px;line-height:1.65;color:var(--text);
+  white-space:pre-wrap;overflow-x:auto;max-width:76ch;
+}
+.report-quote::before{
+  content:"из реального отчёта ↓";display:block;width:fit-content;
+  font-family:"Golos Text",sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--on-marker);
+  background:var(--marker);border-radius:4px;padding:3px 9px;margin-bottom:12px;line-height:1.3;
+}
+.quote-src{margin-top:14px;font-size:14px;color:var(--muted);max-width:64ch}
+
+/* ============ БЛОК ЦЕНЫ ============ */
+.pricebox{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:44px 40px;
+}
+.pricebox .was{font-size:17px;color:var(--muted)}
+.pricebox .was s{text-decoration-color:var(--muted)}
+.pricebox .now{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(22px,2.6vw,32px);line-height:1.25;color:var(--text-hi);
+  margin:10px 0 6px;
+}
+.pricebox .now .free{color:var(--marker)}
+.pricebox .cond{font-size:17px;color:var(--text2);max-width:56ch}
+.pricebox .fine{margin-top:18px;font-size:14px;color:var(--muted)}
+
+/* ============ CTA-ФИНАЛ ============ */
+.finale{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:56px 32px;text-align:center;
+}
+.finale h2{margin:0 auto 14px;max-width:24ch}
+.finale p{color:var(--text2);font-size:18px;max-width:52ch;margin:0 auto}
+.finale p b{color:var(--text);font-weight:700}
+.finale .code{
+  font-family:var(--mono);font-weight:500;font-size:16px;color:var(--text-hi);
+  background:var(--bg-deep);border:1px solid var(--line-soft);
+  border-radius:8px;padding:2px 10px;white-space:nowrap;
+}
+.finale .links{margin-top:32px;display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+/* главная кнопка — жёлтая, единственная на странице */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:64px;min-width:320px;padding:0 40px;
+  background:var(--btn-bg);color:var(--btn-text);
+  font-family:"Golos Text",sans-serif;font-weight:600;font-size:19px;
+  border-radius:12px;border:none;cursor:pointer;text-align:center;
+}
+.btn svg{flex:none;transition:transform .2s ease}
+.btn:hover svg,.btn:focus-visible svg{transform:translateX(4px)}
+.btn-yellow{background:var(--marker);color:var(--on-marker)}
+.backlink{
+  display:inline-flex;align-items:center;height:48px;padding:0 12px;
+  font-weight:600;font-size:16px;color:var(--text2);border-radius:10px;
+}
+
+/* ============ КРЕДИТ ============ */
+.credit{margin:48px 0 112px;font-size:14px;color:var(--text2);max-width:72ch;line-height:1.7}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);padding:72px 0 48px;border-top:1px solid var(--line)}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:32px}
+  .rep-grid{grid-template-columns:1fr}
+  .chain{grid-template-columns:1fr}
+  .step::after{content:"↓";top:auto;right:auto;bottom:-26px;left:20px}
+  .step:last-child::after{content:none}
+  .chain{gap:32px}
+}
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+  .crumbs{padding-top:20px}
+  .hero h1{font-size:33px;margin-bottom:16px}
+  .hero .lead{font-size:18px}
+  .section{padding-top:64px}
+  .pricebox{padding:32px 22px}
+  .finale{padding:44px 22px}
+  .btn{width:100%;min-width:0;height:60px;padding:0 24px;font-size:18px}
+  .credit{margin-bottom:72px}
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- ХЛЕБНАЯ КРОШКА -->
+  <div class="container">
+    <nav class="crumbs" aria-label="Хлебная крошка">
+      <a href="/proekty/">Мастерская</a><span class="sep">→</span>Разборщик вирусных
+    </nav>
+  </div>
+
+  <!-- ГЕРОЙ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="badge">РАБОТАЕТ</span>
+          <h1>Разборщик <span class="hl">вирусных</span> роликов</h1>
+          <p class="lead">Кидаешь ссылку на чужой залетевший ролик — получаешь <b>разбор по косточкам</b> и <b>три готовых сценария</b> под свою нишу. Инструмент уже работает — и такой же ты собираешь в паре с нейросетью, без найма разработчиков.</p>
+        </div>
+        <div class="cover reveal">
+          <img src="/media/cover_razborschik.jpg" alt="Обложка: лупа над киноплёнкой — разбор вирусного ролика">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЧТО ДЕЛАЕТ -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Что ты получаешь</p>
+      <h2 class="reveal">Одна ссылка — отчёт из восьми секций</h2>
+      <p class="sub reveal">Отдаёшь ссылку на YouTube, Shorts или TikTok — или просто видеофайл. Дальше он сам: <b>расшифровывает речь с таймкодами</b>, вынимает <b>кадры каждые 3 секунды</b> — и отдаёт тебе отчёт:</p>
+      <div class="rep-grid">
+        <div class="rep reveal"><span class="num">01</span><p><b>Паспорт ролика</b> — кто, где, сколько просмотров, формат.</p></div>
+        <div class="rep reveal"><span class="num">02</span><p><b>Хук</b> — крючок первых секунд: дословная цитата и тип по готовой классификации из 7 типов + эго-хук.</p></div>
+        <div class="rep reveal"><span class="num">03</span><p><b>Структура</b> — четыре части ролика с точными таймкодами.</p></div>
+        <div class="rep reveal"><span class="num">04</span><p><b>Приёмы удержания</b> — чем автор не даёт зрителю уйти.</p></div>
+        <div class="rep reveal"><span class="num">05</span><p><b>Воронка</b> — куда ролик ведёт зрителя дальше.</p></div>
+        <div class="rep reveal"><span class="num">06</span><p><b>Почему залетел</b> — разбор причин виральности, то есть массового распространения.</p></div>
+        <div class="rep reveal"><span class="num">07</span><p><b>Три сценария под твою нишу</b> — тот же приём, но про твою тему: бери и снимай.</p></div>
+        <div class="rep reveal"><span class="num">08</span><p><b>Вердикт-строка</b> — суть ролика одной фразой.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАК УСТРОЕНО -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Что у тебя под капотом</p>
+      <h2 class="reveal">Четыре инструмента работают на тебя</h2>
+      <p class="sub reveal">Всю цепочку ты запускаешь одной командой <b>razbor</b> — и она работает прямо на твоём компьютере.</p>
+      <div class="chain">
+        <div class="step reveal"><span class="tool">yt-dlp</span><p>Программа-скачиватель: <b>забирает ролик</b> по ссылке.</p></div>
+        <div class="step reveal"><span class="tool">ffmpeg</span><p>Видеонож: <b>вынимает аудио</b> и кадры каждые 3 секунды.</p></div>
+        <div class="step reveal"><span class="tool">Whisper</span><p>Распознавание речи: <b>расшифровка с таймкодами</b> прямо на твоём компьютере.</p></div>
+        <div class="step reveal"><span class="tool">Claude</span><p>Нейросеть: <b>собирает отчёт</b> по строгому шаблону из 8 секций.</p></div>
+      </div>
+      <div class="local-note reveal">
+        <span class="ic">●</span>
+        <p><b>Всё работает у тебя на компьютере, без платных сервисов.</b> Ролик, звук и расшифровка не уходят на чужие серверы.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРИМЕР РЕЗУЛЬТАТА -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Пример результата</p>
+      <h2 class="reveal">Что ты увидишь в отчёте</h2>
+      <p class="sub reveal">Фрагмент реального разбора — ролик собрал <b>2 миллиона просмотров</b>:</p>
+      <div class="report-quote reveal">Хук: „Если в семье работает только муж…“ — 14 слов за 4,2 секунды: зритель принимает решение смотреть, ещё не услышав, ЧТО именно должна. Тип: эго-хук + шоковый усилитель. Числа как ступени доверия: 2 млн → 23 млн — ставка растёт, скучать некогда.</div>
+      <p class="quote-src reveal">И так — по каждой из восьми секций: не «хороший ролик», а какими словами, на какой секунде и каким приёмом он держит зрителя.</p>
+    </div>
+  </section>
+
+  <!-- ЦЕНА -->
+  <section class="section">
+    <div class="container">
+      <div class="pricebox reveal">
+        <p class="was">Похожие решения на рынке: <s>от 100 000 ₽</s></p>
+        <p class="now">У нас: <span class="free">990 ₽</span></p>
+        <p class="cond">Скачиваешь архив, ставишь одной командой, внутри — инструкция и пример разбора. Работает у тебя на компьютере. А с любым нашим курсом Разборщик и ещё четыре инструмента идут <b>в подарок</b>.</p>
+        <p class="fine">Гарантия: не разберёшься за 20 минут по инструкции — вернём деньги.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="finale reveal">
+        <h2>Забрать Разборщик</h2>
+        <p>Купить отдельно за 990 ₽ или получить в подарок с любым курсом — на платформе. А бесплатный разбор одного ролика можно получить за кодовое слово <span class="code">РАЗБОР</span> в комментариях.</p>
+        <div class="links">
+          <a class="btn btn-yellow" href="https://kurs.vectorupx.com/#tools" rel="noopener">Купить или забрать с курсом
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="backlink" href="/proekty/">← В Мастерскую</a>
+        </div>
+      </div>
+
+      <p class="credit reveal">Подход вдохновлён «Смысло-кодом» Артемия Миллера. Реализация — наша собственная, с нуля, вместе с нейросетью.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/devlog/">Дневник разработки</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+        <a href="/razbory/">Разборы</a>
+        <a href="/kofaunder/">AI-Кофаундер</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
