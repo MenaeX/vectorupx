@@ -258,6 +258,13 @@ h2{font-family:"Unbounded",sans-serif;font-weight:500;font-size:clamp(24px,3vw,3
 .nav a{display:inline-flex;align-items:center;height:44px;padding:12px 16px;font-weight:600;font-size:16px;border-radius:10px;color:var(--text)}
 .ig-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--marker);color:var(--on-marker);border:none;border-radius:50%;margin-left:8px}
 .mob-only{display:none}
+.mob-cta{background:var(--marker);color:var(--on-marker);font-weight:700;font-size:13px;line-height:1;height:40px;padding:0 14px;border-radius:999px;align-items:center;justify-content:center;white-space:nowrap}
+@media (max-width:400px){.wordmark{font-size:14px}.mob-cta{font-size:12px;padding:0 10px}}
+@media (max-width:340px){.mob-cta{font-size:11px;padding:0 8px}}
+.bot-cta{max-width:640px;margin:64px auto 72px;padding:0 20px}
+.bot-cta-in{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--marker);border-radius:20px;padding:28px 24px;text-align:center}
+.bot-cta-in p{margin:0 0 18px;font-size:16px;line-height:1.55;color:var(--text2)}
+.bot-cta-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 24px;background:var(--marker);color:var(--on-marker);font-weight:700;font-size:16.5px;border-radius:12px}
 .footer{background:var(--bg-deep);color:var(--text);border-top:1px solid var(--line);padding:72px 0 48px;margin-top:96px}
 .footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
 .footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text);font-family:"Golos Text",sans-serif}
@@ -361,13 +368,19 @@ HEADER = """<header class="header">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
       </a>
     </nav>
-    <a class="ig-btn mob-only" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
-    </a>
+    <a class="mob-cta mob-only" href="https://t.me/menshikov_ai_bot?start=vecher_b" rel="noopener">Первый вечер — бесплатно</a>
   </div>
 </header>"""
 
-FOOTER = """<footer class="footer">
+FOOTER = """<!-- Дорога в бота -->
+<section class="bot-cta">
+  <div class="bot-cta-in">
+    <p>Собираю такие системы нейросетями и показываю как.</p>
+    <a class="bot-cta-btn" href="https://t.me/menshikov_ai_bot?start=vecher_a" rel="noopener">🎁 Первый вечер курса — бесплатно</a>
+  </div>
+</section>
+
+<footer class="footer">
   <div class="container">
     <div class="footer-cols">
       <div>
@@ -375,13 +388,10 @@ FOOTER = """<footer class="footer">
         <a href="/instrukcii/">Инструкции</a>
         <a href="/proekty/">Мастерская</a>
         <a href="/manifest/">Манифест</a>
-        <a href="/devlog/">Дневник разработки</a>
       </div>
       <div>
         <h3>Читать</h3>
         <a href="/stati/">Статьи</a>
-        <a href="/razbory/">Разборы</a>
-        <a href="/kofaunder/">AI-Кофаундер</a>
       </div>
       <div>
         <h3>Про курс</h3>
