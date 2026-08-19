@@ -218,6 +218,7 @@ p{text-wrap:pretty}
 
 /* ============ ОБЩАЯ СЕКЦИЯ ============ */
 .section{padding:var(--sec-y) 0}
+#kursy{scroll-margin-top:66px}
 .section.lift{background:var(--bg-lift)}
 .sec-head{
   display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
@@ -292,6 +293,7 @@ a.row:hover .row-hint svg{transform:translateX(4px)}
 .s5 img{width:112px;height:112px;border-radius:50%;margin-bottom:26px;box-shadow:0 0 0 1px var(--hair-2), 0 0 0 6px rgba(255,206,0,.12), 0 24px 50px -24px rgba(0,0,0,.7)}
 .s5 h2{max-width:16ch;margin-bottom:16px}
 .s5 .handle{font-size:1.12rem;color:var(--text2);max-width:44ch;margin-bottom:clamp(30px,4vw,38px);line-height:1.55}
+.s5-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .s5 .note{font-size:.95rem;color:var(--muted);margin-top:20px}
 .s5 .note a{color:var(--gold-soft);text-decoration:underline;text-underline-offset:3px}
 
@@ -369,7 +371,7 @@ html.js .hero.lit .hl::after{transform:scaleX(1)}
 }
 @media (max-width:460px){
   .byline img{width:46px;height:46px}
-  .s5 .btn{width:100%}
+  .s5 .btn{width:100%;white-space:normal;height:auto;min-height:60px;padding:12px 24px}
 }
 @media (max-width:400px){
   .wordmark{font-size:14px}
@@ -392,7 +394,8 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
     <nav class="nav" aria-label="Основные разделы">
       <a href="/instrukcii/">Инструкции</a>
       <a href="/proekty/">Мастерская</a>
-      <a href="https://kurs.vectorupx.com/" rel="noopener" target="_blank">Курсы</a>
+      <a href="#kursy">Курсы</a>
+      <a href="/about/">Про меня</a>
       <a class="nav-cta" href="https://t.me/menshikov_ai_bot?start=vecher_b" rel="noopener" target="_blank">Первый вечер — бесплатно</a>
     </nav>
   </div>
@@ -406,7 +409,9 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
       <img src="media/avatar.jpg" alt="Портрет Андрея Меньшикова, сгенерированный нейросетью" width="52" height="52">
       <div>
         <div class="byline-name">Андрей Меньшиков</div>
-        <div class="byline-note">пишу код с января 2026 — за первые полгода собрал нейросетями магазин, платформу курсов, игру и ботов</div>
+        <div class="byline-note"><a class="arrow-link" href="/about/">Про меня
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a></div>
       </div>
     </div>
 
@@ -435,8 +440,47 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
   </div>
 </section>
 
-<!-- S2. СОБРАНО И ЗАПУЩЕНО -->
-<section class="section">
+<!-- S2. ДВА КУРСА -->
+<section class="section" id="kursy">
+  <div class="wrap">
+    <div class="rule reveal"></div>
+    <div class="sec-head">
+      <h2 class="reveal">Два курса</h2>
+    </div>
+    <div class="tiles stagger reveal">
+      <a class="tile" href="/claude/">
+        <div class="tile-photo">
+          <span class="tile-kicker">Для бизнеса</span>
+          <img src="media/cover_courseB.jpg" alt="Руководитель за ноутбуком и AI-робот-помощник разбирают цифры" width="1400" height="939">
+        </div>
+        <div class="tile-body">
+          <div class="tile-title">Вайбкодинг — первые шаги</div>
+          <div class="tile-result">Свой сайт и бот за 6 вечеров — без программиста. Весь курс — 990 ₽</div>
+          <span class="arrow-link tile-cta">Открыть курс
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+      <a class="tile" href="/avatar/">
+        <div class="tile-photo">
+          <span class="tile-kicker">Для экспертов и блогеров</span>
+          <img src="media/cover_courseA.jpg" alt="Создатель контента и AI-робот собирают ролики без камеры" width="1400" height="939">
+        </div>
+        <div class="tile-body">
+          <div class="tile-title">Соцсети на нейросетях</div>
+          <div class="tile-result">Ролики и посты без камеры за 6 вечеров. Весь курс — 990 ₽</div>
+          <span class="arrow-link tile-cta">Открыть курс
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+    <p class="tiles-note reveal">Оба сразу — 1 490 ₽, второй за полцены. Первый вечер каждого бесплатный: платишь, только если зашло.</p>
+  </div>
+</section>
+
+<!-- S3. СОБРАНО И ЗАПУЩЕНО -->
+<section class="section lift">
   <div class="wrap">
     <div class="rule reveal"></div>
     <div class="sec-head">
@@ -449,9 +493,9 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
         </span>
       </a>
-      <a class="row" href="https://kurs.vectorupx.com/" rel="noopener" target="_blank">
+      <a class="row" href="/claude/">
         <span class="row-name">Платформа курсов</span>
-        <span class="row-hint">kurs.vectorupx.com
+        <span class="row-hint">уроки, оплата, кабинет
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
         </span>
       </a>
@@ -472,8 +516,8 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
   </div>
 </section>
 
-<!-- S3. ИНСТРУКЦИИ -->
-<section class="section lift">
+<!-- S4. ИНСТРУКЦИИ -->
+<section class="section">
   <div class="wrap">
     <div class="rule reveal"></div>
     <div class="sec-head">
@@ -502,45 +546,6 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
     <a class="arrow-link rows-foot reveal" href="/instrukcii/">Все инструкции
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
     </a>
-  </div>
-</section>
-
-<!-- S4. ДВА КУРСА -->
-<section class="section">
-  <div class="wrap">
-    <div class="rule reveal"></div>
-    <div class="sec-head">
-      <h2 class="reveal">Два курса</h2>
-    </div>
-    <div class="tiles stagger reveal">
-      <a class="tile" href="https://kurs.vectorupx.com/kurs-b" rel="noopener" target="_blank">
-        <div class="tile-photo">
-          <span class="tile-kicker">Для бизнеса</span>
-          <img src="media/cover_courseB.jpg" alt="Руководитель за ноутбуком и AI-робот-помощник разбирают цифры" width="1400" height="939">
-        </div>
-        <div class="tile-body">
-          <div class="tile-title">Вайбкодинг — первые шаги</div>
-          <div class="tile-result">Свой сайт и бот за 6 вечеров — без программиста. Весь курс — 990 ₽</div>
-          <span class="arrow-link tile-cta">Открыть курс
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          </span>
-        </div>
-      </a>
-      <a class="tile" href="https://kurs.vectorupx.com/kurs-a" rel="noopener" target="_blank">
-        <div class="tile-photo">
-          <span class="tile-kicker">Для экспертов и блогеров</span>
-          <img src="media/cover_courseA.jpg" alt="Создатель контента и AI-робот собирают ролики без камеры" width="1400" height="939">
-        </div>
-        <div class="tile-body">
-          <div class="tile-title">Соцсети на нейросетях</div>
-          <div class="tile-result">Ролики и посты без камеры за 6 вечеров. Весь курс — 990 ₽</div>
-          <span class="arrow-link tile-cta">Открыть курс
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-          </span>
-        </div>
-      </a>
-    </div>
-    <p class="tiles-note reveal">Оба сразу — 1 490 ₽, второй за полцены. Первый вечер каждого бесплатный: платишь, только если зашло.</p>
   </div>
 </section>
 
@@ -593,11 +598,13 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
 <section class="section s5">
   <div class="wrap s5-inner">
     <img class="reveal" src="media/avatar.jpg" alt="Аватар Андрея Меньшикова" width="112" height="112">
-    <h2 class="reveal">Начни с бесплатного вечера</h2>
-    <p class="handle reveal">Бот пришлёт первый вечер и остальные материалы.</p>
-    <a class="btn btn-primary reveal" href="https://t.me/menshikov_ai_bot?start=vecher" rel="noopener" target="_blank">Забрать первый вечер
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-    </a>
+    <h2 class="reveal">Выбери курс</h2>
+    <p class="handle reveal">Шесть вечеров в каждом. Оба сразу — 1 490 ₽, второй за полцены.</p>
+    <div class="s5-cta reveal">
+      <a class="btn btn-primary" href="/claude/">Вайбкодинг — 990 ₽</a>
+      <a class="btn btn-primary" href="/avatar/">Соцсети на нейросетях — 990 ₽</a>
+    </div>
+    <p class="note reveal">Первый вечер каждого курса — бесплатно: <a href="https://t.me/menshikov_ai_bot?start=vecher" rel="noopener" target="_blank">забрать в боте</a>, он пришлёт и остальные материалы.</p>
     <p class="note reveal">Кухня — в канале <a href="https://t.me/menae_ai" rel="noopener" target="_blank">t.me/menae_ai</a> · ролики — в Instagram <a href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank">@menshikov.ai</a></p>
   </div>
 </section>
@@ -608,9 +615,12 @@ body::after{content:"";position:fixed;inset:0;z-index:var(--z-grain);pointer-eve
     <nav class="footer-links" aria-label="Разделы сайта">
       <a href="/instrukcii/">Инструкции</a>
       <a href="/proekty/">Мастерская</a>
-      <a href="https://kurs.vectorupx.com/" rel="noopener" target="_blank">Курсы</a>
+      <a href="/claude/">Вайбкодинг — первые шаги</a>
+      <a href="/avatar/">Соцсети на нейросетях</a>
       <a href="/stati/">Статьи</a>
       <a href="/manifest/">Манифест</a>
+      <a href="/about/">Про меня</a>
+      <a href="https://kurs.vectorupx.com/lk" rel="noopener" target="_blank">Вход для учеников</a>
     </nav>
     <p class="brandline">меньшиков.ai · сайт vectorupx.com · канал <a href="https://t.me/menae_ai" rel="noopener" target="_blank">t.me/menae_ai</a> · бот <a href="https://t.me/menshikov_ai_bot" rel="noopener" target="_blank">@menshikov_ai_bot</a></p>
     <div class="footer-bottom">

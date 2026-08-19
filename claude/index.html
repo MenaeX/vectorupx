@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<title>Вайбкодинг — первые шаги · курс за 990 ₽ · меньшиков.ai</title>
+<meta name="description" content="Курс «Вайбкодинг — первые шаги»: свой сайт в интернете с приёмом оплаты и AI-агентами по расписанию — за шесть вечеров, без программиста. 990 ₽, доступ 3 месяца, три гарантии.">
+<meta property="og:title" content="Вайбкодинг — первые шаги: свой сайт за шесть вечеров">
+<meta property="og:description" content="Свой сайт с приёмом оплаты и AI-агентами по расписанию — за шесть вечеров, без программиста. Живые примеры: магазин, платформа курсов, игра, боты. 990 ₽.">
+<meta property="og:url" content="https://vectorupx.com/claude/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFCE00'/%3E%3Ctext x='32' y='46' font-size='36' font-weight='600' text-anchor='middle' fill='%2317150F' font-family='system-ui,sans-serif'%3Eм%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;  /* страница: тёплый уголь */
+  --bg-deep:   #0C0B09;  /* футер, самый глубокий слой */
+  --alt:       #191510;  /* альт-секция */
+  --card:      #1E1A12;  /* карточки/плитки */
+
+  /* текст */
+  --text:      #EFE9DC;  /* тёплая кость — основной */
+  --text-hi:   #F5F0E4;  /* H1/H2 — чуть ярче */
+  --text2:     #B8AE9C;  /* вторичный */
+  --muted:     #8F8674;  /* подписи/мелочь */
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+
+  --mono:"JetBrains Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ============ ЕДИНЫЙ СИГНАЛ «КЛИКАЕТСЯ»: жёлтое кольцо ============ */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline-width:3px}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ТИПОГРАФИКА ============ */
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-0.01em;
+  color:var(--text-hi);
+}
+h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(24px,3vw,38px);line-height:1.2;
+  color:var(--text-hi);
+}
+.lead{font-size:20px;line-height:1.55;color:var(--text2)}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);
+}
+/* маркер-подчёркивание: на тёмном кость поверх плашки не даёт AA,
+   поэтому skip-ink — линия сама обходит нижние выносные («у», «х», «р») */
+.hl{
+  text-decoration:underline;
+  text-decoration-color:var(--marker);
+  text-decoration-thickness:8px;
+  text-underline-offset:4px;
+  text-decoration-skip-ink:auto;
+  padding-bottom:2px;
+  white-space:nowrap;
+}
+
+/* появление */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+.mob-cta{background:var(--marker);color:var(--on-marker);font-weight:700;font-size:13px;line-height:1;height:40px;padding:0 14px;border-radius:999px;align-items:center;justify-content:center;white-space:nowrap}
+@media (max-width:400px){.wordmark{font-size:14px}.mob-cta{font-size:12px;padding:0 10px}}
+@media (max-width:340px){.mob-cta{font-size:11px;padding:0 8px}}
+
+/* ============ ХЛЕБНАЯ КРОШКА ============ */
+.crumbs{padding:28px 0 0;font-weight:600;font-size:14px;color:var(--muted)}
+.crumbs a{
+  display:inline-flex;align-items:center;min-height:44px;padding:0 4px;
+  color:var(--text2);text-decoration:underline;text-decoration-color:var(--line-strong);
+  text-underline-offset:3px;border-radius:6px;
+}
+.crumbs .sep{margin:0 8px}
+
+/* ============ ГЕРОЙ ПРОДУКТА ============ */
+.hero{padding:20px 0 0}
+.hero-solo{max-width:820px}
+.badge{
+  display:inline-flex;align-items:center;height:28px;padding:0 14px;
+  border-radius:14px;font-weight:700;font-size:14px;line-height:1;
+  background:var(--marker);color:var(--on-marker);
+  letter-spacing:0.04em;margin-bottom:18px;
+}
+.hero h1{margin-bottom:18px;text-wrap:balance}
+.hero .lead{max-width:52ch}
+.hero .lead b{color:var(--text);font-weight:700}
+.cta-row{margin-top:32px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.cta-note{font-size:14px;color:var(--muted)}
+
+/* ============ СЕКЦИИ ============ */
+.section{padding:88px 0 0}
+.section .eyebrow{margin-bottom:12px}
+.section h2{margin-bottom:20px;max-width:26ch;text-wrap:balance}
+.section .sub{color:var(--text2);font-size:18px;line-height:1.6;max-width:64ch}
+.section .sub b{color:var(--text);font-weight:700}
+
+/* карточки-доказательства и «как устроено» */
+.rep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:32px}
+.rep{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;
+}
+.rep .tag{
+  font-family:var(--mono);font-weight:500;font-size:13px;color:var(--marker);
+  display:inline-flex;align-items:center;border:1px solid var(--line);
+  border-radius:8px;padding:3px 8px;margin-bottom:10px;
+}
+.rep p{font-size:16px;line-height:1.5;color:var(--text2)}
+.rep p b{color:var(--text);font-weight:700}
+.rep p a{text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px;color:var(--text)}
+
+/* программа: шесть вечеров */
+.prog{list-style:none;margin-top:32px;display:flex;flex-direction:column;gap:12px}
+.ev{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;display:flex;gap:16px;align-items:flex-start;
+}
+.ev .num{
+  font-family:var(--mono);font-weight:500;font-size:13px;color:var(--marker);
+  border:1px solid var(--line);border-radius:8px;padding:3px 8px;flex:none;margin-top:3px;
+}
+.ev b{display:block;font-size:17px;color:var(--text-hi)}
+.ev .what{font-size:15.5px;color:var(--text2);margin-top:2px}
+.ev .res{font-size:15px;color:var(--text);margin-top:8px}
+.ev .res .pkg{color:var(--marker);font-weight:700}
+
+/* жёлтая заметка (честная рамка) */
+.local-note{
+  display:flex;gap:12px;align-items:flex-start;
+  background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.28);
+  border-radius:12px;padding:14px 16px;margin-top:24px;max-width:64ch;
+}
+.local-note .ic{color:var(--marker);font-size:17px;line-height:1.5;flex:none}
+.local-note p{margin:0;font-size:15px;color:var(--text)}
+.local-note b{color:var(--text-hi);font-weight:700}
+
+/* ============ БЛОК ЦЕНЫ ============ */
+.pricebox{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:44px 40px;
+}
+.pricebox .now{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(22px,2.6vw,32px);line-height:1.25;color:var(--text-hi);
+  margin:0 0 6px;
+}
+.pricebox .now .free{color:var(--marker)}
+.pricebox .cond{font-size:17px;color:var(--text2);max-width:56ch}
+.pricebox .bundle{
+  margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft);
+  font-size:16px;color:var(--text2);max-width:56ch;
+}
+.pricebox .bundle b{color:var(--text);font-weight:700}
+.pricebox .bundle a{text-decoration:underline;text-decoration-color:var(--marker);text-underline-offset:3px;color:var(--text)}
+.pricebox .fine{margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* ============ CTA-ФИНАЛ ============ */
+.finale{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:56px 32px;text-align:center;
+}
+.finale h2{margin:0 auto 14px;max-width:24ch}
+.finale p{color:var(--text2);font-size:18px;max-width:52ch;margin:0 auto}
+.finale p b{color:var(--text);font-weight:700}
+.finale .links{margin-top:32px;display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+.finale .legal{margin-top:20px;font-size:13px;color:var(--muted);max-width:56ch}
+.finale .legal a{text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px}
+/* главная кнопка — жёлтая */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:64px;min-width:320px;padding:0 40px;
+  background:var(--btn-bg);color:var(--btn-text);
+  font-family:"Golos Text",sans-serif;font-weight:600;font-size:19px;
+  border-radius:12px;border:none;cursor:pointer;text-align:center;
+}
+.btn svg{flex:none;transition:transform .2s ease}
+.btn:hover svg,.btn:focus-visible svg{transform:translateX(4px)}
+.btn-yellow{background:var(--marker);color:var(--on-marker)}
+
+/* гарантии */
+.garant{
+  background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.28);
+  border-radius:16px;padding:28px 30px;max-width:72ch;margin-top:32px;
+}
+.garant ul{margin:0;padding-left:20px;line-height:1.8}
+.garant li{margin-top:10px}
+.garant li:first-child{margin-top:0}
+.garant li b{color:var(--text-hi)}
+.garant .dohod{margin-top:18px;font-size:14px;color:var(--muted)}
+
+/* второстепенная строка «присмотреться» */
+.try-line{margin:56px 0 112px;font-size:16px;color:var(--text2);text-align:center}
+.try-line a{
+  color:var(--text);text-decoration:underline;
+  text-decoration-color:var(--line-strong);text-underline-offset:3px;
+}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);padding:72px 0 48px;border-top:1px solid var(--line)}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:900px){
+  .rep-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+  .crumbs{padding-top:20px}
+  .hero h1{font-size:33px;margin-bottom:16px}
+  .hero .lead{font-size:18px}
+  .section{padding-top:64px}
+  .pricebox{padding:32px 22px}
+  .finale{padding:44px 22px}
+  .garant{padding:22px 20px}
+  .btn{width:100%;min-width:0;height:60px;padding:0 24px;font-size:18px}
+  .try-line{margin-bottom:72px}
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Бесплатные инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="mob-cta mob-only" href="https://kurs.vectorupx.com/buy?product=B" rel="noopener">Доступ — 990 ₽</a>
+  </div>
+</header>
+
+<main>
+  <!-- ХЛЕБНАЯ КРОШКА -->
+  <div class="container">
+    <nav class="crumbs" aria-label="Хлебная крошка">
+      <a href="/">Главная</a><span class="sep">→</span>Вайбкодинг — первые шаги
+    </nav>
+  </div>
+
+  <!-- ГЕРОЙ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-solo">
+        <span class="badge">КУРС · 6 ВЕЧЕРОВ</span>
+        <h1>Вайбкодинг — <span class="hl">первые шаги</span></h1>
+        <p class="lead"><b>Свой сайт в интернете с приёмом оплаты и AI-агентами по расписанию — за шесть вечеров, без программиста.</b> Вайбкодинг — сборка работающих вещей разговором с нейросетью, без ручного кода. AI-агент — программа, которая после сборки делает работу сама. Для тех, кто никогда не программировал.</p>
+        <div class="cta-row">
+          <a class="btn btn-yellow" href="https://kurs.vectorupx.com/buy?product=B" rel="noopener">Получить доступ — 990 ₽
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+          <span class="cta-note">Оплата картой · доступ 3 месяца</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ДОКАЗАТЕЛЬСТВА -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Доказательства</p>
+      <h2 class="reveal">Всё живое — открывается прямо сейчас</h2>
+      <p class="sub reveal">Каждая вещь ниже собрана этим же методом: один человек, разговор с нейросетью, вечера после работы. Нанятых программистов здесь нет.</p>
+      <div class="rep-grid">
+        <div class="rep reveal"><span class="tag">neoride.ru</span><p><b>Магазин самокатов NEORIDE</b> — каталог, приём заявок, расчёт доставки по всей стране. <a href="https://neoride.ru" rel="noopener" target="_blank">Открыть магазин</a></p></div>
+        <div class="rep reveal"><span class="tag">kurs.vectorupx.com</span><p><b>Платформа курсов</b> — личные кабинеты, уроки, приём оплаты. Этот курс откроется именно на ней.</p></div>
+        <div class="rep reveal"><span class="tag">roblox</span><p><b>Игра в Roblox</b> — опубликована и пускает игроков. <a href="/igra/">История сборки</a></p></div>
+        <div class="rep reveal"><span class="tag">telegram</span><p><b>Телеграм-боты</b> — принимают оплату, выдают доступы к курсам, отвечают на вопросы в любое время суток.</p></div>
+        <div class="rep reveal"><span class="tag">vectorupx.com</span><p><b>Этот сайт</b> — страница, которую ты сейчас читаешь, свёрстана тем же способом.</p></div>
+      </div>
+      <div class="local-note reveal">
+        <span class="ic">●</span>
+        <p><b>Честная рамка.</b> Эти примеры показывают скорость сборки. Сколько денег принесёт твоя вещь — зависит от ниши и твоих рук: дохода не обещаем.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРОГРАММА -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Программа</p>
+      <h2 class="reveal">Один вечер — один результат</h2>
+      <p class="sub reveal">Каждый вечер заканчивается работающей вещью. Что именно останется на руках:</p>
+      <ol class="prog">
+        <li class="ev reveal"><span class="num">01</span><div><b>Рабочее место и первый сайт</b><p class="what">Ставишь инструменты — и первый сайт открывается в браузере в тот же вечер.</p><p class="res"><span class="pkg">📦 результат:</span> рабочее место + первый сайт в браузере</p></div></li>
+        <li class="ev reveal"><span class="num">02</span><div><b>Вайбкодинг по-взрослому</b><p class="what">Как ставить агенту задачи, чтобы не переделывать по три раза.</p><p class="res"><span class="pkg">📦 результат:</span> свой промпт-каркас (готовое задание для нейросети) + чек-лист привычек</p></div></li>
+        <li class="ev reveal"><span class="num">03</span><div><b>Память проекта: второй мозг</b><p class="what">Нейросеть перестаёт забывать, о чём ты с ней договорился вчера.</p><p class="res"><span class="pkg">📦 результат:</span> файл памяти CLAUDE.md + папки business, plans, retrospectives</p></div></li>
+        <li class="ev reveal"><span class="num">04</span><div><b>Скиллы и хуки</b><p class="what">Скилл — сохранённая инструкция агенту, хук — автопроверка: агент сам останавливает опасные действия.</p><p class="res"><span class="pkg">📦 результат:</span> свой скилл + защита от опасных команд</p></div></li>
+        <li class="ev reveal"><span class="num">05</span><div><b>В интернет</b><p class="what">GitHub (хранилище кода), хостинг (место, где сайт живёт), база данных.</p><p class="res"><span class="pkg">📦 результат:</span> сайт по ссылке + приём оплаты</p></div></li>
+        <li class="ev reveal"><span class="num">06</span><div><b>Автономные агенты</b><p class="what">Агент получает расписание и делает работу, пока ты занят другим.</p><p class="res"><span class="pkg">📦 результат:</span> агент, который работает по расписанию без тебя</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- КАК УСТРОЕНО ОБУЧЕНИЕ -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Как устроено обучение</p>
+      <h2 class="reveal">Оплатил — и сразу учишься</h2>
+      <div class="rep-grid">
+        <div class="rep reveal"><span class="tag">мануал</span><p><b>Пошаговый мануал со скринами.</b> Каждый шаг в уроках проверен руками, а не пересказан: открыл, повторил, сверил с картинкой.</p></div>
+        <div class="rep reveal"><span class="tag">помощник</span><p><b>ИИ-помощник в каждом уроке.</b> Застрял — спроси прямо на странице урока, ответит по шагам.</p></div>
+        <div class="rep reveal"><span class="tag">наставник</span><p><b>AI-наставник.</b> Курс скачивается одним файлом: вставь его в Claude — и нейросеть поведёт тебя по шагам, как живой наставник — объяснит, дождётся «сделал», проверит.</p></div>
+        <div class="rep reveal"><span class="tag">кабинет</span><p><b>Кабинет — сразу после оплаты.</b> Система создаёт его сама: логин и пароль придут на почту и в Telegram-бота — там их всегда можно забрать заново.</p></div>
+      </div>
+      <p class="sub reveal" style="margin-top:28px"><b>Как сделан курс.</b> Вопросы, которые ученики задают ИИ-помощнику, складываются в журнал — раз в неделю я прохожу его и переписываю шаги, о которые споткнулись. Поэтому курс с каждой неделей становится подробнее, а не устаревает.</p>
+    </div>
+  </section>
+
+  <!-- ЦЕНА -->
+  <section class="section">
+    <div class="container">
+      <div class="pricebox reveal">
+        <p class="now">Курс целиком: <span class="free">990 ₽</span></p>
+        <p class="cond">Доступ — 3 месяца: на шесть вечеров хватает с большим запасом, а материалы за это время ещё и обновляются.</p>
+        <p class="bundle">Комплект с курсом «Соцсети на нейросетях» — <b>1 490 ₽</b>: второй курс за полцены. <a href="https://kurs.vectorupx.com/buy?product=AB" rel="noopener">Взять комплект</a></p>
+        <p class="fine">В цену входит НДС 5 %.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="finale reveal">
+        <h2>Первый сайт — уже в первый вечер</h2>
+        <p>Оплата картой на платформе курсов. Кабинет создаётся сразу: логин и пароль придут на почту и в Telegram-бота.</p>
+        <div class="links">
+          <a class="btn btn-yellow" href="https://kurs.vectorupx.com/buy?product=B" rel="noopener">Получить доступ — 990 ₽
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <p class="legal">Нажимая кнопку, ты принимаешь <a href="https://kurs.vectorupx.com/oferta" rel="noopener" target="_blank">оферту</a> и <a href="https://kurs.vectorupx.com/politika" rel="noopener" target="_blank">политику обработки персональных данных</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГАРАНТИИ -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Гарантии</p>
+      <h2 class="reveal">Три гарантии — без звёздочек</h2>
+      <div class="garant reveal">
+        <ul>
+          <li><b>Не собрал</b> работающую вещь за первый вечер, делая по урокам, — занимаюсь с тобой лично, пока не соберёшь.</li>
+          <li><b>Передумал</b> — в первые 7 дней возвращаем деньги по одной просьбе, без объяснения причин (оферта, п. 6.1).</li>
+          <li><b>Дошёл до конца</b> — вернём всю стоимость курса: пройди шесть вечеров, выложи свой результат публично и оставь отзыв — и получи деньги назад (оферта, п. 6.4). Мне выгодны твои результаты, а не твои деньги.</li>
+        </ul>
+        <p class="dohod">Дохода не гарантируем и не обещаем, что ты станешь это продавать: курсы дают навыки и первый результат руками.</p>
+      </div>
+
+      <!-- Второстепенная дорожка: присмотреться бесплатно -->
+      <p class="try-line reveal">Сначала присмотреться? <a href="https://t.me/menshikov_ai_bot?start=vecher_b" rel="noopener">Первый вечер — бесплатно, придёт в Telegram</a>.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Бесплатные инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+      </div>
+      <div>
+        <h3>Курсы</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+        <a href="https://kurs.vectorupx.com/lk" rel="noopener">Вход для учеников</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">ИП Меньшиков Андрей Евгеньевич · ИНН 773575346300 · ОГРНИП 321774600050781</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

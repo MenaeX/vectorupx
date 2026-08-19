@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110C">
+<title>Про меня — меньшиков.ai</title>
+<meta name="description" content="Андрей Меньшиков: первая строчка кода — январь 2026, через полгода — работающие магазин, платформа курсов, игра и боты. Как я работаю и куда дальше.">
+<meta property="og:title" content="Про меня — Андрей Меньшиков">
+<meta property="og:description" content="Первая строчка кода — январь 2026. Через полгода — работающие магазин, платформа курсов, игра и боты. Всё собрано вдвоём с нейросетью.">
+<meta property="og:image" content="https://vectorupx.com/media/avatar.jpg">
+<meta property="og:url" content="https://vectorupx.com/about/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFCE00'/%3E%3Ctext x='32' y='46' font-size='36' font-weight='600' text-anchor='middle' fill='%2317150F' font-family='system-ui,sans-serif'%3Eм%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ БАЗА / ТОКЕНЫ (тёмная система) ============ */
+:root{
+  color-scheme: dark;
+
+  /* поверхности */
+  --bg:        #14110C;  /* страница: тёплый уголь */
+  --bg-deep:   #0C0B09;  /* футер, самый глубокий слой */
+  --alt:       #191510;  /* альт-секция */
+  --card:      #1E1A12;  /* карточки/плитки */
+
+  /* текст */
+  --text:      #EFE9DC;  /* тёплая кость — основной */
+  --text-hi:   #F5F0E4;  /* H1/H2 — чуть ярче */
+  --text2:     #B8AE9C;  /* вторичный */
+  --muted:     #8F8674;  /* подписи/мелочь */
+
+  /* акцент */
+  --marker:    #FFCE00;
+  --on-marker: #17150F;
+
+  /* линии */
+  --line:        #2B251A;
+  --line-soft:   rgba(239,233,220,.14);
+  --line-strong: rgba(239,233,220,.40);
+
+  /* кнопки */
+  --btn-bg:    var(--marker);
+  --btn-text:  var(--on-marker);
+  --btn2-bg:   var(--text);
+  --btn2-text: #17150F;
+
+  --mono:"JetBrains Mono",ui-monospace,"Menlo","Consolas",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:var(--marker);color:var(--on-marker)}
+body{
+  background:
+    radial-gradient(900px 520px at 88% -80px, rgba(255,206,0,.08), transparent 70%),
+    radial-gradient(760px 480px at -120px 34%, rgba(214,178,94,.06), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Golos Text",system-ui,-apple-system,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* ============ ЕДИНЫЙ СИГНАЛ «КЛИКАЕТСЯ»: жёлтое кольцо ============ */
+a:hover, a:focus-visible,
+button:hover, button:focus-visible{
+  outline:3px solid var(--marker);
+  outline-offset:3px;
+}
+a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline-width:3px}
+a:focus:not(:focus-visible):not(:hover){outline:none}
+
+/* ============ ТИПОГРАФИКА ============ */
+h1{
+  font-family:"Unbounded",sans-serif;font-weight:600;
+  font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-0.01em;
+  color:var(--text-hi);
+}
+h2{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(24px,3vw,38px);line-height:1.2;
+  color:var(--text-hi);
+}
+.lead{font-size:20px;line-height:1.55;color:var(--text2)}
+.eyebrow{
+  font-weight:600;font-size:13px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--text2);
+}
+.hl{
+  text-decoration:underline;
+  text-decoration-color:var(--marker);
+  text-decoration-thickness:8px;
+  text-underline-offset:4px;
+  text-decoration-skip-ink:auto;
+  padding-bottom:2px;
+  white-space:nowrap;
+}
+
+/* появление */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* ============ ШАПКА ============ */
+.header{height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.header .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.wordmark{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:17px;
+  display:inline-flex;align-items:center;height:44px;padding:0 4px;border-radius:8px;
+  color:var(--text-hi);
+}
+.wordmark .dot{color:var(--marker)}
+.nav{display:flex;align-items:center;gap:4px}
+.nav a{
+  display:inline-flex;align-items:center;height:44px;padding:12px 16px;
+  font-weight:600;font-size:16px;border-radius:10px;color:var(--text);
+}
+.ig-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;background:var(--marker);color:var(--on-marker);
+  border:none;border-radius:50%;margin-left:8px;
+}
+.mob-only{display:none}
+.mob-cta{background:var(--marker);color:var(--on-marker);font-weight:700;font-size:13px;line-height:1;height:40px;padding:0 14px;border-radius:999px;align-items:center;justify-content:center;white-space:nowrap}
+@media (max-width:400px){.wordmark{font-size:14px}.mob-cta{font-size:12px;padding:0 10px}}
+@media (max-width:340px){.mob-cta{font-size:11px;padding:0 8px}}
+
+/* ============ ХЛЕБНАЯ КРОШКА ============ */
+.crumbs{padding:28px 0 0;font-weight:600;font-size:14px;color:var(--muted)}
+.crumbs a{
+  display:inline-flex;align-items:center;min-height:44px;padding:0 4px;
+  color:var(--text2);text-decoration:underline;text-decoration-color:var(--line-strong);
+  text-underline-offset:3px;border-radius:6px;
+}
+.crumbs .sep{margin:0 8px}
+
+/* ============ ГЕРОЙ: КТО Я ============ */
+.hero{padding:20px 0 0}
+.hero-grid{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start}
+.portrait-wrap{position:sticky;top:24px}
+/* в самом файле аватара уже нарисован круг с жёлтым кольцом —
+   режем квадрат в круг, свою рамку не добавляем */
+.portrait{
+  width:100%;border-radius:50%;
+  aspect-ratio:1/1;object-fit:cover;
+}
+.portrait-cap{margin-top:12px;font-size:14px;color:var(--muted);line-height:1.5}
+.hero .eyebrow{margin-bottom:12px}
+.hero h1{margin-bottom:16px;text-wrap:balance}
+.hero .lead{max-width:56ch;margin-bottom:28px}
+.hero .lead b{color:var(--text);font-weight:700}
+.bio{max-width:62ch}
+.bio p{margin-bottom:18px}
+.bio p:last-child{margin-bottom:0}
+.bio b{color:var(--text-hi);font-weight:700}
+
+/* ============ СЕКЦИИ ============ */
+.section{padding:88px 0 0}
+.section .eyebrow{margin-bottom:12px}
+.section h2{margin-bottom:20px;max-width:26ch;text-wrap:balance}
+.section .sub{color:var(--text2);font-size:18px;line-height:1.6;max-width:64ch}
+.section .sub b{color:var(--text);font-weight:700}
+
+/* собрано и запущено: строки-ссылки */
+.built{margin-top:28px;border-top:1px solid var(--line)}
+.b-row{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 4px;border-bottom:1px solid var(--line);border-radius:6px;
+}
+.b-name{font-weight:700;font-size:19px;color:var(--text-hi)}
+.b-hint{
+  display:inline-flex;align-items:center;gap:10px;flex:none;
+  font-weight:600;font-size:15px;color:var(--text2);
+}
+.b-hint svg{flex:none}
+
+/* кредо-цитата */
+.creed{margin:32px 0 0;max-width:900px}
+.creed p{
+  font-family:"Unbounded",sans-serif;font-weight:500;
+  font-size:clamp(22px,2.6vw,34px);line-height:1.35;color:var(--text-hi);
+}
+.creed .hl{text-decoration-thickness:6px}
+
+/* принципы работы */
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.pr{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:22px;
+}
+.pr p{font-size:16px;line-height:1.55;color:var(--text2)}
+.pr p b{display:block;color:var(--text);font-weight:700;margin-bottom:8px}
+.pr a{
+  display:inline-flex;align-items:center;min-height:44px;margin-top:4px;
+  font-weight:600;font-size:15px;color:var(--text);border-radius:8px;padding:0 4px;
+  text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px;
+}
+
+/* ============ КУДА ДАЛЬШЕ: КАРТОЧКИ ПРОДУКТОВ ============ */
+.next-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.pcard{
+  display:flex;flex-direction:column;gap:12px;
+  background:var(--card);border:1px solid var(--line);border-top:3px solid var(--marker);
+  border-radius:16px;padding:28px 26px;
+}
+.pcard .tag{
+  font-family:var(--mono);font-weight:500;font-size:13px;color:var(--marker);
+  border:1px solid var(--line);border-radius:8px;padding:3px 10px;width:fit-content;
+}
+.pcard h3{
+  font-family:"Unbounded",sans-serif;font-weight:500;font-size:20px;
+  line-height:1.3;color:var(--text-hi);
+}
+.pcard p{font-size:16px;line-height:1.55;color:var(--text2);flex:1}
+.pcard .go{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:700;font-size:16px;color:var(--text-hi);
+}
+.pcard .go svg{transition:transform .2s ease}
+.pcard:hover .go svg,.pcard:focus-visible .go svg{transform:translateX(4px)}
+.bundle{
+  margin-top:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:20px 26px;
+  font-size:17px;color:var(--text2);
+}
+.bundle b{color:var(--text-hi);font-weight:700}
+
+/* гарантии: жёлтый колодец, формулировки — эталон, не менять */
+.garant{
+  background:rgba(255,206,0,.06);border:1px solid rgba(255,206,0,.28);
+  border-radius:14px;padding:24px 26px;margin-top:32px;max-width:76ch;
+}
+.garant>b{color:var(--text-hi);font-weight:700}
+.garant ul{margin:10px 0 0;padding-left:20px;line-height:1.8}
+.garant li{color:var(--text2)}
+.garant li b{color:var(--text);font-weight:700}
+
+/* строка бесплатного пути */
+.free-line{
+  margin:32px 0 112px;font-size:17px;line-height:1.7;color:var(--text2);max-width:76ch;
+}
+.free-line a{
+  font-weight:700;color:var(--text);border-radius:6px;
+  text-decoration:underline;text-decoration-color:var(--marker);text-underline-offset:4px;
+  text-decoration-thickness:3px;
+}
+
+/* ============ ФУТЕР ============ */
+.footer{background:var(--bg-deep);color:var(--text);padding:72px 0 48px;border-top:1px solid var(--line)}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:56px}
+.footer h3{font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;color:var(--text)}
+.footer-cols a{
+  display:flex;align-items:center;height:44px;font-size:16px;color:var(--text);
+  border-radius:8px;width:fit-content;padding:0 4px;
+}
+.footer-bottom{border-top:1px solid var(--line-soft);padding-top:28px}
+.footer-bottom .copy{font-weight:600;font-size:15px;margin-bottom:8px}
+.footer-bottom .legal{font-size:14px;color:rgba(239,233,220,.66);line-height:1.5}
+
+/* ============ МОБИЛЬНАЯ ============ */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:32px}
+  .portrait-wrap{position:static;max-width:260px}
+  .pr-grid{grid-template-columns:1fr}
+  .next-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .container{padding:0 20px}
+  .nav{display:none}
+  .mob-only{display:inline-flex;margin-left:0}
+  .crumbs{padding-top:20px}
+  .hero h1{font-size:33px;margin-bottom:16px}
+  .hero .lead{font-size:18px}
+  .section{padding-top:64px}
+  .b-name{font-size:17px}
+  .b-hint{font-size:14px}
+  .pcard{padding:24px 20px}
+  .bundle{padding:18px 20px}
+  .garant{padding:20px 18px}
+  .free-line{margin-bottom:72px}
+  .footer-cols{grid-template-columns:1fr;gap:36px}
+  .footer-cols a{height:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="container">
+    <a class="wordmark" href="/">меньшиков<span class="dot">.</span>ai</a>
+    <nav class="nav" aria-label="Основные разделы">
+      <a href="/instrukcii/">Бесплатные инструкции</a>
+      <a href="/proekty/">Мастерская</a>
+      <a href="/kurs/">Почему бесплатно</a>
+      <a class="ig-btn" href="https://instagram.com/menshikov.ai" rel="noopener" target="_blank" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </nav>
+    <a class="mob-cta mob-only" href="https://t.me/menshikov_ai_bot?start=vecher_b" rel="noopener">Первый вечер — бесплатно</a>
+  </div>
+</header>
+
+<main>
+  <!-- ХЛЕБНАЯ КРОШКА -->
+  <div class="container">
+    <nav class="crumbs" aria-label="Хлебная крошка">
+      <a href="/">Главная</a><span class="sep">→</span>Про меня
+    </nav>
+  </div>
+
+  <!-- КТО Я -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="portrait-wrap reveal">
+          <img class="portrait" src="/media/avatar.jpg" alt="Портрет Андрея Меньшикова, сгенерированный нейросетью" width="300" height="300">
+          <p class="portrait-cap">Портрет сгенерирован нейросетью — как и почти всё на этом сайте.</p>
+        </div>
+        <div>
+          <p class="eyebrow reveal">Про меня</p>
+          <h1 class="reveal">Андрей <span class="hl">Меньшиков</span></h1>
+          <p class="lead reveal">Первую строчку кода я написал в январе 2026. Через полгода в интернете работали <b>магазин, платформа курсов, игра и боты</b> — все собраны вдвоём с нейросетью.</p>
+          <div class="bio reveal">
+            <p>Мне 39, живу в Москве. До той январской строчки к программированию я не подходил вовсе — и программистом себя не считаю до сих пор.</p>
+            <p>Дальше счёт пошёл на вечера. За идею, вкус и ответственность отвечаю я, за скорость, память и руки — нейросеть. В таком составе из ничего выросли магазин самокатов, платформа курсов с приёмом оплаты, игра и этот сайт.</p>
+            <p>Камеру я при этом не включаю. В роликах блога меня играет AI-копия, по-русски — цифровой двойник: нейросеть выучила моё лицо и голос. Она говорит за меня, но не вместо меня. Каждое слово я проверяю сам.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СОБРАНО И ЗАПУЩЕНО -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Доказательства</p>
+      <h2 class="reveal">Собрано и запущено</h2>
+      <p class="sub reveal">Ссылки живые — открывай и проверяй.</p>
+      <div class="built reveal">
+        <a class="b-row" href="https://neoride.ru" rel="noopener" target="_blank">
+          <span class="b-name">Магазин самокатов</span>
+          <span class="b-hint">neoride.ru
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a class="b-row" href="/claude/">
+          <span class="b-name">Платформа курсов</span>
+          <span class="b-hint">уроки, оплата, кабинет
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a class="b-row" href="/igra/">
+          <span class="b-name">Игра в Roblox</span>
+          <span class="b-hint">рецепт сборки
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <span class="b-row">
+          <span class="b-name">Этот сайт и его боты</span>
+          <span class="b-hint">ты сейчас на нём</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАК Я РАБОТАЮ -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Как я работаю</p>
+      <h2 class="reveal">Иду этим путём прямо сейчас</h2>
+      <blockquote class="creed reveal">
+        <p>Всё, что есть в голове, — <span class="hl">воплотимо</span>.</p>
+      </blockquote>
+      <div class="pr-grid">
+        <div class="pr reveal"><p><b>Сначала вещь, потом рассказ.</b> Про систему я пишу после того, как она заработала и открывается по ссылке. Наоборот не бывает.</p></div>
+        <div class="pr reveal"><p><b>Ступень, а не пьедестал.</b> Показываю шаг, на котором стою сегодня, вместе с ошибками и их ценой. Учить с вершины мне не с чего — и это честнее.</p></div>
+        <div class="pr reveal"><p><b>Два разума — один результат.</b> Нейросеть домыслит и сформулирует, человек отвечает за истину. Полная формула — в манифесте.</p><a href="/manifest/">Прочитать манифест</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КУДА ДАЛЬШЕ -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow reveal">Куда дальше</p>
+      <h2 class="reveal">Повторить мой путь — по шагам</h2>
+      <p class="sub reveal">Всё, что собрано выше, разложено по шагам в двух курсах. Каждый вечер заканчивается работающей вещью.</p>
+      <div class="next-grid">
+        <a class="pcard reveal" href="/claude/">
+          <span class="tag">курс · 990 ₽</span>
+          <h3>Вайбкодинг — первые шаги</h3>
+          <p>Вайбкодинг — сборка программ живым диалогом с нейросетью. За шесть вечеров: свой сайт в интернете, приём оплаты, агенты-помощники по расписанию. Программист не понадобится.</p>
+          <span class="go">На страницу курса
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a class="pcard reveal" href="/avatar/">
+          <span class="tag">курс · 990 ₽</span>
+          <h3>Соцсети на нейросетях</h3>
+          <p>Блог, для которого не нужна камера: нейрофото, короткие ролики, карусели и твоя AI-копия. Шесть вечеров — и профиль собран, снимать себя не придётся.</p>
+          <span class="go">На страницу курса
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </div>
+      <p class="bundle reveal">Оба курса вместе — <b>1 490 ₽</b>: второй — за полцены.</p>
+
+      <!-- Гарантии: дословный блок со страниц курсов — эталон формулировок, не менять -->
+      <div class="garant reveal">
+        <b>Три гарантии — без звёздочек:</b>
+        <ul>
+          <li><b>Не собрал</b> работающую вещь за первый вечер, делая по урокам, — занимаюсь с тобой лично, пока не соберёшь.</li>
+          <li><b>Передумал</b> — в первые 7 дней возвращаем деньги по одной просьбе, без объяснения причин (оферта, п. 6.1).</li>
+          <li><b>Дошёл до конца</b> — вернём всю стоимость курса: пройди шесть вечеров, выложи свой результат публично и оставь отзыв — и получи деньги назад (оферта, п. 6.4). Мне выгодны твои результаты, а не твои деньги.</li>
+        </ul>
+      </div>
+
+      <p class="free-line reveal">Платить не обязательно: в <a href="/instrukcii/">бесплатных инструкциях</a> лежат готовые рецепты — игра в Roblox, AI-копия, семь задач бизнеса за вечер.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <h3>Разделы</h3>
+        <a href="/instrukcii/">Бесплатные инструкции</a>
+        <a href="/proekty/">Мастерская</a>
+        <a href="/manifest/">Манифест</a>
+      </div>
+      <div>
+        <h3>Читать</h3>
+        <a href="/stati/">Статьи</a>
+      </div>
+      <div>
+        <h3>Про курс</h3>
+        <a href="/kurs/">Почему всё бесплатно</a>
+        <a href="https://kurs.vectorupx.com/lk" rel="noopener">Вход для учеников</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copy">© Андрей Меньшиков</p>
+      <p class="legal">ИП Меньшиков Андрей Евгеньевич · ИНН 773575346300 · ОГРНИП 321774600050781</p>
+      <p class="legal">Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
